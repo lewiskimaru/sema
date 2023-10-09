@@ -1,0 +1,14 @@
+huggingface_hub
+ctranslate2 
+sentencepiece 
+accelerate 
+bitsandbytes 
+transformers 
+requests 
+pypi-json 
+pyngrok 
+pytz
+fasttext
+gradio
+fastapi 
+uvicorn[standard]==0.17.*
