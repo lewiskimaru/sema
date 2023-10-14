@@ -1,9 +1,67 @@
+<!DOCTYPE html>
 <html>
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
 <head>
-    <title>Solutions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sema Translator</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        li {
+            display: inline;
+        }
+
+        .logo {
+            margin-right: auto;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+        }
+
+        .logo img {
+            height: 50px; /* Adjust the height of the logo */
+            width: auto; /* Adjust the width of the logo */
+            margin-top: 5px; /* Adjust the top margin of the logo */
+        }
+    </style>
+    
 </head>
+<body>
+
+<ul>
+    <li class="logo"><img src="images/semalogo.png" alt="Logo"></li>
+    <li><a href="Home.html">home</a></li>
+    <li><a href="About.html">about</a></li>
+    <li><a href="Contact.html">contact</a></li>
+    <li><a href="blog/blog.html">Blog</a></li>
+</ul>
+
 <frameset>
-    <frame src=https://kamau1-semaapi-frontend.hf.space/?embedded=true'>
+    <frame src='https://kamau1-semaapi-frontend.hf.space/?embedded=true'>
 </frameset>
+
+</body>
 </html>
