@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <title>Sema Translator</title>
     <style>
         body {
@@ -16,30 +16,26 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
-            background-color: #333;
             display: flex;
             justify-content: center;
+            background-color: white; /* Default background color for light mode */
         }
 
         li {
             display: inline;
         }
 
-        .logo {
-            margin-right: 20px;
-            margin-left: 20px;
-        }
-
         li a {
             display: block;
-            color: white;
             text-align: center;
             padding: 14px 16px;
             text-decoration: none;
+            color: black; /* Default color for light mode */
         }
 
         li a:hover {
             background-color: #111;
+            color: white; /* Text color for light mode when hovered */
         }
 
         .logo img {
@@ -53,6 +49,25 @@
             height: 100vh;
             border: none;
         }
+
+        /* Styles for dark mode */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #333;
+            }
+
+            ul {
+                background-color: #333; /* Background color for dark mode */
+            }
+
+            li a {
+                color: white; /* Text color for dark mode */
+            }
+
+            li a:hover {
+                background-color: #111;
+            }
+        }
     </style>
 
 </head>
@@ -60,7 +75,7 @@
 <body>
 
     <ul>
-        <li class="logo"><img src="images/semalogo.png" alt="Logo"></li>
+        <li class="logo" id="logo"><img src="images/lightlogo.jpeg" alt="Logo"></li>
         <li><a href="Home.html">home</a></li>
         <li><a href="About.html">about</a></li>
         <li><a href="Contact.html">contact</a></li>
@@ -73,6 +88,12 @@
         width="100%"
         height="100%"
     ></iframe>
+
+    <script>
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.getElementById('logo').innerHTML = '<img src="images/semalogo.png" alt="Logo">';
+        }
+    </script>
 
 </body>
 
