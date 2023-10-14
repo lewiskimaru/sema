@@ -6,9 +6,9 @@
     <title>Sema Translator</title>
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
         }
 
         ul {
@@ -19,7 +19,6 @@
             background-color: #333;
             display: flex;
             justify-content: center;
-            width: 100%;
         }
 
         li {
@@ -27,7 +26,8 @@
         }
 
         .logo {
-            margin-right: auto;
+            margin-right: 20px;
+            margin-left: 20px;
         }
 
         li a {
@@ -47,6 +47,12 @@
             width: auto; /* Adjust the width of the logo */
             margin-top: 5px; /* Adjust the top margin of the logo */
         }
+
+        iframe {
+            width: 100%;
+            height: 100vh;
+            border: none;
+        }
     </style>
 
 </head>
@@ -61,9 +67,12 @@
         <li><a href="blog/blog.html">Blog</a></li>
     </ul>
 
-    <frameset>
-        <frame src='https://kamau1-semaapi-frontend.hf.space/?embedded=true'>
-    </frameset>
+    <iframe
+        src="https://kamau1-semaapi-frontend.hf.space"
+        frameborder="0"
+        width="100%"
+        height="100%"
+    ></iframe>
 
 </body>
 
