@@ -241,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Check if Auto Detect is selected for source language
       if (sourceLang === 'auto') {
-        const detectionResponse = await fetch('https://lewiskimaru-helloworld.hf.space/translate_detect/', {
+        const detectionResponse = await fetch('https://jikoni-tmodel.hf.space/translate_detect/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Check if Auto Detect is selected for target language
       const targetLanguage = targetLang === 'auto' ? 'eng_Latn' : targetLang;
 
-      const translationResponse = await fetch('https://lewiskimaru-helloworld.hf.space/translate_enter/', {
+      const translationResponse = await fetch('https://jikoni-tmodel.hf.space/translate_enter/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
