@@ -8,42 +8,42 @@ export default {
     extend: {
       colors: {
         // Main brand colors
-        'brand-black': '#191414', // Spotify-inspired dark
-        'brand-white': '#FFFFFF', // Crisp white
+        'brand-black': '#1E293B', // Deep blue-gray
+        'brand-white': '#F8FAFC', // Light blue-tinted white
         
-        // Green accent color (Spotify-inspired)
-        'brand-green': {
-          50: '#EDFDF2',
-          100: '#D3F9DE',
-          200: '#A7F3C1',
-          300: '#70E99D',
-          400: '#1DB954', // Spotify primary green
-          500: '#17A449',
-          600: '#11853C',
-          700: '#0F6A32',
-          800: '#0D5428',
-          900: '#09361A',
+        // Blue accent color (Communication-focused)
+        'brand-blue': {
+          50: '#EFF6FF',
+          100: '#DBEAFE',
+          200: '#BFDBFE',
+          300: '#93C5FD',
+          400: '#60A5FA', // Primary blue
+          500: '#3B82F6',
+          600: '#2563EB',
+          700: '#1D4ED8',
+          800: '#1E40AF',
+          900: '#1E3A8A',
         },
 
-        // UI colors (modernized grays)
+        // UI colors (soft blues and grays)
         'ui-gray': {
-          50: '#F9F9FB',
-          100: '#F1F1F4',
-          200: '#E4E4E9',
-          300: '#D2D2DB',
-          400: '#A8A8B9',
-          500: '#7C7C95',
-          600: '#626275',
-          700: '#4A4A59',
-          800: '#34343E',
-          900: '#232328',
+          50: '#F8FAFC',
+          100: '#F1F5F9',
+          200: '#E2E8F0',
+          300: '#CBD5E1',
+          400: '#94A3B8',
+          500: '#64748B',
+          600: '#475569',
+          700: '#334155',
+          800: '#1E293B',
+          900: '#0F172A',
         },
 
         // Functional colors
-        'success': '#1DB954', // Spotify green
-        'warning': '#F59E0B', // Amber warning
-        'error': '#E91E63',   // Pink error
-        'info': '#4F46E5',    // Indigo info
+        'success': '#10B981', // Emerald green
+        'warning': '#F59E0B', // Amber yellow
+        'error': '#EF4444',   // Red
+        'info': '#3B82F6',    // Blue
       },
       fontFamily: {
         'sans': ['Inter', 'system-ui', 'sans-serif'],
@@ -68,15 +68,15 @@ export default {
     themes: [
       {
         sema: {
-          "primary": "#1DB954",
-          "secondary": "#17A449",
-          "accent": "#70E99D",
-          "neutral": "#34343E",
-          "base-100": "#FFFFFF",
-          "info": "#4F46E5",
-          "success": "#1DB954",
+          "primary": "#3B82F6",
+          "secondary": "#2563EB",
+          "accent": "#93C5FD",
+          "neutral": "#1E293B",
+          "base-100": "#F8FAFC",
+          "info": "#3B82F6",
+          "success": "#10B981",
           "warning": "#F59E0B",
-          "error": "#E91E63",
+          "error": "#EF4444",
         },
       },
     ],

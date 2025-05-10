@@ -112,14 +112,7 @@ const Home = () => {
     <div className="pb-16">
       {/* Hero Section */}
       <section className="py-8 md:py-12 bg-white">
-        <div className="container-custom max-w-4xl">
-          {/* Simple Header */}
-          <div className="mb-6 text-center">
-            <h1 className="text-2xl font-medium text-brand-black">
-              Sema Translator
-            </h1>
-          </div>
-
+        <div className="container-custom px-4 sm:px-6">
           {/* Translation Interface */}
           <div className="bg-white shadow-sm border border-ui-gray-200 rounded-md overflow-hidden">
             {/* Language Selection Row */}
@@ -187,7 +180,7 @@ const Home = () => {
             <div className="flex justify-end items-center border-t border-ui-gray-200 p-3 bg-ui-gray-50">
               <Link 
                 to="/translate" 
-                className="text-sm text-brand-green-600 hover:text-brand-green-700 font-medium"
+                className="text-sm text-brand-blue-600 hover:text-brand-blue-700 font-medium"
               >
                 Advanced translation tools
               </Link>
