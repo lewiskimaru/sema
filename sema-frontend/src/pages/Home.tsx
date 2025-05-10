@@ -88,23 +88,12 @@ const Home = () => {
 
   return (
     <div className="pb-16">
-      {/* Hero Section */}
+      {/* Translation Section */}
       <section className="py-16 md:py-24 bg-gradient-to-b from-brand-blue-50 via-white to-white">
         <div className="container-custom px-4 sm:px-6">
-          {/* Hero heading and Translation Interface */}
-          <div className="max-w-5xl mx-auto mb-12 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-white shadow-lg rounded-xl overflow-hidden border border-ui-gray-200 transform transition-all hover:shadow-xl"
-            >
-            </motion.div>
-          </div>
-          
           {/* Translation Interface */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+ initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="bg-white shadow-lg rounded-xl overflow-hidden border border-ui-gray-200 max-w-5xl mx-auto transform transition-all hover:shadow-xl"
@@ -144,10 +133,10 @@ const Home = () => {
               </div>
             </div>
             
-            {/* Translation Text Areas */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-0 px-4 py-4"> {/* Added padding here */}
+ {/* Translation Text Areas */}
+ <div className="grid grid-cols-1 md:grid-cols-2 gap-0 p-6 md:p-8"> {/* Increased padding */}
               {/* Input Section */}
-              <div className="border-b md:border-b-0 md:border-r border-ui-gray-200 pr-2 md:pr-4"> {/* Added padding here */}
+ <div className="border-b md:border-b-0 md:border-r border-ui-gray-200 pb-6 md:pb-0 md:pr-4"> {/* Added padding and border */}
                 <TranslationTextArea
                   value={inputText}
                   onChange={setInputText}
@@ -159,8 +148,8 @@ const Home = () => {
                 />
               </div>
 
-              {/* Output Section */}{" "}
-              <div>
+ {/* Output Section */}
+ <div className="pt-6 md:pt-0 md:pl-4"> {/* Added padding */}
                 <TranslationTextArea
                   value={outputText}
                   isReadOnly={true}
@@ -174,7 +163,7 @@ const Home = () => {
               </div>
             </div>
             
-            {/* Footer Tools */}
+ {/* Footer Tools */}
             <div className="flex justify-between items-center border-t border-ui-gray-200 p-5 bg-ui-gray-50">
               <div className="text-ui-gray-600 text-sm flex items-center">
                 {isInitialized ? (
@@ -196,7 +185,7 @@ const Home = () => {
             </div>
           </motion.div>
           
-          {/* Badge row */}
+ {/* Badge row */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -219,99 +208,75 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Features Section - Improved with modern cards */}
-      <section className="py-16 md:py-20 bg-brand-blue-50">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-brand-black mb-4 relative inline-block">
-              Powerful Translation Features
-              <span className="absolute -bottom-1 left-0 right-0 h-1 bg-brand-blue-200 rounded-full"></span>
-            </h2>
-            <p className="text-lg text-ui-gray-600 max-w-3xl mx-auto">
-              Beyond basic translation, Sema offers a comprehensive suite of language tools.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-ui-gray-100 flex flex-col h-full">
-              <div className="bg-brand-blue-100 w-14 h-14 rounded-full flex items-center justify-center mb-5">
-                <FaGlobe className="text-brand-blue-600 text-xl" />
-              </div>
-              <h3 className="text-xl font-bold text-brand-black mb-3">Text Translation</h3>
-              <p className="text-ui-gray-600 mb-5 flex-grow">
-                Translate text between 200+ languages with high accuracy and natural-sounding results.
-              </p>
-              <Link 
-                to="/translate" 
-                className="mt-auto inline-flex items-center text-brand-blue-600 hover:text-brand-blue-700 font-medium group"
-              >
-                Try it now <FaArrowRight className="inline-block ml-1.5 text-xs transition-transform group-hover:translate-x-0.5" />
-              </Link>
-            </div>
-
-            {/* Feature 2 */}
-            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-ui-gray-100 flex flex-col h-full">
-              <div className="bg-brand-blue-100 w-14 h-14 rounded-full flex items-center justify-center mb-5">
-                <FaComments className="text-brand-blue-600 text-xl" />
-              </div>
-              <h3 className="text-xl font-bold text-brand-black mb-3">Multilingual Chat</h3>
-              <p className="text-ui-gray-600 mb-5 flex-grow">
-                Chat with our AI assistant in your language and receive responses translated automatically.
-              </p>
-              <Link 
-                to="/chat" 
-                className="mt-auto inline-flex items-center text-brand-blue-600 hover:text-brand-blue-700 font-medium group"
-              >
-                Start chatting <FaArrowRight className="inline-block ml-1.5 text-xs transition-transform group-hover:translate-x-0.5" />
-              </Link>
-            </div>
-
-            {/* Feature 3 */}
-            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-ui-gray-100 flex flex-col h-full">
-              <div className="bg-brand-blue-100 w-14 h-14 rounded-full flex items-center justify-center mb-5">
-                <FaCode className="text-brand-blue-600 text-xl" />
-              </div>
-              <h3 className="text-xl font-bold text-brand-black mb-3">Developer API</h3>
-              <p className="text-ui-gray-600 mb-5 flex-grow">
-                Integrate our translation capabilities into your applications with our powerful API.
-              </p>
-              <Link 
-                to="/account/api-keys" 
-                className="mt-auto inline-flex items-center text-brand-blue-600 hover:text-brand-blue-700 font-medium group"
-              >
-                Get API access <FaArrowRight className="inline-block ml-1.5 text-xs transition-transform group-hover:translate-x-0.5" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section - Enhanced */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-brand-blue-600 to-brand-blue-700 text-white">
-        <div className="container-custom text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Ready to break language barriers?
+      {/* Powerful Translation Features */}
+      <section className="py-16 md:py-24 bg-ui-gray-100">
+        <div className="container-custom px-4 sm:px-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-brand-blue-800 mb-6 md:mb-8 leading-tight">
+ Powerful Translation Features
           </h2>
-          <p className="text-xl text-brand-blue-100 max-w-2xl mx-auto mb-8">
-            Join thousands of people and businesses using Sema to communicate globally.
+          <p className="text-lg md:text-xl text-ui-gray-700 mb-12 max-w-3xl mx-auto">
+            Beyond basic translation, Sema offers a comprehensive suite of language tools.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              to="/register"
-              className="inline-flex items-center px-8 py-3 bg-white text-brand-blue-700 hover:bg-brand-blue-50 font-medium rounded-md transition-colors shadow-md hover:shadow-lg"
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Feature 1: Text Translation */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="bg-white p-8 rounded-xl shadow-lg border border-ui-gray-200 text-left transform transition-transform hover:scale-105"
             >
-              Sign Up Free
-            </Link>
-            <Link
-              to="/translate"
-              className="inline-flex items-center px-8 py-3 bg-transparent hover:bg-brand-blue-500 text-white font-medium rounded-md border border-white transition-colors"
+              <FaExchangeAlt className="text-4xl text-brand-blue-500 mb-4" />
+              <h3 className="text-xl font-semibold text-brand-blue-800 mb-3">Text Translation</h3>
+              <p className="text-ui-gray-700 mb-4">
+ Translate text between 200+ languages with high accuracy and natural-sounding results.
+              </p>
+              <Link to="/translate" className="inline-flex items-center text-brand-blue-600 hover:text-brand-blue-700 font-medium group">
+ Try it now
+ <FaArrowRight className="ml-2 text-sm transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            </motion.div>
+            
+            {/* Feature 2: Multilingual Chat */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="bg-white p-8 rounded-xl shadow-lg border border-ui-gray-200 text-left transform transition-transform hover:scale-105"
             >
-              Try Without Account
-            </Link>
+              <FaComments className="text-4xl text-brand-blue-500 mb-4" />
+              <h3 className="text-xl font-semibold text-brand-blue-800 mb-3">Multilingual Chat</h3>
+              <p className="text-ui-gray-700 mb-4">
+ Chat with our AI assistant in your preferred language and have responses translated automatically.
+              </p>
+              <Link to="/chat" className="inline-flex items-center text-brand-blue-600 hover:text-brand-blue-700 font-medium group">
+ Start chatting
+ <FaArrowRight className="ml-2 text-sm transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            </motion.div>
+            
+            {/* Feature 3: Developer API */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="bg-white p-8 rounded-xl shadow-lg border border-ui-gray-200 text-left transform transition-transform hover:scale-105"
+            >
+              <FaCode className="text-4xl text-brand-blue-500 mb-4" />
+              <h3 className="text-xl font-semibold text-brand-blue-800 mb-3">Developer API</h3>
+              <p className="text-ui-gray-700 mb-4">
+ Integrate our translation capabilities into your applications with our powerful API.
+              </p>
+              <Link to="/api-docs" className="inline-flex items-center text-brand-blue-600 hover:text-brand-blue-700 font-medium group">
+ Get API access
+ <FaArrowRight className="ml-2 text-sm transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            </motion.div>
           </div>
         </div>
       </section>
+
+      {/* The footer remains below this content */}
     </div>
   )
 }
