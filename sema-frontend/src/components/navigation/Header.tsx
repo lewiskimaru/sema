@@ -20,47 +20,22 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <img src="/logo.png" alt="Sema Translator" className="h-8" />
+            <img src="/logo.png" alt="Sema" className="h-8" />
             <div className="flex items-center">
               <span className="text-2xl font-bold text-brand-black">Sema</span>
-              <span className="text-brand-teal-500 font-medium">Translator</span>
             </div>
           </Link>
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <NavLink 
-              to="/translate" 
-              className={({ isActive }) => 
-                `text-base font-medium transition-colors ${
-                  isActive 
-                    ? 'text-brand-teal-500 border-b-2 border-brand-teal-500 pb-1' 
-                    : 'text-ui-gray-700 hover:text-brand-teal-500'
-                }`
-              }
-            >
-              Translate
-            </NavLink>
-            <NavLink 
-              to="/languages" 
-              className={({ isActive }) => 
-                `text-base font-medium transition-colors ${
-                  isActive 
-                    ? 'text-brand-teal-500 border-b-2 border-brand-teal-500 pb-1' 
-                    : 'text-ui-gray-700 hover:text-brand-teal-500'
-                }`
-              }
-            >
-              Languages
-            </NavLink>
             {isAuthenticated && (
               <NavLink 
                 to="/chat" 
                 className={({ isActive }) => 
                   `text-base font-medium transition-colors ${
                     isActive 
-                      ? 'text-brand-teal-500 border-b-2 border-brand-teal-500 pb-1' 
-                      : 'text-ui-gray-700 hover:text-brand-teal-500'
+                      ? 'text-brand-green-500 border-b-2 border-brand-green-500 pb-1' 
+                      : 'text-ui-gray-700 hover:text-brand-green-500'
                   }`
                 }
               >
@@ -74,7 +49,7 @@ const Header = () => {
             {isAuthenticated ? (
               <div className="relative group">
                 <button 
-                  className="flex items-center space-x-2 text-ui-gray-800 hover:text-brand-teal-500"
+                  className="flex items-center space-x-2 text-ui-gray-800 hover:text-brand-green-500"
                   aria-label="Account menu"
                 >
                   <FaUserCircle className="text-xl" />
@@ -109,7 +84,7 @@ const Header = () => {
               <>
                 <Link 
                   to="/login" 
-                  className="text-ui-gray-700 hover:text-brand-teal-500 font-medium"
+                  className="text-ui-gray-700 hover:text-brand-green-500 font-medium"
                 >
                   Log in
                 </Link>
@@ -150,37 +125,13 @@ const Header = () => {
           >
             <div className="container-custom py-4 border-t border-ui-gray-200">
               <nav className="flex flex-col space-y-4">
-                <NavLink 
-                  to="/translate" 
-                  className={({ isActive }) => 
-                    `text-base font-medium py-2 transition-colors ${
-                      isActive 
-                        ? 'text-brand-teal-500' 
-                        : 'text-ui-gray-700'
-                    }`
-                  }
-                >
-                  Translate
-                </NavLink>
-                <NavLink 
-                  to="/languages" 
-                  className={({ isActive }) => 
-                    `text-base font-medium py-2 transition-colors ${
-                      isActive 
-                        ? 'text-brand-teal-500' 
-                        : 'text-ui-gray-700'
-                    }`
-                  }
-                >
-                  Languages
-                </NavLink>
                 {isAuthenticated && (
                   <NavLink 
                     to="/chat" 
                     className={({ isActive }) => 
                       `text-base font-medium py-2 transition-colors ${
                         isActive 
-                          ? 'text-brand-teal-500' 
+                          ? 'text-brand-green-500' 
                           : 'text-ui-gray-700'
                       }`
                     }
@@ -234,7 +185,7 @@ const Header = () => {
                     </Link>
                     <Link 
                       to="/register" 
-                      className="text-base font-medium py-2 text-brand-teal-500"
+                      className="text-base font-medium py-2 text-brand-green-500"
                     >
                       Sign up
                     </Link>

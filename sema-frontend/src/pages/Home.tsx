@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { FaGlobe, FaArrowRight, FaComments, FaCode } from 'react-icons/fa'
+import { FaGlobe, FaArrowRight, FaComments, FaCode, FaExchangeAlt } from 'react-icons/fa'
 import TranslationTextArea from '../components/ui/TranslationTextArea'
 import LanguageSelector from '../components/ui/LanguageSelector'
 import { getSupportedLanguages, translateText, detectLanguage } from '../services/translation'
@@ -73,6 +73,19 @@ const Home = () => {
     return () => clearTimeout(timer)
   }, [inputText, sourceLang, targetLang, isInitialized])
 
+  // Swap languages
+  const handleSwapLanguages = () => {
+    if (!sourceLang) return; // Can't swap if auto-detect
+    
+    const temp = sourceLang;
+    setSourceLang(targetLang);
+    setTargetLang(temp);
+    
+    // Also swap the text
+    setInputText(outputText);
+    setOutputText(inputText);
+  }
+
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -98,90 +111,90 @@ const Home = () => {
   return (
     <div className="pb-16">
       {/* Hero Section */}
-      <motion.section 
-        className="py-16 md:py-24 bg-gradient-to-b from-brand-white to-ui-gray-50"
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-      >
-        <div className="container-custom">
-          <motion.div className="text-center mb-10" variants={itemVariants}>
-            <h1 className="text-4xl md:text-5xl font-bold text-brand-black mb-4">
-              Translate Anything, <span className="text-brand-teal-500">Anywhere</span>
+      <section className="py-8 md:py-12 bg-white">
+        <div className="container-custom max-w-4xl">
+          {/* Simple Header */}
+          <div className="mb-6 text-center">
+            <h1 className="text-2xl font-medium text-brand-black">
+              Sema Translator
             </h1>
-            <p className="text-lg md:text-xl text-ui-gray-700 max-w-3xl mx-auto">
-              Break language barriers with Sema's AI-powered translation platform. Instant, accurate, and natural translations in 200+ languages.
-            </p>
-          </motion.div>
+          </div>
 
           {/* Translation Interface */}
-          <motion.div 
-            className="bg-white rounded-xl shadow-smooth p-6 max-w-4xl mx-auto"
-            variants={itemVariants}
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-white shadow-sm border border-ui-gray-200 rounded-md overflow-hidden">
+            {/* Language Selection Row */}
+            <div className="flex items-center border-b border-ui-gray-200 p-3">
+              <div className="flex-1">
+                <LanguageSelector
+                  languages={languages}
+                  selectedLanguage={sourceLang}
+                  onSelectLanguage={setSourceLang}
+                  showAutoDetect={true}
+                  isSource={true}
+                  placeholder="Detect language"
+                />
+              </div>
+              
+              <button
+                onClick={handleSwapLanguages}
+                disabled={!sourceLang}
+                className={`mx-2 p-2 rounded ${
+                  !sourceLang ? 'text-ui-gray-300 cursor-not-allowed' : 'text-ui-gray-600 hover:bg-ui-gray-100'
+                }`}
+                aria-label="Swap languages"
+              >
+                <FaExchangeAlt />
+              </button>
+              
+              <div className="flex-1">
+                <LanguageSelector
+                  languages={languages}
+                  selectedLanguage={targetLang}
+                  onSelectLanguage={setTargetLang}
+                />
+              </div>
+            </div>
+            
+            {/* Translation Text Areas */}
+            <div className="grid grid-cols-1 md:grid-cols-2">
               {/* Input Section */}
-              <div>
-                <div className="mb-4">
-                  <LanguageSelector
-                    languages={languages}
-                    selectedLanguage={sourceLang}
-                    onSelectLanguage={setSourceLang}
-                    showAutoDetect={true}
-                    isSource={true}
-                    label="From"
-                  />
-                </div>
+              <div className="border-b md:border-b-0 md:border-r border-ui-gray-200">
                 <TranslationTextArea
                   value={inputText}
                   onChange={setInputText}
-                  placeholder="Enter text to translate"
+                  placeholder="Enter text"
                   showTTS={false}
+                  height="h-40"
+                  showCharCount={true}
                 />
               </div>
 
               {/* Output Section */}
               <div>
-                <div className="mb-4">
-                  <LanguageSelector
-                    languages={languages}
-                    selectedLanguage={targetLang}
-                    onSelectLanguage={setTargetLang}
-                    label="To"
-                  />
-                </div>
                 <TranslationTextArea
                   value={outputText}
                   isReadOnly={true}
-                  placeholder="Translation will appear here"
+                  placeholder="Translation"
                   isLoading={isLoading}
                   detectedLanguage={detectedLanguage}
                   showTTS={true}
+                  height="h-40"
                 />
               </div>
             </div>
-          </motion.div>
-
-          {/* Quick Actions */}
-          <motion.div 
-            className="flex flex-wrap justify-center gap-4 mt-8"
-            variants={itemVariants}
-          >
-            <Link
-              to="/translate"
-              className="inline-flex items-center px-6 py-3 bg-brand-teal-500 hover:bg-brand-teal-600 text-white font-medium rounded-md transition-colors"
-            >
-              Advanced Translation <FaArrowRight className="ml-2" />
-            </Link>
-            <Link
-              to="/languages"
-              className="inline-flex items-center px-6 py-3 bg-white hover:bg-ui-gray-100 text-ui-gray-800 font-medium rounded-md border border-ui-gray-300 transition-colors"
-            >
-              Explore Languages <FaGlobe className="ml-2" />
-            </Link>
-          </motion.div>
+            
+            {/* Footer Tools */}
+            <div className="flex justify-end items-center border-t border-ui-gray-200 p-3 bg-ui-gray-50">
+              <Link 
+                to="/translate" 
+                className="text-sm text-brand-green-600 hover:text-brand-green-700 font-medium"
+              >
+                Advanced translation tools
+              </Link>
+            </div>
+          </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* Language Map Section */}
       <section className="py-16 bg-white">
