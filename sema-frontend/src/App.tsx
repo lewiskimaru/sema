@@ -12,18 +12,19 @@ import ProtectedRoute from './components/auth/ProtectedRoute'
 // Lazy loaded pages for better performance
 const HomePage = lazy(() => import('./pages/Home'))
 const TranslatePage = lazy(() => import('./pages/Translate'))
-const ChatPage = lazy(() => import('./pages/Chat'))
 const LanguagesPage = lazy(() => import('./pages/Languages'))
-const LoginPage = lazy(() => import('./pages/auth/Login'))
-const RegisterPage = lazy(() => import('./pages/auth/Register'))
-const ProfilePage = lazy(() => import('./pages/account/Profile'))
-const ApiKeysPage = lazy(() => import('./pages/account/ApiKeys'))
-const TranslationHistoryPage = lazy(() => import('./pages/account/TranslationHistory'))
-const ChatHistoryPage = lazy(() => import('./pages/account/ChatHistory'))
 const NotFoundPage = lazy(() => import('./pages/NotFound'))
 
 // Loading fallback
 import LoadingScreen from './components/ui/LoadingScreen'
+
+// Placeholder component for missing pages
+const PlaceholderPage = () => (
+  <div className="p-8 text-center">
+    <h1 className="text-2xl font-bold mb-4">Coming Soon</h1>
+    <p>This page is under construction.</p>
+  </div>
+)
 
 function App() {
   return (
@@ -35,23 +36,19 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/translate" element={<TranslatePage />} />
             <Route path="/languages" element={<LanguagesPage />} />
+            
+            {/* Placeholder routes for missing pages */}
+            <Route path="/chat" element={<PlaceholderPage />} />
+            <Route path="/account/profile" element={<PlaceholderPage />} />
+            <Route path="/account/api-keys" element={<PlaceholderPage />} />
+            <Route path="/account/history/translations" element={<PlaceholderPage />} />
+            <Route path="/account/history/chat" element={<PlaceholderPage />} />
           </Route>
 
           {/* Auth routes */}
           <Route element={<AuthLayout />}>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-          </Route>
-
-          {/* Protected routes with main layout */}
-          <Route element={<MainLayout />}>
-            <Route element={<ProtectedRoute />}>
-              <Route path="/chat" element={<ChatPage />} />
-              <Route path="/account/profile" element={<ProfilePage />} />
-              <Route path="/account/api-keys" element={<ApiKeysPage />} />
-              <Route path="/account/history/translations" element={<TranslationHistoryPage />} />
-              <Route path="/account/history/chat" element={<ChatHistoryPage />} />
-            </Route>
+            <Route path="/login" element={<PlaceholderPage />} />
+            <Route path="/register" element={<PlaceholderPage />} />
           </Route>
 
           {/* Catch all route */}
