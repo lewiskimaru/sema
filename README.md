@@ -258,7 +258,7 @@ translator/
     *   Hugging Face Hub account and `HUGGINGFACE_TOKEN` (for downloading models and potentially for InferenceClient).
 2.  **Clone the Repository:**
     ```bash
-    git clone https://github.com/lewiskimaru/sema
+    git clone https://github.com/lewiskimaru/sema.git
     cd translator
     ```
 3.  **Create a Virtual Environment:**
