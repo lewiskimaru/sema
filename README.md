@@ -319,3 +319,96 @@ Once the application is running, interactive API documentation will be available
 ## 11. License
 
 (Specify the project's license, e.g., MIT, Apache 2.0.)
+
+## Project Structure
+
+```
+sema/
+├── netlify.toml       # Netlify configuration
+└── sema-frontend/     # React frontend application
+    ├── public/        # Static assets
+    │   ├── logo.png   # Sema logo
+    │   └── _redirects # Netlify redirects file
+    ├── src/           # Source code
+    │   ├── components/
+    │   ├── pages/
+    │   ├── services/
+    │   └── stores/
+    └── package.json   # Dependencies and scripts
+```
+
+## Features
+
+- **Text Translation**: Translate text between 200+ languages
+- **Language Detection**: Automatically detect the source language
+- **Multilingual Chat**: Chat with AI in your preferred language
+- **Language Explorer**: Browse and discover supported languages by region
+- **User Accounts**: Save translation history and preferences
+- **Responsive Design**: Works on desktop, tablet, and mobile devices
+
+## Development
+
+### Prerequisites
+
+- Node.js (v16+)
+- npm or yarn
+
+### Setup
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/lewiskimaru/sema.git
+   cd sema
+   ```
+
+2. Install dependencies:
+   ```
+   cd sema-frontend
+   npm install
+   ```
+
+3. Start the development server:
+   ```
+   npm run dev
+   ```
+
+## Deployment to Netlify
+
+The project is configured to deploy the nested frontend directory structure to Netlify.
+
+### Automatic Deployments
+
+1. Connect your GitHub repository to Netlify
+2. Netlify will automatically detect the `netlify.toml` file and use the configuration
+
+### Manual Deployments
+
+1. Build the project:
+   ```
+   cd sema-frontend
+   npm run build
+   ```
+
+2. Deploy the `dist` directory to Netlify:
+   ```
+   npx netlify deploy --dir=dist --prod
+   ```
+
+### Key Configuration Files
+
+- **netlify.toml**: Specifies build settings and redirect rules
+  ```toml
+  [build]
+    base = "sema-frontend"
+    publish = "dist"
+    command = "npm run build"
+  ```
+
+- **public/_redirects**: Handles SPA routing
+  ```
+  /* /index.html 200
+  ```
+
+## License
+
+MIT

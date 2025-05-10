@@ -11,10 +11,13 @@ const Footer = () => {
           {/* Brand */}
           <div className="col-span-1 md:col-span-1">
             <Link to="/" className="inline-block">
-              <h2 className="flex items-center space-x-1">
-                <span className="text-xl font-bold text-brand-black">Sema</span>
-                <span className="text-brand-teal-500 font-medium">Translator</span>
-              </h2>
+              <div className="flex items-center gap-2">
+                <img src="/logo.png" alt="Sema Translator" className="h-8" />
+                <h2 className="flex items-center space-x-1">
+                  <span className="text-xl font-bold text-brand-black">Sema</span>
+                  <span className="text-brand-teal-500 font-medium">Translator</span>
+                </h2>
+              </div>
             </Link>
             <p className="mt-3 text-sm text-ui-gray-600">
               Breaking language barriers with modern AI translation technology.
