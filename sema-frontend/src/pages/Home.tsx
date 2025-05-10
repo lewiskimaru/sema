@@ -91,19 +91,14 @@ const Home = () => {
       {/* Hero Section */}
       <section className="py-16 md:py-24 bg-gradient-to-b from-brand-blue-50 via-white to-white">
         <div className="container-custom px-4 sm:px-6">
-          {/* Hero heading */}
-          <div className="max-w-3xl mx-auto mb-12 text-center">
+          {/* Hero heading and Translation Interface */}
+          <div className="max-w-5xl mx-auto mb-12 text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="bg-white shadow-lg rounded-xl overflow-hidden border border-ui-gray-200 transform transition-all hover:shadow-xl"
             >
-              <h1 className="text-4xl md:text-5xl font-bold text-brand-black mb-4 leading-tight">
-                Breaking Language Barriers with AI
-              </h1>
-              <p className="text-xl text-ui-gray-600 max-w-2xl mx-auto">
-                Translate text between 200+ languages with high accuracy and natural-sounding results.
-              </p>
             </motion.div>
           </div>
           
@@ -150,9 +145,9 @@ const Home = () => {
             </div>
             
             {/* Translation Text Areas */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-0 px-4 py-4"> {/* Added padding here */}
               {/* Input Section */}
-              <div className="border-b md:border-b-0 md:border-r border-ui-gray-200">
+              <div className="border-b md:border-b-0 md:border-r border-ui-gray-200 pr-2 md:pr-4"> {/* Added padding here */}
                 <TranslationTextArea
                   value={inputText}
                   onChange={setInputText}
@@ -164,7 +159,7 @@ const Home = () => {
                 />
               </div>
 
-              {/* Output Section */}
+              {/* Output Section */}{" "}
               <div>
                 <TranslationTextArea
                   value={outputText}
@@ -221,60 +216,6 @@ const Home = () => {
               200+ languages supported
             </div>
           </motion.div>
-        </div>
-      </section>
-
-      {/* Language Coverage Section */}
-      <section className="py-16 md:py-20 bg-white">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-brand-black mb-4 relative inline-block">
-              Global Language Coverage
-              <span className="absolute -bottom-1 left-0 right-0 h-1 bg-brand-blue-200 rounded-full"></span>
-            </h2>
-            <p className="text-lg text-ui-gray-600 max-w-3xl mx-auto">
-              Our platform supports over 200 languages across every region of the world, including low-resource and indigenous languages.
-            </p>
-          </div>
-
-          {/* Language Map - Enhanced styling */}
-          <div className="bg-gradient-to-br from-brand-blue-50 to-ui-gray-50 rounded-xl shadow-md overflow-hidden relative">
-            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-brand-blue-300 via-transparent to-transparent"></div>
-            <div className="relative py-12 px-6 flex items-center justify-center">
-              <div className="text-center">
-                <FaGlobe className="mx-auto text-6xl mb-6 text-brand-blue-400" />
-                <p className="font-medium text-lg text-brand-black mb-2">Interactive language map coming soon</p>
-                <p className="text-ui-gray-600">Supporting 200+ languages across the globe</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Language Stats - Enhanced with cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-            <div className="bg-white p-6 rounded-xl border border-ui-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 text-center">
-              <div className="flex justify-center items-center w-12 h-12 bg-brand-blue-100 rounded-full mx-auto mb-4">
-                <span className="text-xl font-bold text-brand-blue-600">200+</span>
-              </div>
-              <h3 className="text-lg font-semibold text-brand-black mb-2">Languages Supported</h3>
-              <p className="text-ui-gray-600">Comprehensive coverage for global communication</p>
-            </div>
-            
-            <div className="bg-white p-6 rounded-xl border border-ui-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 text-center">
-              <div className="flex justify-center items-center w-12 h-12 bg-brand-blue-100 rounded-full mx-auto mb-4">
-                <span className="text-xl font-bold text-brand-blue-600">54+</span>
-              </div>
-              <h3 className="text-lg font-semibold text-brand-black mb-2">African Languages</h3>
-              <p className="text-ui-gray-600">Extensive support for languages across Africa</p>
-            </div>
-            
-            <div className="bg-white p-6 rounded-xl border border-ui-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 text-center">
-              <div className="flex justify-center items-center w-12 h-12 bg-brand-blue-100 rounded-full mx-auto mb-4">
-                <span className="text-xl font-bold text-brand-blue-600">30+</span>
-              </div>
-              <h3 className="text-lg font-semibold text-brand-black mb-2">Indigenous Languages</h3>
-              <p className="text-ui-gray-600">Preserving cultural heritage through translation</p>
-            </div>
-          </div>
         </div>
       </section>
 
