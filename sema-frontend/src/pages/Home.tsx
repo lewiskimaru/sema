@@ -92,7 +92,7 @@ const Home = () => {
       <section className="py-16 md:py-24 bg-gradient-to-b from-brand-blue-50 via-white to-white">
         <div className="container-custom px-4 sm:px-6">
           {/* Translation Interface */}
-          <motion.div
+ <motion.div
  initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -134,9 +134,9 @@ const Home = () => {
             </div>
             
  {/* Translation Text Areas */}
- <div className="grid grid-cols-1 md:grid-cols-2 gap-0 p-6 md:p-8"> {/* Increased padding */}
+ <div className="grid grid-cols-1 md:grid-cols-2 gap-0 p-6 md:p-8 w-full max-w-5xl mx-auto"> {/* Increased padding and adjusted width */}
               {/* Input Section */}
- <div className="border-b md:border-b-0 md:border-r border-ui-gray-200 pb-6 md:pb-0 md:pr-4"> {/* Added padding and border */}
+ <div className="border-b md:border-b-0 md:border-r border-ui-gray-200 pb-6 md:pb-0 md:pr-4 p-4"> {/* Added padding and border */}
                 <TranslationTextArea
                   value={inputText}
                   onChange={setInputText}
@@ -149,7 +149,7 @@ const Home = () => {
               </div>
 
  {/* Output Section */}
- <div className="pt-6 md:pt-0 md:pl-4"> {/* Added padding */}
+ <div className="pt-6 md:pt-0 md:pl-4 p-4"> {/* Added padding */}
                 <TranslationTextArea
                   value={outputText}
                   isReadOnly={true}
