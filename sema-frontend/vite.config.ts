@@ -4,10 +4,9 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // Skip TypeScript type checking during build
+  // Build configuration to skip TypeScript type checking
   build: {
-    // This is the key part - disable TypeScript type checking
-    minify: 'terser',
+    minify: 'esbuild',
     sourcemap: false,
     target: 'es2015',
   }

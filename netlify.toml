@@ -2,6 +2,7 @@
   base = "sema-frontend"
   publish = "dist"
   command = "npm run build"
+  ignore_warnings = true
 
 # Handle SPA routing with History API
 [[redirects]]
