@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
-import { FaCopy, FaVolumeUp, FaTimes } from 'react-icons/fa'
-import { motion } from 'framer-motion'
+import { FaCopy, FaVolumeUp, FaTimes, FaCheck } from 'react-icons/fa'
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface TranslationTextAreaProps {
   value: string
@@ -108,8 +108,8 @@ const TranslationTextArea = ({
         </label>
       )}
       
-      <div className={`relative border rounded-lg transition-all overflow-hidden
-                     ${isReadOnly ? 'bg-ui-gray-50 border-ui-gray-200' : 'bg-white border-ui-gray-300'}
+      <div className={`relative rounded-lg transition-all overflow-hidden
+                     ${isReadOnly ? 'bg-ui-gray-50 border border-ui-gray-200' : 'bg-white border border-ui-gray-300 focus-within:border-brand-blue-400 focus-within:ring-2 focus-within:ring-brand-blue-100'}
                      ${isLoading ? 'bg-ui-gray-50' : ''}`}>
         {/* Text area */}
         <textarea
@@ -119,31 +119,39 @@ const TranslationTextArea = ({
           placeholder={placeholder}
           readOnly={isReadOnly || isLoading}
           disabled={isLoading}
-          className={`w-full px-4 py-3 ${height} resize-none focus:outline-none
+          className={`w-full p-4 ${height} resize-none focus:outline-none
                     bg-transparent text-ui-gray-800 text-lg placeholder-ui-gray-400
                     ${isLoading ? 'opacity-50' : 'opacity-100'}`}
         />
         
         {/* Loading overlay */}
-        {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-70">
-            <div className="typing-indicator">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </div>
-        )}
+        <AnimatePresence>
+          {isLoading && (
+            <motion.div 
+              className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-70"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
         
         {/* Action buttons */}
-        <div className="absolute bottom-2 right-2 flex items-center space-x-1.5">
+        <div className="absolute bottom-3 right-3 flex items-center space-x-2">
           {/* Text-to-speech button (if enabled) */}
           {showTTS && value && (
             <motion.button
               type="button"
               onClick={handleTTS}
-              className={`p-1.5 rounded-full ${isPlaying ? 'bg-brand-teal-100 text-brand-teal-600' : 'bg-ui-gray-100 text-ui-gray-600'} 
-                        hover:bg-brand-teal-100 hover:text-brand-teal-600 transition-colors`}
+              className={`p-2 rounded-full transition-colors ${isPlaying ? 'bg-brand-blue-100 text-brand-blue-600' : 'bg-ui-gray-100 text-ui-gray-600'} 
+                        hover:bg-brand-blue-100 hover:text-brand-blue-600`}
               whileTap={{ scale: 0.95 }}
               aria-label={isPlaying ? 'Stop speaking' : 'Speak text'}
               title={isPlaying ? 'Stop speaking' : 'Speak text'}
@@ -157,7 +165,7 @@ const TranslationTextArea = ({
             <motion.button
               type="button"
               onClick={handleClear}
-              className="p-1.5 rounded-full bg-ui-gray-100 text-ui-gray-600 hover:bg-ui-gray-200 transition-colors"
+              className="p-2 rounded-full bg-ui-gray-100 text-ui-gray-600 hover:bg-ui-gray-200 transition-colors"
               whileTap={{ scale: 0.95 }}
               aria-label="Clear text"
               title="Clear text"
@@ -171,20 +179,20 @@ const TranslationTextArea = ({
             <motion.button
               type="button"
               onClick={handleCopy}
-              className={`p-1.5 rounded-full ${isCopied ? 'bg-brand-teal-100 text-brand-teal-600' : 'bg-ui-gray-100 text-ui-gray-600'} 
-                        hover:bg-brand-teal-100 hover:text-brand-teal-600 transition-colors`}
+              className={`p-2 rounded-full transition-colors ${isCopied ? 'bg-brand-blue-100 text-brand-blue-600' : 'bg-ui-gray-100 text-ui-gray-600'} 
+                        hover:bg-brand-blue-100 hover:text-brand-blue-600`}
               whileTap={{ scale: 0.95 }}
               aria-label={isCopied ? 'Copied!' : 'Copy to clipboard'}
               title={isCopied ? 'Copied!' : 'Copy to clipboard'}
             >
-              <FaCopy className="h-4 w-4" />
+              {isCopied ? <FaCheck className="h-4 w-4" /> : <FaCopy className="h-4 w-4" />}
             </motion.button>
           )}
         </div>
         
         {/* Character counter */}
         {showCharCount && (
-          <div className="absolute bottom-2 left-3 text-xs text-ui-gray-500">
+          <div className="absolute bottom-3 left-4 text-xs text-ui-gray-500">
             {value.length} / {maxLength}
           </div>
         )}
@@ -192,8 +200,9 @@ const TranslationTextArea = ({
       
       {/* Detected language indicator */}
       {detectedLanguage && isReadOnly && (
-        <div className="mt-1 text-xs text-ui-gray-500">
-          Detected language: {detectedLanguage}
+        <div className="mt-2 text-xs text-ui-gray-500 flex items-center">
+          <div className="w-2 h-2 bg-brand-blue-400 rounded-full mr-1.5"></div>
+          Detected language: <span className="font-medium ml-1">{detectedLanguage}</span>
         </div>
       )}
     </div>

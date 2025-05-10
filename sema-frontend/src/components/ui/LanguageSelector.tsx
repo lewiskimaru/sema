@@ -80,7 +80,7 @@ const LanguageSelector = ({
       <button
         type="button"
         className={`relative w-full flex items-center justify-between px-4 py-2.5 text-left 
-                   border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-teal-400
+                   border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-400
                    ${disabled 
                      ? 'bg-ui-gray-100 cursor-not-allowed text-ui-gray-500 border-ui-gray-300' 
                      : 'bg-white hover:bg-ui-gray-50 text-ui-gray-800 border-ui-gray-300'
@@ -91,7 +91,7 @@ const LanguageSelector = ({
       >
         <span className="flex items-center">
           {(!selectedLanguage && isSource && showAutoDetect) && (
-            <FaGlobe className="mr-2 text-brand-teal-500" />
+            <FaGlobe className="mr-2 text-brand-blue-500" />
           )}
           <span className="font-medium">{getSelectedLanguageName()}</span>
         </span>
@@ -108,7 +108,7 @@ const LanguageSelector = ({
               <input
                 ref={inputRef}
                 type="text"
-                className="w-full border border-ui-gray-300 rounded-md py-1.5 px-3 focus:outline-none focus:ring-2 focus:ring-brand-teal-400 focus:border-transparent"
+                className="w-full border border-ui-gray-300 rounded-md py-1.5 px-3 focus:outline-none focus:ring-2 focus:ring-brand-blue-400 focus:border-transparent"
                 placeholder="Search languages..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -124,7 +124,7 @@ const LanguageSelector = ({
                       type="button"
                       className={`flex items-center w-full px-3 py-2 text-left rounded-md
                                ${!selectedLanguage 
-                                 ? 'bg-brand-teal-50 text-brand-teal-700'
+                                 ? 'bg-brand-blue-50 text-brand-blue-700'
                                  : 'text-ui-gray-800 hover:bg-ui-gray-100'
                                }`}
                       onClick={() => {
@@ -133,7 +133,7 @@ const LanguageSelector = ({
                         setSearchQuery('')
                       }}
                     >
-                      <FaGlobe className="mr-2 text-brand-teal-500" />
+                      <FaGlobe className="mr-2 text-brand-blue-500" />
                       <span>Detect language</span>
                     </button>
                   </li>
@@ -146,7 +146,7 @@ const LanguageSelector = ({
                         type="button"
                         className={`w-full px-3 py-2 text-left rounded-md
                                  ${selectedLanguage === language.code
-                                   ? 'bg-brand-teal-50 text-brand-teal-700'
+                                   ? 'bg-brand-blue-50 text-brand-blue-700'
                                    : 'text-ui-gray-800 hover:bg-ui-gray-100'
                                  }`}
                         onClick={() => {
