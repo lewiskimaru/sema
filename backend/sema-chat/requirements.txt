@@ -1,0 +1,28 @@
+fastapi
+uvicorn
+pydantic
+pydantic-settings
+python-multipart
+websockets
+sse-starlette
+slowapi
+prometheus-client
+structlog
+python-dotenv
+httpx
+aiofiles
+
+# HuggingFace & ML
+transformers
+torch
+huggingface-hub
+accelerate
+sentencepiece
+
+# API Clients
+openai
+anthropic
+
+# Utilities
+asyncio-mqtt
+redis
