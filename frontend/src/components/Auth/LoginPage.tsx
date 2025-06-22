@@ -7,7 +7,7 @@ const mockUsers = [
   { email: 'test@sema.ai', password: 'test123' }
 ];
 
-export default function LoginPage() {
+export default function LoginPage({ onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -17,13 +17,14 @@ export default function LoginPage() {
   const handleLogin = (e) => {
     e.preventDefault();
     setError('');
-    
+
     // Check if user exists in mock data
     const user = mockUsers.find(u => u.email === email && u.password === password);
-    
+
     if (user) {
       // Store user info in localStorage
       localStorage.setItem('semaUser', JSON.stringify({ email: user.email, isLoggedIn: true }));
+      if (onLogin) onLogin();
       navigate('/');
     } else {
       setError('Invalid email or password');
@@ -37,14 +38,14 @@ export default function LoginPage() {
           <h1 className="text-3xl font-bold mb-2">Welcome to Sema AI</h1>
           <p className="text-[#555555]">Sign in to continue to your account</p>
         </div>
-        
+
         <div className="bg-white p-8 rounded-lg shadow-lg border border-[#EFEFEF]">
           {error && (
             <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 rounded">
               {error}
             </div>
           )}
-          
+
           <form onSubmit={handleLogin}>
             <div className="mb-4">
               <label className="block text-sm font-medium text-[#333333] mb-1">Email</label>
@@ -57,7 +58,7 @@ export default function LoginPage() {
                 required
               />
             </div>
-            
+
             <div className="mb-6">
               <div className="flex justify-between items-center mb-1">
                 <label className="block text-sm font-medium text-[#333333]">Password</label>
@@ -83,7 +84,7 @@ export default function LoginPage() {
                 </button>
               </div>
             </div>
-            
+
             <button
               type="submit"
               className="w-full bg-black hover:bg-[#333333] text-white font-medium py-3 rounded transition-colors flex items-center justify-center gap-2"
@@ -91,7 +92,7 @@ export default function LoginPage() {
               Sign In <ArrowRight size={16} />
             </button>
           </form>
-          
+
           <div className="mt-6 text-center text-sm">
             <span className="text-[#555555]">Don't have an account?</span>{' '}
             <Link to="/signup" className="text-black font-medium hover:underline">

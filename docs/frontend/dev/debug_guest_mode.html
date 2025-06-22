@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Guest Mode</title>
+</head>
+<body>
+    <h1>Debug Guest Mode</h1>
+    <button onclick="clearStorage()">Clear All Storage</button>
+    <button onclick="checkStorage()">Check Storage</button>
+    <button onclick="setGuestSession()">Set Guest Session</button>
+    <button onclick="setUserSession()">Set User Session</button>
+    
+    <div id="output"></div>
+
+    <script>
+        function clearStorage() {
+            localStorage.clear();
+            log('Storage cleared');
+        }
+
+        function checkStorage() {
+            const user = localStorage.getItem('semaUser');
+            const guest = localStorage.getItem('semaGuestSession');
+            
+            log('User data: ' + (user || 'null'));
+            log('Guest data: ' + (guest || 'null'));
+        }
+
+        function setGuestSession() {
+            localStorage.setItem('semaGuestSession', JSON.stringify({
+                queryCount: 2,
+                startTime: Date.now(),
+                hasSeenSignupPrompt: false
+            }));
+            log('Guest session set');
+        }
+
+        function setUserSession() {
+            localStorage.setItem('semaUser', JSON.stringify({
+                email: 'test@example.com',
+                isLoggedIn: true
+            }));
+            log('User session set');
+        }
+
+        function log(message) {
+            const output = document.getElementById('output');
+            output.innerHTML += '<p>' + new Date().toLocaleTimeString() + ': ' + message + '</p>';
+        }
+
+        // Auto-check on load
+        window.onload = function() {
+            checkStorage();
+        };
+    </script>
+</body>
+</html>

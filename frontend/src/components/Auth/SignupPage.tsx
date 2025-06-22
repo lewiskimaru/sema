@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, Eye, EyeOff } from 'lucide-react';
 
-export default function SignupPage() {
+export default function SignupPage({ onSignup }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -12,7 +12,7 @@ export default function SignupPage() {
 
   const handleSignup = (e) => {
     e.preventDefault();
-    
+
     // In a real app, this would send data to a server
     // For this demo, we'll just store in localStorage
     try {
@@ -21,7 +21,8 @@ export default function SignupPage() {
         email,
         isLoggedIn: true
       }));
-      
+
+      if (onSignup) onSignup();
       navigate('/');
     } catch (err) {
       setError('Error creating account. Please try again.');
@@ -35,14 +36,14 @@ export default function SignupPage() {
           <h1 className="text-3xl font-bold mb-2">Join Sema AI</h1>
           <p className="text-[#555555]">Create an account to get started</p>
         </div>
-        
+
         <div className="bg-white p-8 rounded-lg shadow-lg border border-[#EFEFEF]">
           {error && (
             <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 rounded">
               {error}
             </div>
           )}
-          
+
           <form onSubmit={handleSignup}>
             <div className="mb-4">
               <label className="block text-sm font-medium text-[#333333] mb-1">Full Name</label>
@@ -55,7 +56,7 @@ export default function SignupPage() {
                 required
               />
             </div>
-            
+
             <div className="mb-4">
               <label className="block text-sm font-medium text-[#333333] mb-1">Email</label>
               <input
@@ -67,7 +68,7 @@ export default function SignupPage() {
                 required
               />
             </div>
-            
+
             <div className="mb-6">
               <label className="block text-sm font-medium text-[#333333] mb-1">Password</label>
               <div className="relative">
@@ -90,7 +91,7 @@ export default function SignupPage() {
               </div>
               <p className="mt-1 text-xs text-[#555555]">Must be at least 8 characters</p>
             </div>
-            
+
             <button
               type="submit"
               className="w-full bg-black hover:bg-[#333333] text-white font-medium py-3 rounded transition-colors flex items-center justify-center gap-2"
@@ -98,7 +99,7 @@ export default function SignupPage() {
               Create Account <ArrowRight size={16} />
             </button>
           </form>
-          
+
           <div className="mt-6 text-center text-sm">
             <span className="text-[#555555]">Already have an account?</span>{' '}
             <Link to="/login" className="text-black font-medium hover:underline">
