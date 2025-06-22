@@ -1,0 +1,16 @@
+{
+  "name": "sema",
+  "version": "1.0.0",
+  "description": "Sema - African Language Translation Platform",
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build",
+    "dev": "cd frontend && npm run dev",
+    "preview": "cd frontend && npm run preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lewiskimaru/sema.git"
+  },
+  "author": "Lewis Kimaru",
+  "license": "MIT"
+}
