@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { ArrowRight, Eye, EyeOff } from 'lucide-react';
+import TopBar from '../TopBar';
 
 const mockUsers = [
   { email: 'demo@sema.ai', password: 'password123' },
@@ -32,7 +33,12 @@ export default function LoginPage({ onLogin }) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#f8f8f8] to-[#ffffff] flex flex-col justify-center items-center p-4">
+    <div className="min-h-screen bg-white flex flex-col" style={{ fontFamily: 'Outfit, sans-serif' }}>
+      <TopBar
+        onLogout={() => {}}
+        isLoggedIn={false}
+      />
+      <div className="flex-1 flex flex-col justify-center items-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold mb-2">Welcome to Sema AI</h1>
@@ -87,7 +93,7 @@ export default function LoginPage({ onLogin }) {
 
             <button
               type="submit"
-              className="w-full bg-black hover:bg-[#333333] text-white font-medium py-3 rounded transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-black hover:bg-[#333333] text-white font-medium py-3 rounded-full transition-colors flex items-center justify-center gap-2"
             >
               Sign In <ArrowRight size={16} />
             </button>
@@ -101,6 +107,7 @@ export default function LoginPage({ onLogin }) {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

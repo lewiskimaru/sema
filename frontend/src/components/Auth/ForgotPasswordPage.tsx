@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Check } from 'lucide-react';
+import TopBar from '../TopBar';
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
@@ -13,17 +14,22 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#f8f8f8] to-[#ffffff] flex flex-col justify-center items-center p-4">
+    <div className="min-h-screen bg-white flex flex-col" style={{ fontFamily: 'Outfit, sans-serif' }}>
+      <TopBar
+        onLogout={() => {}}
+        isLoggedIn={false}
+      />
+      <div className="flex-1 flex flex-col justify-center items-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold mb-2">Reset Password</h1>
           <p className="text-[#555555]">
-            {!submitted 
-              ? "Enter your email to receive a password reset link" 
+            {!submitted
+              ? "Enter your email to receive a password reset link"
               : "Check your email for reset instructions"}
           </p>
         </div>
-        
+
         <div className="bg-white p-8 rounded-lg shadow-lg border border-[#EFEFEF]">
           {!submitted ? (
             <form onSubmit={handleSubmit}>
@@ -38,10 +44,10 @@ export default function ForgotPasswordPage() {
                   required
                 />
               </div>
-              
+
               <button
                 type="submit"
-                className="w-full bg-black hover:bg-[#333333] text-white font-medium py-3 rounded transition-colors"
+                className="w-full bg-black hover:bg-[#333333] text-white font-medium py-3 rounded-full transition-colors"
               >
                 Send Reset Link
               </button>
@@ -56,7 +62,7 @@ export default function ForgotPasswordPage() {
               </p>
             </div>
           )}
-          
+
           <div className="mt-6 text-center">
             <Link to="/login" className="text-[#555555] hover:text-black flex items-center justify-center gap-2">
               <ArrowLeft size={16} /> Back to login
@@ -64,6 +70,7 @@ export default function ForgotPasswordPage() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
