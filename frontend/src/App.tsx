@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import TopBar from './components/TopBar';
 import HomePage from './components/Pages/HomePage';
 import AboutPage from './components/Pages/AboutPage';
+import DeveloperPage from './components/Pages/DeveloperPage';
 import LoginPage from './components/Auth/LoginPage';
 import SignupPage from './components/Auth/SignupPage';
 import ForgotPasswordPage from './components/Auth/ForgotPasswordPage';
@@ -68,6 +69,7 @@ function App() {
                   <Routes>
                     <Route path="/" element={<HomePage isLoggedIn={isLoggedIn} />} />
                     <Route path="/about" element={<AboutPage />} />
+                    <Route path="/developer" element={<DeveloperPage />} />
                   </Routes>
                 </div>
               </div>

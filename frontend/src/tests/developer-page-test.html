@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✅ Developer Page Test - Sema API</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Outfit', Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .feature {
+            margin: 20px 0;
+            padding: 15px;
+            border-left: 4px solid #27ae60;
+            background: #f2fdf2;
+        }
+        .mockup {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0;
+            background: white;
+        }
+        .width-800 {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px dashed #ccc;
+            padding: 20px;
+        }
+        .tab-demo {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .tab {
+            padding: 8px 16px;
+            border-radius: 6px 6px 0 0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab.active {
+            background: black;
+            color: white;
+        }
+        .tab.inactive {
+            background: #f5f5f5;
+            color: #666;
+        }
+        .code-block {
+            background: #1a1a1a;
+            color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            position: relative;
+        }
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .copy-button:hover {
+            background: #555;
+        }
+        .topbar-demo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            border-bottom: 1px solid #e5e5e5;
+            background: white;
+        }
+        .topbar-left {
+            font-weight: bold;
+        }
+        .topbar-right {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .topbar-button {
+            padding: 6px 12px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .login-btn {
+            color: #666;
+            background: transparent;
+        }
+        .login-btn:hover {
+            background: #f8f9fa;
+            color: black;
+        }
+        .signup-btn {
+            background: black;
+            color: white;
+        }
+        .signup-btn:hover {
+            background: #333;
+        }
+        .icon-btn {
+            padding: 6px;
+            border-radius: 50%;
+            background: transparent;
+            color: #666;
+            border: none;
+            cursor: pointer;
+        }
+        .icon-btn:hover {
+            background: #f5f5f5;
+            color: black;
+        }
+        .free-api-notice {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .endpoint-demo {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .method-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .post-method {
+            background: #d4edda;
+            color: #155724;
+        }
+        .get-method {
+            background: #cce5ff;
+            color: #004085;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>✅ Developer Page Implementation - Sema API</h1>
+        
+        <div class="feature">
+            <h3>✅ Feature 1: 800px Content Width</h3>
+            <p><strong>Implemented:</strong> Developer page follows the same 800px max-width pattern as other pages</p>
+            <div class="mockup">
+                <div class="width-800">
+                    <h4>Developer Page Content</h4>
+                    <p>All content is constrained to 800px width and centered, maintaining consistency with the rest of the application.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature">
+            <h3>✅ Feature 2: Language Tabs for Code Examples</h3>
+            <p><strong>Implemented:</strong> Interactive tabs for different programming languages</p>
+            <div class="mockup">
+                <div class="tab-demo">
+                    <div class="tab active">🌐 cURL</div>
+                    <div class="tab inactive">🟨 JavaScript</div>
+                    <div class="tab inactive">🐍 Python</div>
+                    <div class="tab inactive">🟢 Node.js</div>
+                </div>
+                <div class="code-block">
+                    <button class="copy-button">📋 Copy</button>
+# Basic Translation
+curl -X POST "https://sematech-sema-api.hf.space/api/v1/translate" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "Habari ya asubuhi",
+    "target_language": "eng_Latn"
+  }'
+                </div>
+            </div>
+        </div>
+
+        <div class="feature">
+            <h3>✅ Feature 3: Free API Notice</h3>
+            <p><strong>Implemented:</strong> Prominent notice that the API is completely free to use</p>
+            <div class="mockup">
+                <div class="free-api-notice">
+                    <h4>⚡ Free API Access</h4>
+                    <p>Our translation API is currently <strong>completely free</strong> to use! No API keys required, no rate limits, no hidden costs. Perfect for developers, researchers, and anyone building multilingual applications.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature">
+            <h3>✅ Feature 4: Updated About Page</h3>
+            <p><strong>Implemented:</strong> Added "Try API" button alongside "Try Sema Now"</p>
+            <div class="mockup">
+                <div style="background: black; color: white; padding: 20px; border-radius: 8px;">
+                    <h3>Ready to get started?</h3>
+                    <p>Start breaking language barriers today</p>
+                    <div style="display: flex; gap: 15px; margin-top: 15px;">
+                        <button style="background: white; color: black; padding: 10px 20px; border-radius: 25px; border: none; font-weight: bold;">
+                            Try Sema Now
+                        </button>
+                        <button style="background: transparent; color: white; padding: 10px 20px; border-radius: 25px; border: 1px solid white; font-weight: bold;">
+                            Try API
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature">
+            <h3>✅ Feature 5: Developer Icon in TopBar</h3>
+            <p><strong>Implemented:</strong> Added Code icon next to Info icon for non-logged-in users</p>
+            <div class="mockup">
+                <div class="topbar-demo">
+                    <div class="topbar-left">Sema AI</div>
+                    <div class="topbar-right">
+                        <a href="#" class="topbar-button login-btn">Login</a>
+                        <a href="#" class="topbar-button signup-btn">Sign Up</a>
+                        <button class="icon-btn" title="API Documentation">💻</button>
+                        <button class="icon-btn" title="About Sema AI">ℹ️</button>
+                    </div>
+                </div>
+                <p><small>Code icon (💻) links to /developer, Info icon (ℹ️) links to /about</small></p>
+            </div>
+        </div>
+
+        <div class="feature">
+            <h3>✅ Feature 6: Comprehensive API Documentation</h3>
+            <p><strong>Implemented:</strong> Complete API documentation with examples and endpoints</p>
+            <div class="mockup">
+                <h4>API Endpoints</h4>
+                <div class="endpoint-demo">
+                    <span class="method-badge post-method">POST</span>
+                    <code>/translate</code>
+                    <p>Translate text between languages</p>
+                </div>
+                <div class="endpoint-demo">
+                    <span class="method-badge post-method">POST</span>
+                    <code>/detect-language</code>
+                    <p>Detect the language of input text</p>
+                </div>
+                <div class="endpoint-demo">
+                    <span class="method-badge get-method">GET</span>
+                    <code>/languages</code>
+                    <p>Get list of all supported languages</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: #e8f4fd; padding: 20px; border-radius: 8px; margin-top: 30px;">
+            <h3>🎯 What's Implemented</h3>
+            <ul>
+                <li>✅ <strong>800px content width:</strong> Consistent with other pages</li>
+                <li>✅ <strong>Language tabs:</strong> cURL, JavaScript, Python, Node.js examples</li>
+                <li>✅ <strong>Free API notice:</strong> Prominent green notice about free access</li>
+                <li>✅ <strong>Updated About page:</strong> Added "Try API" button</li>
+                <li>✅ <strong>Developer icon:</strong> Code icon in TopBar linking to /developer</li>
+                <li>✅ <strong>Complete documentation:</strong> All endpoints, examples, and features</li>
+                <li>✅ <strong>Copy functionality:</strong> Copy code examples with visual feedback</li>
+                <li>✅ <strong>Interactive elements:</strong> Tabs, buttons, and external links</li>
+            </ul>
+        </div>
+
+        <div style="background: #fff3cd; padding: 20px; border-radius: 8px; margin-top: 20px;">
+            <h3>🧪 Test Instructions</h3>
+            <ol>
+                <li><strong>Check navigation:</strong> Click Code icon in TopBar to go to /developer</li>
+                <li><strong>Test tabs:</strong> Switch between cURL, JavaScript, Python, Node.js tabs</li>
+                <li><strong>Copy functionality:</strong> Click copy buttons and verify code is copied</li>
+                <li><strong>About page:</strong> Verify "Try API" button links to developer page</li>
+                <li><strong>Content width:</strong> Verify all content stays within 800px on desktop</li>
+                <li><strong>External links:</strong> Test links to API explorer and GitHub</li>
+            </ol>
+        </div>
+
+        <div style="background: #d4edda; padding: 20px; border-radius: 8px; margin-top: 20px;">
+            <h3>🚀 Developer Experience Features</h3>
+            <ul>
+                <li>✅ <strong>No authentication required:</strong> Developers can start immediately</li>
+                <li>✅ <strong>Multiple language examples:</strong> cURL, JavaScript, Python, Node.js</li>
+                <li>✅ <strong>Copy-paste ready:</strong> All code examples work out of the box</li>
+                <li>✅ <strong>Interactive API explorer:</strong> Link to Swagger UI</li>
+                <li>✅ <strong>Clear endpoint documentation:</strong> Parameters and responses explained</li>
+                <li>✅ <strong>Free tier highlighted:</strong> No barriers to getting started</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

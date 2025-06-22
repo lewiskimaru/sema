@@ -1,4 +1,5 @@
 import { BookOpen, Globe, Languages, Zap } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function AboutPage() {
   return (
@@ -109,9 +110,20 @@ export default function AboutPage() {
         <div className="bg-black text-white p-8 rounded-lg">
           <h2 className="text-3xl font-bold mb-4">Ready to get started?</h2>
           <p className="text-xl mb-6">Start breaking language barriers today</p>
-          <button className="bg-white text-black font-medium px-6 py-3 rounded-full hover:bg-[#EFEFEF] transition-colors">
-            Try Sema Now
-          </button>
+          <div className="flex flex-wrap gap-4">
+            <Link
+              to="/"
+              className="bg-white text-black font-medium px-6 py-3 rounded-full hover:bg-[#EFEFEF] transition-colors"
+            >
+              Try Sema Now
+            </Link>
+            <Link
+              to="/developer"
+              className="border border-white text-white font-medium px-6 py-3 rounded-full hover:bg-white hover:text-black transition-colors"
+            >
+              Try API
+            </Link>
+          </div>
         </div>
       </div>
     </div>

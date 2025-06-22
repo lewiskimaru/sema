@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { User, LogOut, Info, ChevronDown } from 'lucide-react';
+import { User, LogOut, Info, ChevronDown, Code } from 'lucide-react';
 
 interface TopBarProps {
   onLogout: () => void;
@@ -60,7 +60,7 @@ export default function TopBar({
           />
         </Link>
 
-        {/* Auth Actions - Login, Sign Up, and Info */}
+        {/* Auth Actions - Login, Sign Up, Developer, and Info */}
         <div className="flex items-center gap-2">
           <Link
             to="/login"
@@ -73,6 +73,13 @@ export default function TopBar({
             className="px-3 py-1.5 text-sm font-medium bg-black text-white rounded-full hover:bg-[#333333] transition-colors shadow-sm"
           >
             Sign Up
+          </Link>
+          <Link
+            to="/developer"
+            className="p-1.5 hover:bg-[#F5F5F5] rounded-full transition-colors"
+            title="API Documentation"
+          >
+            <Code size={18} className="text-[#666666] hover:text-black transition-colors" />
           </Link>
           <Link
             to="/about"

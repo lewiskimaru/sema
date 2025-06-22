@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI Test - Sema Chatbot</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .issue {
+            margin: 20px 0;
+            padding: 15px;
+            border-left: 4px solid #e74c3c;
+            background: #fdf2f2;
+        }
+        .fix {
+            margin: 20px 0;
+            padding: 15px;
+            border-left: 4px solid #27ae60;
+            background: #f2fdf2;
+        }
+        .mockup {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0;
+            background: white;
+        }
+        .current-state {
+            background: #fff5f5;
+        }
+        .improved-state {
+            background: #f5fff5;
+        }
+        .input-area {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 10px 0;
+            background: #f9f9f9;
+        }
+        .message-area {
+            width: 100%;
+            border: 1px solid #eee;
+            padding: 20px;
+            margin: 10px 0;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 70%;
+        }
+        .user-message {
+            background: #007bff;
+            color: white;
+            margin-left: auto;
+        }
+        .ai-message {
+            background: #f1f1f1;
+            color: black;
+        }
+        .improved-user-message {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #e9ecef;
+            margin-left: auto;
+        }
+        .improved-ai-message {
+            background: transparent;
+            color: #333;
+        }
+        .width-800 {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 UI Test Report - Sema Chatbot Issues</h1>
+        
+        <div class="issue">
+            <h3>❌ Issue 1: Input Area Jumps to Top</h3>
+            <p><strong>Problem:</strong> When user sends first message, input area suddenly moves to top, user can't see what they just typed.</p>
+            <div class="mockup current-state">
+                <h4>Current Behavior:</h4>
+                <p>1. User types in centered input → 2. Sends message → 3. Input jumps to top → 4. User confused</p>
+                <div style="text-align: center; padding: 50px;">
+                    <div class="input-area">Type your message here... (CENTERED)</div>
+                </div>
+                <p>↓ After sending message ↓</p>
+                <div class="input-area" style="margin-top: 0;">Input area now at TOP (user lost)</div>
+                <div class="message-area">Messages appear here but user doesn't see their input</div>
+            </div>
+        </div>
+
+        <div class="issue">
+            <h3>❌ Issue 2: Input Area Gets Ugly Border/Background</h3>
+            <p><strong>Problem:</strong> Input area gets border and background that separates it from rest of UI.</p>
+            <div class="mockup current-state">
+                <h4>Current State:</h4>
+                <div class="message-area">Clean messages area</div>
+                <div class="input-area" style="border-top: 2px solid #ddd; background: #f9f9f9;">
+                    Input area with ugly border/background separation
+                </div>
+            </div>
+        </div>
+
+        <div class="issue">
+            <h3>❌ Issue 3: Messages Area Full Width</h3>
+            <p><strong>Problem:</strong> Messages area covers full width instead of matching 800px input area width.</p>
+            <div class="mockup current-state">
+                <h4>Current State:</h4>
+                <div class="message-area" style="width: 100%; background: #f0f0f0;">
+                    Messages area - FULL WIDTH (looks inconsistent)
+                    <div class="message user-message">User message</div>
+                    <div class="message ai-message">AI message</div>
+                </div>
+                <div class="width-800">
+                    <div class="input-area">Input area - 800px width</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="issue">
+            <h3>❌ Issue 4: Message Styling Problems</h3>
+            <p><strong>Problems:</strong> User messages have blue background, AI messages have gray background, copy uses emoji instead of icon.</p>
+            <div class="mockup current-state">
+                <h4>Current Styling:</h4>
+                <div class="message user-message">User message with blue background</div>
+                <div class="message ai-message">AI message with gray background</div>
+                <p>Copy button: 📋 Copy (emoji)</p>
+            </div>
+        </div>
+
+        <div class="fix">
+            <h3>✅ Proposed Fixes</h3>
+            
+            <h4>Fix 1: Smooth Transition</h4>
+            <div class="mockup improved-state">
+                <p>Keep input area in same position, smoothly transition to chat view</p>
+                <div style="text-align: center; padding: 20px;">
+                    <div class="width-800">
+                        <div class="input-area" style="border: none; background: white;">Input stays in same visual area</div>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Fix 2: Clean Input Integration</h4>
+            <div class="mockup improved-state">
+                <div class="message-area" style="border: none;">Clean messages area</div>
+                <div class="width-800">
+                    <div class="input-area" style="border: 1px solid #ddd; background: white; border-top: none;">
+                        Input area - no separation, clean integration
+                    </div>
+                </div>
+            </div>
+
+            <h4>Fix 3: Consistent 800px Width</h4>
+            <div class="mockup improved-state">
+                <div class="width-800">
+                    <div class="message-area" style="border: none; background: transparent;">
+                        Messages area - 800px width (consistent)
+                        <div class="message improved-user-message">User message - light background</div>
+                        <div class="message improved-ai-message">AI message - no background</div>
+                    </div>
+                    <div class="input-area" style="border: 1px solid #ddd; background: white;">
+                        Input area - 800px width
+                    </div>
+                </div>
+            </div>
+
+            <h4>Fix 4: Improved Message Styling</h4>
+            <div class="mockup improved-state">
+                <div class="message improved-user-message">User message - white variant background</div>
+                <div class="message improved-ai-message">AI message - no background, clean text</div>
+                <p>Copy button: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> (proper icon)</p>
+            </div>
+        </div>
+
+        <div style="background: #e8f4fd; padding: 20px; border-radius: 8px; margin-top: 30px;">
+            <h3>🎯 Implementation Plan</h3>
+            <ol>
+                <li><strong>Fix layout transitions</strong> - Prevent jarring input area movement</li>
+                <li><strong>Remove input area borders/backgrounds</strong> - Clean integration</li>
+                <li><strong>Constrain messages to 800px</strong> - Match input area width</li>
+                <li><strong>Update message styling</strong> - Light backgrounds, proper icons</li>
+                <li><strong>Test smooth user experience</strong> - Ensure no visual jumps</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>
