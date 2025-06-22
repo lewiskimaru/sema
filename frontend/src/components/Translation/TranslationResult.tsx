@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Copy, Volume2, RotateCcw, CheckCircle, AlertCircle } from 'lucide-react';
+import { Copy, Volume2, RotateCcw, CheckCircle } from 'lucide-react';
 import { TranslationResponse } from '../../types/translation';
 
 interface TranslationResultProps {
@@ -9,11 +9,11 @@ interface TranslationResultProps {
   className?: string;
 }
 
-export default function TranslationResult({ 
-  result, 
-  sourceText, 
-  onRetry, 
-  className = '' 
+export default function TranslationResult({
+  result,
+  sourceText,
+  onRetry,
+  className = ''
 }: TranslationResultProps) {
   const [copied, setCopied] = useState(false);
   const [speaking, setSpeaking] = useState(false);
@@ -32,14 +32,14 @@ export default function TranslationResult({
     if ('speechSynthesis' in window) {
       setSpeaking(true);
       const utterance = new SpeechSynthesisUtterance(result.translated_text);
-      
+
       // Try to set appropriate language
       const langCode = result.target_language.split('_')[0];
       utterance.lang = langCode;
-      
+
       utterance.onend = () => setSpeaking(false);
       utterance.onerror = () => setSpeaking(false);
-      
+
       speechSynthesis.speak(utterance);
     }
   };

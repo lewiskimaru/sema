@@ -32,7 +32,6 @@ export const CACHE_KEYS = {
 export const CACHE_TTL = {
   // Long-term caches (rarely change)
   LANGUAGES: 24 * 60 * 60 * 1000, // 24 hours
-  API_STATUS: 5 * 60 * 1000, // 5 minutes
 
   // Medium-term caches
   TRANSLATIONS: 60 * 60 * 1000, // 1 hour

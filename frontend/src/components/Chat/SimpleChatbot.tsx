@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { SimpleChatMessage, TranslationMessage, ChatMessage } from '../../types/translation';
 import { useTranslation } from '../../hooks/useTranslation';
 import { translationFlowService } from '../../services/translationFlowService';

@@ -8,14 +8,14 @@ const mockUsers = [
   { email: 'test@sema.ai', password: 'test123' }
 ];
 
-export default function LoginPage({ onLogin }) {
+export default function LoginPage({ onLogin }: { onLogin: (user: any) => void }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
@@ -25,7 +25,7 @@ export default function LoginPage({ onLogin }) {
     if (user) {
       // Store user info in localStorage
       localStorage.setItem('semaUser', JSON.stringify({ email: user.email, isLoggedIn: true }));
-      if (onLogin) onLogin();
+      if (onLogin) onLogin({ email, password });
       navigate('/');
     } else {
       setError('Invalid email or password');

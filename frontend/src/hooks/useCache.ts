@@ -29,8 +29,8 @@ export function useCache<T>(
   const {
     ttl = CACHE_TTL.TRANSLATIONS,
     storage = 'memory',
-    version,
-    refreshInterval
+    version
+    // refreshInterval - not currently used but reserved for future auto-refresh functionality
   } = options;
 
   const [data, setData] = useState<T | null>(null);

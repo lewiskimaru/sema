@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Copy, Check, X } from 'lucide-react';
 import { SimpleChatMessage } from '../../types/translation';
 

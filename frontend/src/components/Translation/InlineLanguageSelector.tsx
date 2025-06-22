@@ -9,10 +9,10 @@ interface Language {
   script: string;
 }
 
-interface LanguagesResponse {
-  languages: Record<string, Language>;
-  total_count: number;
-}
+// interface LanguagesResponse {
+//   languages: Record<string, Language>;
+//   total_count: number;
+// }
 
 interface InlineLanguageSelectorProps {
   isSource: boolean;
@@ -102,8 +102,8 @@ export default function InlineLanguageSelector({
       };
       const targetRegion = regionMap[activeFilter];
       baseLanguages = Object.entries(allLanguages).reduce((acc, [code, lang]) => {
-        if (lang.region === targetRegion || (isSource && code === 'auto')) {
-          acc[code] = lang;
+        if ((lang as Language).region === targetRegion || (isSource && code === 'auto')) {
+          acc[code] = lang as Language;
         }
         return acc;
       }, {} as Record<string, Language>);
@@ -123,14 +123,14 @@ export default function InlineLanguageSelector({
       // Special handling for auto-detect
       if (code === 'auto') {
         if (query.includes('auto') || query.includes('detect')) {
-          acc[code] = lang;
+          acc[code] = lang as Language;
         }
       } else if (
-        lang.name.toLowerCase().includes(query) ||
-        lang.native_name.toLowerCase().includes(query) ||
+        (lang as Language).name.toLowerCase().includes(query) ||
+        (lang as Language).native_name.toLowerCase().includes(query) ||
         code.toLowerCase().includes(query)
       ) {
-        acc[code] = lang;
+        acc[code] = lang as Language;
       }
       return acc;
     }, {} as Record<string, Language>);

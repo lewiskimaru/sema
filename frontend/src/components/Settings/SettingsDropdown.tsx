@@ -11,7 +11,7 @@ interface SettingsItem {
   label: string;
   icon: React.ReactNode;
   description: string;
-  component?: React.ComponentType;
+  component?: React.ComponentType<{ isSubmenu?: boolean }>;
   isActive: boolean;
 }
 
@@ -22,7 +22,7 @@ export default function SettingsDropdown({ className = '' }: SettingsDropdownPro
   const [buttonPosition, setButtonPosition] = useState({ top: 0, right: 0 });
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const submenuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const submenuTimeoutRef = useRef<number | null>(null);
 
   const settingsItems: SettingsItem[] = [
     {

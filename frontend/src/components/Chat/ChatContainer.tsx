@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import InputArea from './InputArea';
 import { MessageContainer, TranslationMessage as TranslationMessageComponent, ChatMessage as ChatMessageComponent } from '../Messages';
 import { useTranslation } from '../../hooks/useTranslation';
-import { TranslationMessage, ChatMessage, ChatFlowMessage, ChatProcessingState } from '../../types/translation';
+import { TranslationMessage, ChatMessage, ChatProcessingState } from '../../types/translation';
 import { translationFlowService } from '../../services/translationFlowService';
 
 interface ChatContainerProps {
@@ -81,7 +81,7 @@ export default function ChatContainer({ isCentered = false, onFirstMessage }: Ch
           ? {
               ...msg,
               isLoading: false,
-              translationResult: translation.result,
+              translationResult: translation.result || undefined,
               error: undefined
             }
           : msg
@@ -104,7 +104,7 @@ export default function ChatContainer({ isCentered = false, onFirstMessage }: Ch
           ? {
               ...msg,
               isLoading: false,
-              error: translation.error,
+              error: translation.error || undefined,
               translationResult: undefined
             }
           : msg
@@ -160,14 +160,13 @@ export default function ChatContainer({ isCentered = false, onFirstMessage }: Ch
 
       try {
         console.log('🚀 [ChatContainer] Starting translation process...');
-        let result;
 
         if (translationMsg.sourceLanguage === 'auto') {
           console.log('🔍 [ChatContainer] Using auto-detect translation');
-          result = await translation.translateWithAutoDetect(translationMsg.text, translationMsg.targetLanguage);
+          await translation.translateWithAutoDetect(translationMsg.text, translationMsg.targetLanguage);
         } else {
           console.log('🎯 [ChatContainer] Using source-specified translation');
-          result = await translation.translateWithSource(
+          await translation.translateWithSource(
             translationMsg.text,
             translationMsg.sourceLanguage,
             translationMsg.targetLanguage
@@ -230,7 +229,7 @@ export default function ChatContainer({ isCentered = false, onFirstMessage }: Ch
           mode: 'chat',
           isLoading: false,
           chatFlowResult: flowResult,
-          processingState: 'complete'
+          processingState: 'complete' as ChatProcessingState
         };
 
         // Update user message with results and add AI response
@@ -241,7 +240,7 @@ export default function ChatContainer({ isCentered = false, onFirstMessage }: Ch
                   ...msg,
                   isLoading: false,
                   chatFlowResult: flowResult,
-                  processingState: 'complete',
+                  processingState: 'complete' as ChatProcessingState,
                   processingStep: undefined
                 }
               : msg
@@ -259,7 +258,7 @@ export default function ChatContainer({ isCentered = false, onFirstMessage }: Ch
                 ...msg,
                 isLoading: false,
                 error: error.message || 'Chat failed',
-                processingState: 'error',
+                processingState: 'error' as ChatProcessingState,
                 processingStep: undefined
               }
             : msg

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, Eye, EyeOff } from 'lucide-react';
 import TopBar from '../TopBar';
 
-export default function SignupPage({ onSignup }) {
+export default function SignupPage({ onSignup }: { onSignup: (user: any) => void }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -11,7 +11,7 @@ export default function SignupPage({ onSignup }) {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSignup = (e) => {
+  const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
 
     // In a real app, this would send data to a server
@@ -23,7 +23,7 @@ export default function SignupPage({ onSignup }) {
         isLoggedIn: true
       }));
 
-      if (onSignup) onSignup();
+      if (onSignup) onSignup({ email, password, name });
       navigate('/');
     } catch (err) {
       setError('Error creating account. Please try again.');

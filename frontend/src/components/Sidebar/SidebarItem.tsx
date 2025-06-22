@@ -1,4 +1,4 @@
-import { ReactNode, useState, useRef, useEffect } from 'react';
+import { ReactNode, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 interface SidebarItemProps {
@@ -17,32 +17,33 @@ export default function SidebarItem({
   to,
   onClick,
   isActive = false,
-  isNew = false,
-  extensionContent
+  isNew = false
+  // extensionContent - reserved for future extension functionality
 }: SidebarItemProps) {
-  const [showExtension, setShowExtension] = useState(false);
+  // Extension functionality is prepared but not currently used
+  // const [showExtension, setShowExtension] = useState(false);
   // Change from NodeJS.Timeout to number type which is compatible with setTimeout/clearTimeout
   const extensionTimeoutRef = useRef<number | null>(null);
   const itemRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseEnter = () => {
-    if (extensionTimeoutRef.current) {
-      clearTimeout(extensionTimeoutRef.current);
-      extensionTimeoutRef.current = null;
-    }
+  // const handleMouseEnter = () => {
+  //   if (extensionTimeoutRef.current) {
+  //     clearTimeout(extensionTimeoutRef.current);
+  //     extensionTimeoutRef.current = null;
+  //   }
 
-    if (extensionContent) {
-      setShowExtension(true);
-    }
-  };
+  //   if (extensionContent) {
+  //     setShowExtension(true);
+  //   }
+  // };
 
-  const handleMouseLeave = () => {
-    if (extensionContent) {
-      extensionTimeoutRef.current = setTimeout(() => {
-        setShowExtension(false);
-      }, 300); // Slight delay before hiding extension
-    }
-  };
+  // const handleMouseLeave = () => {
+  //   if (extensionContent) {
+  //     extensionTimeoutRef.current = setTimeout(() => {
+  //       setShowExtension(false);
+  //     }, 300); // Slight delay before hiding extension
+  //   }
+  // };
 
   useEffect(() => {
     return () => {
