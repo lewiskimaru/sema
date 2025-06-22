@@ -81,9 +81,12 @@ export default function MessageList({ messages }: MessageListProps) {
             }`}>
               {/* Loading State */}
               {message.isLoading ? (
-                <div className="flex items-center space-x-2 text-[#666]">
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[#666]"></div>
-                  <span>Translating...</span>
+                <div className="flex items-center space-x-1">
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 bg-[#999] rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-[#999] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                    <div className="w-2 h-2 bg-[#999] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                  </div>
                 </div>
               ) : (
                 <>
@@ -95,6 +98,30 @@ export default function MessageList({ messages }: MessageListProps) {
                     <div className="mt-2 pt-2 border-t border-[#E5E5E5]">
                       <div className="text-sm text-[#666]">
                         Translation ({message.translationData.sourceLanguage} → {message.translationData.targetLanguage})
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Chat Data for User Messages */}
+                  {message.role === 'user' && message.chatData && message.chatData.translationUsed && (
+                    <div className="mt-2 pt-2 border-t border-[#E5E5E5]">
+                      <div className="text-sm text-[#666]">
+                        Translated from {message.chatData.detectedLanguage}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Chat Metadata for AI Messages */}
+                  {message.role === 'assistant' && message.chatData && (
+                    <div className="mt-2 pt-2 border-t border-[#E5E5E5]">
+                      <div className="text-sm text-[#666] space-y-1">
+                        <div>Model: {message.chatData.model}</div>
+                        {message.chatData.tokens && (
+                          <div>Tokens: {message.chatData.tokens}</div>
+                        )}
+                        {message.chatData.processingTime && (
+                          <div>Time: {message.chatData.processingTime.toFixed(2)}s</div>
+                        )}
                       </div>
                     </div>
                   )}

@@ -88,4 +88,29 @@ export interface SimpleChatMessage {
     targetLanguage: string;
     translatedText?: string;
   };
+  // For chat messages with translation flow
+  chatData?: {
+    originalText?: string;
+    translatedText?: string;
+    detectedLanguage?: string;
+    model?: string;
+    processingTime?: number;
+    tokens?: number;
+    translationUsed?: boolean;
+  };
+}
+
+// Chat processing states
+export type ChatProcessingState =
+  | 'detecting'     // Detecting language
+  | 'translating'   // Translating to English
+  | 'chatting'      // Getting AI response
+  | 'responding'    // Translating response back
+  | 'complete'      // Process complete
+  | 'error';        // Error occurred
+
+// Enhanced message for chat with translation flow
+export interface ChatFlowMessage extends SimpleChatMessage {
+  processingState?: ChatProcessingState;
+  processingStep?: string;
 }

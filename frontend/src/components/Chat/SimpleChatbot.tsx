@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { SimpleChatMessage, TranslationMessage, ChatMessage } from '../../types/translation';
 import { useTranslation } from '../../hooks/useTranslation';
+import { translationFlowService } from '../../services/translationFlowService';
 import MessageList from './MessageList';
 import InputArea from './InputArea';
 
@@ -51,7 +52,7 @@ export default function SimpleChatbot({ isCentered = false, onFirstMessage }: Si
       const aiMessage: SimpleChatMessage = {
         id: aiMessageId,
         role: 'assistant',
-        content: 'Translating...',
+        content: '', // Empty content, dots animation will be shown
         timestamp: new Date(),
         isLoading: true,
         translationData: {
@@ -115,8 +116,10 @@ export default function SimpleChatbot({ isCentered = false, onFirstMessage }: Si
       }
 
     } else {
-      // Handle regular chat messages
+      // Handle chat messages with translation flow
       const chatMsg = messageContent as ChatMessage;
+
+      // 1. Add user message immediately
       const userMessage: SimpleChatMessage = {
         id: generateId(),
         role: 'user',
@@ -124,8 +127,84 @@ export default function SimpleChatbot({ isCentered = false, onFirstMessage }: Si
         timestamp: new Date()
       };
 
-      setMessages(prev => [...prev, userMessage]);
-      console.log('✅ [SimpleChatbot] Added chat message');
+      // 2. Add loading AI message
+      const aiMessageId = generateId();
+      const aiMessage: SimpleChatMessage = {
+        id: aiMessageId,
+        role: 'assistant',
+        content: '', // Empty content, dots animation will be shown
+        timestamp: new Date(),
+        isLoading: true
+      };
+
+      // Add both messages to state
+      setMessages(prev => [...prev, userMessage, aiMessage]);
+      console.log('✅ [SimpleChatbot] Added user message and loading AI message');
+
+      // 3. Process chat with translation flow
+      try {
+        console.log('🤖 [SimpleChatbot] Starting chat translation flow...');
+
+        // The loading dots animation will be shown automatically
+
+        // Process the complete flow
+        const flowResult = await translationFlowService.processMessage({
+          text: chatMsg.text,
+          conversationHistory: [] // TODO: Add conversation history
+        });
+
+        console.log('✅ [SimpleChatbot] Chat translation flow completed');
+
+        // Update user message with chat data
+        setMessages(prev => prev.map(msg => {
+          if (msg.id === userMessage.id) {
+            return {
+              ...msg,
+              chatData: {
+                originalText: flowResult.userMessage.original,
+                translatedText: flowResult.userMessage.translated,
+                detectedLanguage: flowResult.userMessage.detectedLanguage,
+                model: flowResult.metadata.model,
+                processingTime: flowResult.metadata.processingTime,
+                tokens: flowResult.metadata.tokens,
+                translationUsed: flowResult.metadata.translationUsed
+              }
+            };
+          }
+          if (msg.id === aiMessageId) {
+            return {
+              ...msg,
+              content: flowResult.aiResponse.displayText,
+              isLoading: false,
+              chatData: {
+                originalText: flowResult.aiResponse.original,
+                translatedText: flowResult.aiResponse.translated,
+                detectedLanguage: flowResult.metadata.sourceLanguage,
+                model: flowResult.metadata.model,
+                processingTime: flowResult.metadata.processingTime,
+                tokens: flowResult.metadata.tokens,
+                translationUsed: flowResult.metadata.translationUsed
+              }
+            };
+          }
+          return msg;
+        }));
+
+      } catch (error: any) {
+        console.error('❌ [SimpleChatbot] Chat translation flow failed:', error);
+
+        // Update AI message with error
+        setMessages(prev => prev.map(msg =>
+          msg.id === aiMessageId
+            ? {
+                ...msg,
+                content: 'Chat failed. Please try again.',
+                isLoading: false,
+                error: true
+              }
+            : msg
+        ));
+      }
     }
   };
 

@@ -107,6 +107,45 @@ body {
   }
 }
 
+/* Loading screen shimmer animation */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.loading-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+/* Mobile menu animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobile-menu-enter {
+  animation: slideDown 0.2s ease-out;
+}
+
+/* Ensure mobile menu is properly positioned */
+.mobile-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 40;
+}
+
 .message-user {
   @apply bg-[#F5F5F5] rounded-lg p-4 max-w-[80%] ml-auto border border-[#E5E5E5];
 }

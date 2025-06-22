@@ -93,7 +93,7 @@ class TranslationAPIService {
     });
 
     // Validate request
-    if (!request.text.trim()) {
+    if (!request.text || !request.text.trim()) {
       console.error('❌ [TranslationAPI] Validation failed: Empty text');
       throw new Error('Text cannot be empty');
     }
@@ -135,7 +135,7 @@ class TranslationAPIService {
   async detectLanguage(request: LanguageDetectionRequest): Promise<LanguageDetectionResponse> {
     const endpoint = '/api/v1/detect-language';
 
-    if (!request.text.trim()) {
+    if (!request.text || !request.text.trim()) {
       throw new Error('Text cannot be empty');
     }
 

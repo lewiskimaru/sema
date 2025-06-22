@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Service Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-result {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .loading {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .user-message {
+            background-color: #e3f2fd;
+            text-align: right;
+        }
+        .ai-message {
+            background-color: #f5f5f5;
+            text-align: left;
+        }
+        .metadata {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 5px;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chat Service Test</h1>
+    <p>This page tests the chat service with translation flow integration.</p>
+
+    <div class="test-container">
+        <h2>Environment Check</h2>
+        <div id="env-check">
+            <div class="loading">Checking environment...</div>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>Translation Flow Test</h2>
+        <p>Test the complete chat flow with language detection and translation.</p>
+        
+        <div>
+            <label for="test-message">Test Message:</label><br>
+            <input type="text" id="test-message" value="Hola, ¿cómo estás?" style="width: 100%; padding: 8px; margin: 5px 0;">
+        </div>
+        
+        <button onclick="testTranslationFlow()" id="test-flow-btn">Test Translation Flow</button>
+        <button onclick="testEnglishMessage()" id="test-english-btn">Test English Message</button>
+        <button onclick="testSwahiliMessage()" id="test-swahili-btn">Test Swahili Message</button>
+        
+        <div id="flow-results"></div>
+    </div>
+
+    <div class="test-container">
+        <h2>Chat Conversation</h2>
+        <p>Interactive chat test with the translation flow.</p>
+        
+        <div id="chat-messages"></div>
+        
+        <div style="margin-top: 20px;">
+            <input type="text" id="chat-input" placeholder="Type your message..." style="width: 70%; padding: 8px;">
+            <button onclick="sendChatMessage()" id="send-btn">Send</button>
+        </div>
+    </div>
+
+    <script type="module">
+        // Environment check
+        async function checkEnvironment() {
+            const envCheck = document.getElementById('env-check');
+            
+            try {
+                // Check if HF token is available
+                const hasToken = !!import.meta.env.VITE_HF_TOKEN;
+                const apiUrl = import.meta.env.VITE_API_URL;
+                
+                let html = '';
+                
+                if (hasToken) {
+                    html += '<div class="success">✓ HuggingFace token configured</div>';
+                } else {
+                    html += '<div class="error">✗ HuggingFace token missing</div>';
+                }
+                
+                if (apiUrl) {
+                    html += `<div class="success">✓ API URL configured: ${apiUrl}</div>`;
+                } else {
+                    html += '<div class="error">✗ API URL missing</div>';
+                }
+                
+                // Test API connectivity
+                try {
+                    const response = await fetch(`${apiUrl}/status`);
+                    if (response.ok) {
+                        html += '<div class="success">✓ Translation API is accessible</div>';
+                    } else {
+                        html += '<div class="error">✗ Translation API returned error</div>';
+                    }
+                } catch (error) {
+                    html += `<div class="error">✗ Translation API not accessible: ${error.message}</div>`;
+                }
+                
+                envCheck.innerHTML = html;
+                
+            } catch (error) {
+                envCheck.innerHTML = `<div class="error">Environment check failed: ${error.message}</div>`;
+            }
+        }
+
+        // Test translation flow
+        window.testTranslationFlow = async function() {
+            const btn = document.getElementById('test-flow-btn');
+            const results = document.getElementById('flow-results');
+            const message = document.getElementById('test-message').value;
+            
+            btn.disabled = true;
+            results.innerHTML = '<div class="loading">Testing translation flow...</div>';
+            
+            try {
+                // Import the translation flow service
+                const { translationFlowService } = await import('/src/services/translationFlowService.ts');
+                
+                const startTime = Date.now();
+                const result = await translationFlowService.processMessage({
+                    text: message,
+                    conversationHistory: []
+                });
+                const endTime = Date.now();
+                
+                const html = `
+                    <div class="success">✓ Translation flow completed in ${endTime - startTime}ms</div>
+                    <div class="message user-message">
+                        <strong>User:</strong> ${result.userMessage.displayText}
+                        <div class="metadata">
+                            Original: ${result.userMessage.original}<br>
+                            ${result.userMessage.translated ? `Translated: ${result.userMessage.translated}<br>` : ''}
+                            Detected Language: ${result.userMessage.detectedLanguage}
+                        </div>
+                    </div>
+                    <div class="message ai-message">
+                        <strong>AI:</strong> ${result.aiResponse.displayText}
+                        <div class="metadata">
+                            Original: ${result.aiResponse.original}<br>
+                            ${result.aiResponse.translated ? `Translated: ${result.aiResponse.translated}<br>` : ''}
+                            Model: ${result.metadata.model}<br>
+                            Processing Time: ${result.metadata.processingTime.toFixed(2)}s<br>
+                            Translation Used: ${result.metadata.translationUsed ? 'Yes' : 'No'}
+                        </div>
+                    </div>
+                    <details>
+                        <summary>Full Response Data</summary>
+                        <pre>${JSON.stringify(result, null, 2)}</pre>
+                    </details>
+                `;
+                
+                results.innerHTML = html;
+                
+            } catch (error) {
+                results.innerHTML = `<div class="error">✗ Translation flow failed: ${error.message}</div>`;
+                console.error('Translation flow error:', error);
+            } finally {
+                btn.disabled = false;
+            }
+        };
+
+        // Test with English message
+        window.testEnglishMessage = function() {
+            document.getElementById('test-message').value = 'Hello, how are you today?';
+            testTranslationFlow();
+        };
+
+        // Test with Swahili message
+        window.testSwahiliMessage = function() {
+            document.getElementById('test-message').value = 'Habari ya asubuhi, hujambo?';
+            testTranslationFlow();
+        };
+
+        // Chat functionality
+        let chatHistory = [];
+        
+        window.sendChatMessage = async function() {
+            const input = document.getElementById('chat-input');
+            const messages = document.getElementById('chat-messages');
+            const btn = document.getElementById('send-btn');
+            
+            const message = input.value.trim();
+            if (!message) return;
+            
+            btn.disabled = true;
+            input.value = '';
+            
+            // Add user message
+            const userDiv = document.createElement('div');
+            userDiv.className = 'message user-message';
+            userDiv.innerHTML = `<strong>You:</strong> ${message}`;
+            messages.appendChild(userDiv);
+            
+            // Add loading AI message
+            const aiDiv = document.createElement('div');
+            aiDiv.className = 'message ai-message';
+            aiDiv.innerHTML = '<strong>AI:</strong> <em>Processing...</em>';
+            messages.appendChild(aiDiv);
+            
+            try {
+                const { translationFlowService } = await import('/src/services/translationFlowService.ts');
+                
+                const result = await translationFlowService.processMessage({
+                    text: message,
+                    conversationHistory: chatHistory
+                });
+                
+                // Update AI message
+                aiDiv.innerHTML = `
+                    <strong>AI:</strong> ${result.aiResponse.displayText}
+                    <div class="metadata">
+                        ${result.metadata.translationUsed ? `Translated conversation (${result.metadata.sourceLanguage})` : 'Direct conversation'} • 
+                        ${result.metadata.processingTime.toFixed(2)}s
+                    </div>
+                `;
+                
+                // Add to chat history
+                chatHistory.push(
+                    { role: 'user', content: result.userMessage.translated || result.userMessage.original },
+                    { role: 'assistant', content: result.aiResponse.original }
+                );
+                
+                // Keep only last 10 messages
+                if (chatHistory.length > 20) {
+                    chatHistory = chatHistory.slice(-20);
+                }
+                
+            } catch (error) {
+                aiDiv.innerHTML = `<strong>AI:</strong> <em>Error: ${error.message}</em>`;
+                console.error('Chat error:', error);
+            } finally {
+                btn.disabled = false;
+                messages.scrollTop = messages.scrollHeight;
+            }
+        };
+
+        // Allow Enter key to send message
+        document.getElementById('chat-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendChatMessage();
+            }
+        });
+
+        // Initialize
+        checkEnvironment();
+    </script>
+</body>
+</html>

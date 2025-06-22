@@ -28,9 +28,9 @@ export default function ChatMessage({
   return (
     <BaseMessage
       content={
-        isLoading 
-          ? 'Thinking...' 
-          : error 
+        isLoading
+          ? 'Thinking...'
+          : error
             ? `Error: ${error}`
             : content
       }
@@ -45,13 +45,12 @@ export default function ChatMessage({
           {/* Loading State */}
           {isLoading && (
             <div className="loading-indicator mt-3">
-              <div className="flex items-center gap-2 text-xs text-[#666]">
+              <div className="flex items-center text-xs text-[#666]">
                 <div className="flex space-x-1">
-                  <div className="w-1 h-1 bg-[#666] rounded-full animate-bounce"></div>
-                  <div className="w-1 h-1 bg-[#666] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                  <div className="w-1 h-1 bg-[#666] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                  <div className="w-2 h-2 bg-[#666] rounded-full animate-bounce"></div>
+                  <div className="w-2 h-2 bg-[#666] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                  <div className="w-2 h-2 bg-[#666] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                 </div>
-                <span>AI is thinking...</span>
               </div>
             </div>
           )}

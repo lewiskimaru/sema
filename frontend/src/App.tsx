@@ -7,6 +7,7 @@ import DeveloperPage from './components/Pages/DeveloperPage';
 import LoginPage from './components/Auth/LoginPage';
 import SignupPage from './components/Auth/SignupPage';
 import ForgotPasswordPage from './components/Auth/ForgotPasswordPage';
+import LoadingScreen from './components/LoadingScreen';
 import './index.css';
 
 function App() {
@@ -14,25 +15,40 @@ function App() {
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    // Check if user is logged in
-    const user = localStorage.getItem('semaUser');
-    if (user) {
-      try {
-        const userData = JSON.parse(user);
-        if (userData.isLoggedIn) {
-          setIsLoggedIn(true);
-        } else {
+    const initializeApp = async () => {
+      // Add minimum loading time for better UX
+      const startTime = Date.now();
+      const minLoadingTime = 1500; // 1.5 seconds minimum
+
+      // Check if user is logged in
+      const user = localStorage.getItem('semaUser');
+      if (user) {
+        try {
+          const userData = JSON.parse(user);
+          if (userData.isLoggedIn) {
+            setIsLoggedIn(true);
+          } else {
+            localStorage.removeItem('semaUser');
+            setIsLoggedIn(false);
+          }
+        } catch (error) {
           localStorage.removeItem('semaUser');
           setIsLoggedIn(false);
         }
-      } catch (error) {
-        localStorage.removeItem('semaUser');
+      } else {
         setIsLoggedIn(false);
       }
-    } else {
-      setIsLoggedIn(false);
-    }
-    setIsInitialized(true);
+
+      // Ensure minimum loading time
+      const elapsedTime = Date.now() - startTime;
+      const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
+
+      setTimeout(() => {
+        setIsInitialized(true);
+      }, remainingTime);
+    };
+
+    initializeApp();
   }, []);
 
   const handleLogout = () => {
@@ -45,7 +61,7 @@ function App() {
   };
 
   if (!isInitialized) {
-    return <div>Loading...</div>;
+    return <LoadingScreen />;
   }
 
   return (

@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import InputArea from './InputArea';
 import { MessageContainer, TranslationMessage as TranslationMessageComponent, ChatMessage as ChatMessageComponent } from '../Messages';
 import { useTranslation } from '../../hooks/useTranslation';
-import { TranslationMessage, ChatMessage } from '../../types/translation';
+import { TranslationMessage, ChatMessage, ChatFlowMessage, ChatProcessingState } from '../../types/translation';
+import { translationFlowService } from '../../services/translationFlowService';
 
 interface ChatContainerProps {
   isCentered?: boolean;
@@ -25,6 +26,32 @@ interface Message {
     confidence_score?: number;
     processing_time?: number;
   };
+  // For chat messages with translation flow
+  chatFlowResult?: {
+    userMessage: {
+      original: string;
+      translated?: string;
+      detectedLanguage: string;
+      displayText: string;
+    };
+    aiResponse: {
+      original: string;
+      translated?: string;
+      targetLanguage: string;
+      displayText: string;
+    };
+    metadata: {
+      model: string;
+      processingTime: number;
+      tokens?: number;
+      translationUsed: boolean;
+      sourceLanguage: string;
+      targetLanguage: string;
+    };
+  };
+  // Processing state for chat flow
+  processingState?: ChatProcessingState;
+  processingStep?: string;
 }
 
 export default function ChatContainer({ isCentered = false, onFirstMessage }: ChatContainerProps) {
@@ -109,7 +136,9 @@ export default function ChatContainer({ isCentered = false, onFirstMessage }: Ch
       timestamp: new Date(),
       content: messageContent,
       mode,
-      isLoading: mode === 'translate' // Set loading for translation messages
+      isLoading: mode === 'translate' || mode === 'chat', // Set loading for both translation and chat messages
+      processingState: mode === 'chat' ? 'detecting' : undefined,
+      processingStep: mode === 'chat' ? 'Detecting language...' : undefined
     };
 
     // Add user message to history immediately
@@ -153,6 +182,89 @@ export default function ChatContainer({ isCentered = false, onFirstMessage }: Ch
         // Note: useEffect will handle updating the message with errors
       }
       // Note: currentTranslationId will be cleared by useEffect when result/error is received
+    }
+
+    // Handle chat with translation flow
+    if (mode === 'chat') {
+      const chatMsg = messageContent as ChatMessage;
+
+      try {
+        console.log('🤖 [ChatContainer] Starting chat translation flow...');
+
+        // Update processing state
+        const updateProcessingState = (state: ChatProcessingState, step: string) => {
+          setMessages(prev => prev.map(msg =>
+            msg.id === messageId
+              ? { ...msg, processingState: state, processingStep: step }
+              : msg
+          ));
+        };
+
+        // Step 1: Language detection
+        updateProcessingState('detecting', 'Detecting language...');
+
+        // Step 2: Translation (if needed)
+        updateProcessingState('translating', 'Translating to English...');
+
+        // Step 3: Chat API
+        updateProcessingState('chatting', 'AI is thinking...');
+
+        // Step 4: Response translation (if needed)
+        updateProcessingState('responding', 'Translating response...');
+
+        // Process the complete flow
+        const flowResult = await translationFlowService.processMessage({
+          text: chatMsg.text,
+          conversationHistory: [] // TODO: Add conversation history from previous messages
+        });
+
+        console.log('✅ [ChatContainer] Chat translation flow completed');
+
+        // Add AI response message
+        const aiMessageId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        const aiMessage: Message = {
+          id: aiMessageId,
+          type: 'chat',
+          timestamp: new Date(),
+          content: { text: flowResult.aiResponse.displayText },
+          mode: 'chat',
+          isLoading: false,
+          chatFlowResult: flowResult,
+          processingState: 'complete'
+        };
+
+        // Update user message with results and add AI response
+        setMessages(prev => [
+          ...prev.map(msg =>
+            msg.id === messageId
+              ? {
+                  ...msg,
+                  isLoading: false,
+                  chatFlowResult: flowResult,
+                  processingState: 'complete',
+                  processingStep: undefined
+                }
+              : msg
+          ),
+          aiMessage
+        ]);
+
+      } catch (error: any) {
+        console.error('❌ [ChatContainer] Chat translation flow failed:', error);
+
+        // Update message with error
+        setMessages(prev => prev.map(msg =>
+          msg.id === messageId
+            ? {
+                ...msg,
+                isLoading: false,
+                error: error.message || 'Chat failed',
+                processingState: 'error',
+                processingStep: undefined
+              }
+            : msg
+        ));
+      }
     }
   };
 
@@ -251,16 +363,39 @@ export default function ChatContainer({ isCentered = false, onFirstMessage }: Ch
           </div>
         );
       } else {
+        // Chat message
+        const isUserMessage = !message.chatFlowResult || message.id.includes(message.timestamp.getTime().toString());
+        const displayContent = isUserMessage
+          ? (message.content as ChatMessage).text
+          : message.chatFlowResult?.aiResponse.displayText || (message.content as ChatMessage).text;
+
         return (
           <div key={message.id}>
             <ChatMessageComponent
-              content={(message.content as ChatMessage).text}
-              isUser={true}
+              content={displayContent}
+              isUser={isUserMessage}
               timestamp={message.timestamp}
-              onEdit={() => handleEditMessage(message.id)}
+              onEdit={isUserMessage ? () => handleEditMessage(message.id) : undefined}
               isLoading={message.isLoading || false}
               error={message.error}
+              metadata={message.chatFlowResult ? {
+                model: message.chatFlowResult.metadata.model,
+                tokens: message.chatFlowResult.metadata.tokens,
+                processingTime: message.chatFlowResult.metadata.processingTime
+              } : undefined}
             />
+            {/* Show processing state for chat messages */}
+            {message.processingState && message.processingState !== 'complete' && message.processingStep && (
+              <div className="text-xs text-gray-500 mt-1 ml-4">
+                {message.processingStep}
+              </div>
+            )}
+            {/* Show translation metadata for user messages if translation was used */}
+            {isUserMessage && message.chatFlowResult?.metadata.translationUsed && (
+              <div className="text-xs text-gray-500 mt-1 ml-4">
+                Translated from {message.chatFlowResult.userMessage.detectedLanguage}
+              </div>
+            )}
           </div>
         );
       }
