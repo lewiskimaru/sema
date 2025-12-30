@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { SimpleChatMessage, TranslationMessage, ChatMessage } from '../../types/translation';
 import { useTranslation } from '../../hooks/useTranslation';
 import { translationFlowService } from '../../services/translationFlowService';
@@ -8,9 +8,10 @@ import InputArea from './InputArea';
 interface SimpleChatbotProps {
   isCentered?: boolean;
   onFirstMessage?: () => void;
+  welcomeContent?: React.ReactNode;
 }
 
-export default function SimpleChatbot({ isCentered = false, onFirstMessage }: SimpleChatbotProps) {
+export default function SimpleChatbot({ isCentered = false, onFirstMessage, welcomeContent }: SimpleChatbotProps) {
   const [messages, setMessages] = useState<SimpleChatMessage[]>([]);
   const translation = useTranslation();
 
@@ -87,15 +88,15 @@ export default function SimpleChatbot({ isCentered = false, onFirstMessage }: Si
         setMessages(prev => prev.map(msg =>
           msg.id === aiMessageId
             ? {
-                ...msg,
-                content: result?.translated_text?.trim() || 'Translation failed',
-                isLoading: false,
-                error: !result,
-                translationData: {
-                  ...msg.translationData!,
-                  translatedText: result?.translated_text?.trim()
-                }
+              ...msg,
+              content: result?.translated_text?.trim() || 'Translation failed',
+              isLoading: false,
+              error: !result,
+              translationData: {
+                ...msg.translationData!,
+                translatedText: result?.translated_text?.trim()
               }
+            }
             : msg
         ));
 
@@ -106,11 +107,11 @@ export default function SimpleChatbot({ isCentered = false, onFirstMessage }: Si
         setMessages(prev => prev.map(msg =>
           msg.id === aiMessageId
             ? {
-                ...msg,
-                content: 'Translation failed',
-                isLoading: false,
-                error: true
-              }
+              ...msg,
+              content: 'Translation failed',
+              isLoading: false,
+              error: true
+            }
             : msg
         ));
       }
@@ -197,11 +198,11 @@ export default function SimpleChatbot({ isCentered = false, onFirstMessage }: Si
         setMessages(prev => prev.map(msg =>
           msg.id === aiMessageId
             ? {
-                ...msg,
-                content: 'Chat failed. Please try again.',
-                isLoading: false,
-                error: true
-              }
+              ...msg,
+              content: 'Chat failed. Please try again.',
+              isLoading: false,
+              error: true
+            }
             : msg
         ));
       }
@@ -218,7 +219,12 @@ export default function SimpleChatbot({ isCentered = false, onFirstMessage }: Si
       // Pre-message: Center the input area vertically
       return (
         <div className="flex flex-col h-full">
-          <div className="flex-1 flex items-center justify-center min-h-0">
+          <div className="flex-1 flex flex-col items-center justify-center min-h-0 overflow-y-auto">
+            {welcomeContent && (
+              <div className="w-full max-w-[800px] mb-8 px-4 flex justify-center">
+                {welcomeContent}
+              </div>
+            )}
             <div className="w-full max-w-[800px] mx-auto p-4">
               <InputArea
                 onSendMessage={handleSendMessage}

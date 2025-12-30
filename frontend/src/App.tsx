@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import TopBar from './components/TopBar';
-import HomePage from './components/Pages/HomePage';
-import AboutPage from './components/Pages/AboutPage';
-import DeveloperPage from './components/Pages/DeveloperPage';
+import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
+import DeveloperPage from './pages/DeveloperPage';
 import LoginPage from './components/Auth/LoginPage';
 import SignupPage from './components/Auth/SignupPage';
 import ForgotPasswordPage from './components/Auth/ForgotPasswordPage';
@@ -66,7 +66,7 @@ function App() {
 
   return (
     <Router>
-      <div className="h-screen flex flex-col bg-white" style={{ fontFamily: 'Outfit, sans-serif' }}>
+      <div className="h-[100dvh] flex flex-col bg-white" style={{ fontFamily: 'Outfit, sans-serif' }}>
         <Routes>
           {/* Auth routes */}
           <Route path="/login" element={!isLoggedIn ? <LoginPage onLogin={handleLogin} /> : <Navigate to="/" />} />

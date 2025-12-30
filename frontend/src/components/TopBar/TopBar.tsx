@@ -56,30 +56,14 @@ export default function TopBar({
   if (!isLoggedIn) {
     return (
       <>
-        <div className="border-b border-[#E5E5E5] bg-white px-6 py-3 flex justify-between items-center relative z-50">
+        <div className="bg-white px-6 py-3 flex justify-between items-center relative z-50">
           {/* Logo - Smaller size */}
           <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
-            <img
-              src="/logo/logo.png"
-              alt="Sema AI Logo"
-              className="h-6 w-auto"
-            />
+            <span className="text-xl font-semibold text-black tracking-tight">Sema</span>
           </Link>
 
           {/* Desktop Auth Actions - Hidden on mobile */}
           <div className="hidden md:flex items-center gap-2">
-            <Link
-              to="/login"
-              className="px-3 py-1.5 text-sm font-medium text-[#666666] hover:text-black transition-colors rounded-full hover:bg-[#F8F9FA]"
-            >
-              Login
-            </Link>
-            <Link
-              to="/signup"
-              className="px-3 py-1.5 text-sm font-medium bg-black text-white rounded-full hover:bg-[#333333] transition-colors shadow-sm"
-            >
-              Sign Up
-            </Link>
             <Link
               to="/developer"
               className="p-1.5 hover:bg-[#F5F5F5] rounded-full transition-colors"
@@ -122,39 +106,25 @@ export default function TopBar({
             />
             <div className="md:hidden mobile-menu mobile-menu-enter bg-white border-b border-[#E5E5E5] shadow-lg">
               <div className="px-6 py-4 space-y-3">
-              <Link
-                to="/login"
-                className="block w-full text-left px-4 py-3 text-sm font-medium text-[#666666] hover:text-black hover:bg-[#F8F9FA] rounded-lg transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Login
-              </Link>
-              <Link
-                to="/signup"
-                className="block w-full text-left px-4 py-3 text-sm font-medium bg-black text-white rounded-lg hover:bg-[#333333] transition-colors text-center"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Sign Up
-              </Link>
-              <div className="border-t border-[#E5E5E5] pt-3">
-                <Link
-                  to="/developer"
-                  className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-[#666666] hover:text-black hover:bg-[#F8F9FA] rounded-lg transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <Code size={18} />
-                  API Documentation
-                </Link>
-                <Link
-                  to="/about"
-                  className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-[#666666] hover:text-black hover:bg-[#F8F9FA] rounded-lg transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <Info size={18} />
-                  About Sema AI
-                </Link>
+                <div className="border-t border-[#E5E5E5] pt-3">
+                  <Link
+                    to="/developer"
+                    className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-[#666666] hover:text-black hover:bg-[#F8F9FA] rounded-lg transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Code size={18} />
+                    API Documentation
+                  </Link>
+                  <Link
+                    to="/about"
+                    className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-[#666666] hover:text-black hover:bg-[#F8F9FA] rounded-lg transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Info size={18} />
+                    About Sema AI
+                  </Link>
+                </div>
               </div>
-            </div>
             </div>
           </>
         )}
@@ -165,15 +135,11 @@ export default function TopBar({
   // Logged in - Show full app topbar with user menu
   return (
     <>
-      <div className="border-b border-[#E5E5E5] bg-white px-6 py-3 flex justify-between items-center relative z-50">
+      <div className="bg-white px-6 py-3 flex justify-between items-center relative z-50">
         <div className="flex items-center gap-4">
           {/* Logo */}
           <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
-            <img
-              src="/logo/logo-black.png"
-              alt="Sema AI Logo"
-              className="h-6 w-auto"
-            />
+            <span className="text-xl font-semibold text-black tracking-tight">Sema</span>
           </Link>
         </div>
 
@@ -241,30 +207,30 @@ export default function TopBar({
           />
           <div className="sm:hidden mobile-menu mobile-menu-enter bg-white border-b border-[#E5E5E5] shadow-lg">
             <div className="px-6 py-4 space-y-3">
-            <div className="flex items-center gap-3 px-4 py-3 bg-[#F8F9FA] rounded-lg">
-              <User size={18} className="text-[#666666]" />
-              <span className="text-sm font-medium text-[#333]">{userName}</span>
+              <div className="flex items-center gap-3 px-4 py-3 bg-[#F8F9FA] rounded-lg">
+                <User size={18} className="text-[#666666]" />
+                <span className="text-sm font-medium text-[#333]">{userName}</span>
+              </div>
+              <button
+                className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm font-medium text-[#666666] hover:text-black hover:bg-[#F8F9FA] rounded-lg transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <User size={18} />
+                Profile
+              </button>
+              <button
+                className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                onClick={() => {
+                  onLogout();
+                  setMobileMenuOpen(false);
+                }}
+              >
+                <LogOut size={18} />
+                Sign Out
+              </button>
             </div>
-            <button
-              className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm font-medium text-[#666666] hover:text-black hover:bg-[#F8F9FA] rounded-lg transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <User size={18} />
-              Profile
-            </button>
-            <button
-              className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-              onClick={() => {
-                onLogout();
-                setMobileMenuOpen(false);
-              }}
-            >
-              <LogOut size={18} />
-              Sign Out
-            </button>
           </div>
-          </div>
-          </>
+        </>
       )}
     </>
   );
