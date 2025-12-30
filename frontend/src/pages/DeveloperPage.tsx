@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Code, Globe, Zap, Shield, Copy, Check, ExternalLink } from 'lucide-react';
+import { Code, Globe, Zap, Shield, Copy, Check, ExternalLink, Terminal, FileJson, FileCode, Server, Info } from 'lucide-react';
 
 export default function DeveloperPage() {
   const [activeTab, setActiveTab] = useState('curl');
@@ -16,10 +16,10 @@ export default function DeveloperPage() {
   };
 
   const tabs = [
-    { id: 'curl', label: 'cURL', icon: '🌐' },
-    { id: 'javascript', label: 'JavaScript', icon: '🟨' },
-    { id: 'python', label: 'Python', icon: '🐍' },
-    { id: 'nodejs', label: 'Node.js', icon: '🟢' },
+    { id: 'curl', label: 'cURL', icon: <Terminal size={16} /> },
+    { id: 'javascript', label: 'JavaScript', icon: <FileJson size={16} /> },
+    { id: 'python', label: 'Python', icon: <FileCode size={16} /> },
+    { id: 'nodejs', label: 'Node.js', icon: <Server size={16} /> },
   ];
 
   const codeExamples = {
@@ -120,258 +120,183 @@ sema.translate("Habari ya asubuhi", "eng_Latn")
 
   return (
     <div className="flex-1 overflow-y-auto bg-white">
-      <div className="max-w-[800px] mx-auto p-6 space-y-8">
-        {/* Header */}
-        <div>
-          <h1 className="text-4xl font-bold mb-4">Sema API Documentation</h1>
-          <p className="text-xl text-[#555555]">
-            Integrate powerful AI translation into your applications
+      <div className="max-w-[1000px] mx-auto p-6 space-y-8">
+        {/* Intro */}
+        <div className="border-b border-gray-100 pb-8">
+          <p className="text-lg text-gray-600 max-w-2xl">
+            Integrate powerful AI translation into your applications. Free, fast, and easy to use.
           </p>
         </div>
 
-        {/* Free API Notice */}
-        <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-          <div className="flex items-start gap-4">
-            <Zap size={24} className="text-green-600 mt-1 flex-shrink-0" />
-            <div>
-              <h3 className="text-lg font-bold text-green-800 mb-2">Free API Access</h3>
-              <p className="text-green-700">
-                Our translation API is currently <strong>completely free</strong> to use!
-                No API keys required, no rate limits, no hidden costs.
-                Perfect for developers, researchers, and anyone building multilingual applications.
-              </p>
+        {/* Quick Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="p-4 border border-gray-200 rounded-lg">
+            <div className="flex items-center gap-2 mb-1">
+              <Globe className="text-gray-500" size={20} />
+              <span className="font-semibold">200+</span>
             </div>
+            <p className="text-sm text-gray-600">Languages Supported</p>
+          </div>
+          <div className="p-4 border border-gray-200 rounded-lg">
+            <div className="flex items-center gap-2 mb-1">
+              <Zap className="text-gray-500" size={20} />
+              <span className="font-semibold">Fast</span>
+            </div>
+            <p className="text-sm text-gray-600">Sub-second Latency</p>
+          </div>
+          <div className="p-4 border border-gray-200 rounded-lg">
+            <div className="flex items-center gap-2 mb-1">
+              <Code className="text-gray-500" size={20} />
+              <span className="font-semibold">REST</span>
+            </div>
+            <p className="text-sm text-gray-600">Simple Architecture</p>
+          </div>
+          <div className="p-4 border border-gray-200 rounded-lg">
+            <div className="flex items-center gap-2 mb-1">
+              <Shield className="text-gray-500" size={20} />
+              <span className="font-semibold">Public</span>
+            </div>
+            <p className="text-sm text-gray-600">No Auth Required</p>
           </div>
         </div>
 
-        {/* Key Features */}
-        <div>
-          <h2 className="text-3xl font-bold mb-6">API Features</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="flex items-start gap-4">
-              <Globe className="text-[#555555] mt-1 flex-shrink-0" size={24} />
-              <div>
-                <h3 className="text-lg font-bold mb-2">200+ Languages</h3>
-                <p className="text-[#555555]">
-                  Support for major world languages and many underrepresented languages
-                </p>
+        {/* Integration Section */}
+        <div className="flex flex-col gap-8">
+          {/* API Details */}
+          <div className="space-y-8">
+            {/* Endpoints Card */}
+            <div className="border border-gray-200 rounded-lg overflow-hidden">
+              <div className="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                <h3 className="font-semibold flex items-center gap-2">
+                  <Server size={18} /> Available Endpoints
+                </h3>
+              </div>
+              <div className="divide-y divide-gray-100">
+                <div className="p-4">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-mono font-medium">POST</span>
+                    <code className="text-sm font-mono text-gray-800">/translate</code>
+                  </div>
+                  <p className="text-sm text-gray-600 mb-2">Translate text between supported languages.</p>
+                  <div className="text-xs text-gray-500 font-mono bg-gray-50 p-2 rounded">
+                    {"{ text, target_language, source_language? }"}
+                  </div>
+                </div>
+                <div className="p-4">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-mono font-medium">POST</span>
+                    <code className="text-sm font-mono text-gray-800">/detect-language</code>
+                  </div>
+                  <p className="text-sm text-gray-600 mb-2">Identify the language of input text.</p>
+                  <div className="text-xs text-gray-500 font-mono bg-gray-50 p-2 rounded">
+                    {"{ text }"}
+                  </div>
+                </div>
+                <div className="p-4">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs font-mono font-medium">GET</span>
+                    <code className="text-sm font-mono text-gray-800">/languages</code>
+                  </div>
+                  <p className="text-sm text-gray-600">Retrieve a list of all 200+ supported languages and codes.</p>
+                </div>
               </div>
             </div>
 
-            <div className="flex items-start gap-4">
-              <Zap className="text-[#555555] mt-1 flex-shrink-0" size={24} />
-              <div>
-                <h3 className="text-lg font-bold mb-2">Fast & Reliable</h3>
-                <p className="text-[#555555]">
-                  High-performance translation with sub-second response times
-                </p>
+            {/* Code Examples Card */}
+            <div className="border border-gray-200 rounded-lg overflow-hidden">
+              <div className="bg-gray-50 border-b border-gray-200 flex overflow-x-auto">
+                {tabs.map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`px-4 py-3 text-sm font-medium flex items-center gap-2 transition-colors border-r border-gray-200 ${activeTab === tab.id
+                      ? 'bg-white text-black border-b-white -mb-px'
+                      : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
+                      }`}
+                  >
+                    {tab.icon}
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+              <div className="relative group">
+                <pre className="bg-gray-50 text-gray-800 p-4 text-sm font-mono overflow-x-auto min-h-[300px] border-t border-gray-100">
+                  <code>{codeExamples[activeTab as keyof typeof codeExamples]}</code>
+                </pre>
+                <button
+                  onClick={() => copyToClipboard(codeExamples[activeTab as keyof typeof codeExamples], activeTab)}
+                  className="absolute top-3 right-3 p-2 bg-white hover:bg-gray-50 rounded-md text-gray-400 hover:text-black opacity-0 group-hover:opacity-100 transition-all border border-gray-200 shadow-sm"
+                  title="Copy to clipboard"
+                >
+                  {copiedCode === activeTab ? <Check size={14} className="text-green-400" /> : <Copy size={14} />}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Info & Links - Now stacked below */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Base URL Card */}
+            <div className="p-4 bg-white border border-gray-200 rounded-lg text-gray-900">
+              <h3 className="text-sm font-medium text-gray-500 mb-2 uppercase tracking-wider">Base URL</h3>
+              <div className="flex items-center justify-between gap-2 bg-gray-50 p-2 rounded border border-gray-200">
+                <code className="text-xs font-mono text-green-700 truncate">
+                  https://sematech-sema-api.hf.space/api/v1
+                </code>
+                <button
+                  onClick={() => copyToClipboard("https://sematech-sema-api.hf.space/api/v1", "baseurl")}
+                  className="text-gray-400 hover:text-black transition-colors"
+                >
+                  {copiedCode === "baseurl" ? <Check size={14} /> : <Copy size={14} />}
+                </button>
               </div>
             </div>
 
-            <div className="flex items-start gap-4">
-              <Code className="text-[#555555] mt-1 flex-shrink-0" size={24} />
-              <div>
-                <h3 className="text-lg font-bold mb-2">RESTful API</h3>
-                <p className="text-[#555555]">
-                  Simple HTTP endpoints that work with any programming language
-                </p>
+            {/* Resources Card */}
+            <div className="border border-gray-200 rounded-lg p-5">
+              <h3 className="font-semibold mb-4">Resources</h3>
+              <div className="space-y-3">
+                <a
+                  href="https://sematech-sema-api.hf.space/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between p-3 rounded bg-gray-50 hover:bg-gray-100 transition-colors group"
+                >
+                  <span className="text-sm font-medium text-gray-700 group-hover:text-black">Swagger UI</span>
+                  <ExternalLink size={16} className="text-gray-400 group-hover:text-black" />
+                </a>
+                <a
+                  href="https://github.com/lewiskimaru/sema"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between p-3 rounded bg-gray-50 hover:bg-gray-100 transition-colors group"
+                >
+                  <span className="text-sm font-medium text-gray-700 group-hover:text-black">GitHub Repo</span>
+                  <ExternalLink size={16} className="text-gray-400 group-hover:text-black" />
+                </a>
               </div>
             </div>
 
-            <div className="flex items-start gap-4">
-              <Shield className="text-[#555555] mt-1 flex-shrink-0" size={24} />
-              <div>
-                <h3 className="text-lg font-bold mb-2">No Authentication</h3>
-                <p className="text-[#555555]">
-                  Get started immediately without API keys or registration
-                </p>
-              </div>
+            {/* Limits Card */}
+            <div className="border border-blue-100 bg-blue-50/50 rounded-lg p-5">
+              <h3 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                <Info size={18} className="text-blue-600" /> Usage Limits
+              </h3>
+              <ul className="text-sm text-blue-800 space-y-2">
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                  Unlimited requests
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                  No API key needed
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                  5,000 chars / request
+                </li>
+              </ul>
             </div>
-          </div>
-        </div>
-
-        {/* Base URL */}
-        <div>
-          <h2 className="text-3xl font-bold mb-6">Base URL</h2>
-          <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-            <code className="text-sm font-mono">
-              https://sematech-sema-api.hf.space/api/v1
-            </code>
-          </div>
-        </div>
-
-        {/* Code Examples */}
-        <div>
-          <h2 className="text-3xl font-bold mb-6">Code Examples</h2>
-
-          {/* Tabs */}
-          <div className="flex flex-wrap gap-2 mb-6 border-b border-gray-200">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 font-medium text-sm rounded-t-lg transition-colors ${
-                  activeTab === tab.id
-                    ? 'bg-black text-white border-b-2 border-black'
-                    : 'text-[#666] hover:text-black hover:bg-gray-50'
-                }`}
-              >
-                <span className="mr-2">{tab.icon}</span>
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Code Block */}
-          <div className="relative">
-            <pre className="bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto text-sm">
-              <code>{codeExamples[activeTab as keyof typeof codeExamples]}</code>
-            </pre>
-            <button
-              onClick={() => copyToClipboard(codeExamples[activeTab as keyof typeof codeExamples], activeTab)}
-              className="absolute top-4 right-4 p-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors"
-              title="Copy code"
-            >
-              {copiedCode === activeTab ? (
-                <Check size={16} className="text-green-400" />
-              ) : (
-                <Copy size={16} className="text-gray-300" />
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* API Endpoints */}
-        <div>
-          <h2 className="text-3xl font-bold mb-6">API Endpoints</h2>
-          <div className="space-y-4">
-            <div className="border border-gray-200 rounded-lg p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-mono">POST</span>
-                <code className="font-mono text-sm">/translate</code>
-              </div>
-              <p className="text-[#555555] mb-2">Translate text between languages</p>
-              <p className="text-sm text-[#666]">
-                <strong>Parameters:</strong> text (required), target_language (required), source_language (optional)
-              </p>
-            </div>
-
-            <div className="border border-gray-200 rounded-lg p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-mono">POST</span>
-                <code className="font-mono text-sm">/detect-language</code>
-              </div>
-              <p className="text-[#555555] mb-2">Detect the language of input text</p>
-              <p className="text-sm text-[#666]">
-                <strong>Parameters:</strong> text (required)
-              </p>
-            </div>
-
-            <div className="border border-gray-200 rounded-lg p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-mono">GET</span>
-                <code className="font-mono text-sm">/languages</code>
-              </div>
-              <p className="text-[#555555] mb-2">Get list of all supported languages</p>
-              <p className="text-sm text-[#666]">
-                <strong>Returns:</strong> Array of language objects with codes and names
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Interactive API Explorer */}
-        <div>
-          <h2 className="text-3xl font-bold mb-6">Try the API</h2>
-          <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
-            <p className="text-[#555555] mb-4">
-              Explore our API interactively with the Swagger UI documentation:
-            </p>
-            <a
-              href="https://sematech-sema-api.hf.space/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
-            >
-              <ExternalLink size={16} />
-              Open API Explorer
-            </a>
-          </div>
-        </div>
-
-        {/* Response Examples */}
-        <div>
-          <h2 className="text-3xl font-bold mb-6">Response Examples</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-lg font-bold mb-2">Translation Response</h3>
-              <pre className="bg-gray-50 border border-gray-200 rounded-lg p-4 overflow-x-auto text-sm">
-                <code>{`{
-  "translated_text": "Good morning",
-  "source_language": "swh_Latn",
-  "target_language": "eng_Latn",
-  "confidence": 0.95,
-  "processing_time": 0.234
-}`}</code>
-              </pre>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-bold mb-2">Language Detection Response</h3>
-              <pre className="bg-gray-50 border border-gray-200 rounded-lg p-4 overflow-x-auto text-sm">
-                <code>{`{
-  "detected_language": "swh_Latn",
-  "confidence": 0.98,
-  "alternatives": [
-    {"language": "swh_Latn", "confidence": 0.98},
-    {"language": "eng_Latn", "confidence": 0.02}
-  ]
-}`}</code>
-              </pre>
-            </div>
-          </div>
-        </div>
-
-        {/* Rate Limits & Usage */}
-        <div>
-          <h2 className="text-3xl font-bold mb-6">Usage & Limits</h2>
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-            <h3 className="text-lg font-bold text-blue-800 mb-2">Current Limits (Free Tier)</h3>
-            <ul className="text-blue-700 space-y-1">
-              <li>• <strong>Rate Limit:</strong> No limits currently enforced</li>
-              <li>• <strong>Text Length:</strong> Up to 5,000 characters per request</li>
-              <li>• <strong>Concurrent Requests:</strong> No restrictions</li>
-              <li>• <strong>Daily Usage:</strong> Unlimited during free tier</li>
-            </ul>
-            <p className="text-blue-600 mt-4 text-sm">
-              <strong>Note:</strong> These generous limits may change as we scale. We'll provide advance notice of any changes.
-            </p>
-          </div>
-        </div>
-
-        {/* Support */}
-        <div className="bg-black text-white p-8 rounded-lg">
-          <h2 className="text-3xl font-bold mb-4">Need Help?</h2>
-          <p className="text-xl mb-6">
-            Get support and join our developer community
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <a
-              href="https://sematech-sema-api.hf.space/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white text-black font-medium px-6 py-3 rounded-full hover:bg-gray-100 transition-colors"
-            >
-              API Documentation
-            </a>
-            <a
-              href="https://github.com/lewiskimaru/sema"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="border border-white text-white font-medium px-6 py-3 rounded-full hover:bg-white hover:text-black transition-colors"
-            >
-              GitHub Repository
-            </a>
           </div>
         </div>
       </div>

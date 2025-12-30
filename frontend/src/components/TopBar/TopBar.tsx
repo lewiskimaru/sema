@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { User, LogOut, Info, ChevronDown, Code, Menu, X } from 'lucide-react';
 
 interface TopBarProps {
@@ -16,6 +16,18 @@ export default function TopBar({
   const [userName, setUserName] = useState('User');
   const userDropdownRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+
+  const getPageTitle = () => {
+    switch (location.pathname) {
+      case '/developer':
+        return 'Sema API';
+      case '/about':
+        return 'About Sema';
+      default:
+        return 'Sema';
+    }
+  };
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -58,9 +70,11 @@ export default function TopBar({
       <>
         <div className="bg-white px-6 py-3 flex justify-between items-center relative z-50">
           {/* Logo - Smaller size */}
-          <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
-            <span className="text-xl font-semibold text-black tracking-tight">Sema</span>
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
+              <span className="text-xl font-semibold text-black tracking-tight">{getPageTitle()}</span>
+            </Link>
+          </div>
 
           {/* Desktop Auth Actions - Hidden on mobile */}
           <div className="hidden md:flex items-center gap-2">
@@ -139,7 +153,7 @@ export default function TopBar({
         <div className="flex items-center gap-4">
           {/* Logo */}
           <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
-            <span className="text-xl font-semibold text-black tracking-tight">Sema</span>
+            <span className="text-xl font-semibold text-black tracking-tight">{getPageTitle()}</span>
           </Link>
         </div>
 
