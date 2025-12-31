@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -16,7 +16,7 @@ export function useTheme() {
         return 'light';
     });
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const root = window.document.documentElement;
 
         if (theme === 'dark') {

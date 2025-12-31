@@ -8,11 +8,13 @@ import LoginPage from './components/Auth/LoginPage';
 import SignupPage from './components/Auth/SignupPage';
 import ForgotPasswordPage from './components/Auth/ForgotPasswordPage';
 import LoadingScreen from './components/LoadingScreen';
+import { useTheme } from './hooks/useTheme';
 import './index.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
+  useTheme(); // Initialize theme immediately
 
   useEffect(() => {
     const initializeApp = async () => {
