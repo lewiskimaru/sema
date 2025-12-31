@@ -92,12 +92,12 @@ translate("Habari ya asubuhi", "eng_Latn")
   };
 
   return (
-    <div className="flex-1 w-full bg-white overflow-x-hidden">
+    <div className="flex-1 w-full bg-white dark:bg-[#09090b] overflow-x-hidden">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-8">
 
         {/* Intro Section */}
-        <div className="border-b border-gray-100 pb-6">
-          <p className="text-base sm:text-lg text-gray-600 max-w-2xl leading-relaxed">
+        <div className="border-b border-gray-100 dark:border-[#27272A] pb-6">
+          <p className="text-base sm:text-lg text-gray-600 dark:text-[#A1A1AA] max-w-2xl leading-relaxed">
             Integrate powerful AI translation into your applications.
             <span className="block sm:inline mt-1 sm:mt-0 sm:ml-1">Free, fast, and easy to use.</span>
           </p>
@@ -131,12 +131,12 @@ translate("Habari ya asubuhi", "eng_Latn")
         <div className="space-y-8">
 
           {/* Section: Endpoints */}
-          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
-            <div className="bg-gray-50/80 px-4 py-3 border-b border-gray-200 flex items-center gap-2">
-              <Server size={18} className="text-gray-500" />
-              <h3 className="font-semibold text-gray-800">Available Endpoints</h3>
+          <div className="bg-white dark:bg-[#18181B] border border-gray-200 dark:border-[#27272A] rounded-lg overflow-hidden shadow-sm">
+            <div className="bg-gray-50/80 dark:bg-[#27272A] px-4 py-3 border-b border-gray-200 dark:border-[#27272A] flex items-center gap-2">
+              <Server size={18} className="text-gray-500 dark:text-[#A1A1AA]" />
+              <h3 className="font-semibold text-gray-800 dark:text-[#E4E4E7]">Available Endpoints</h3>
             </div>
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-gray-100 dark:divide-[#27272A]">
               <EndpointRow
                 method="POST"
                 path="/translate"
@@ -158,17 +158,17 @@ translate("Habari ya asubuhi", "eng_Latn")
           </div>
 
           {/* Section: Code Examples */}
-          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+          <div className="bg-white dark:bg-[#18181B] border border-gray-200 dark:border-[#27272A] rounded-lg overflow-hidden shadow-sm">
             {/* Tabs Scroll Container */}
-            <div className="bg-gray-50 border-b border-gray-200 overflow-x-auto no-scrollbar">
+            <div className="bg-gray-50 dark:bg-[#27272A] border-b border-gray-200 dark:border-[#27272A] overflow-x-auto no-scrollbar">
               <div className="flex min-w-max">
                 {tabs.map((tab) => (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`px-4 sm:px-6 py-3 text-sm font-medium flex items-center gap-2 transition-colors border-r border-gray-200 last:border-r-0 focus:outline-none ${activeTab === tab.id
-                      ? 'bg-white text-black text-shadow-sm'
-                      : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
+                    className={`px-4 sm:px-6 py-3 text-sm font-medium flex items-center gap-2 transition-colors border-r border-gray-200 dark:border-[#27272A] last:border-r-0 focus:outline-none ${activeTab === tab.id
+                      ? 'bg-white dark:bg-[#18181B] text-black dark:text-white text-shadow-sm'
+                      : 'text-gray-500 dark:text-[#A1A1AA] hover:text-gray-700 dark:hover:text-[#E4E4E7] hover:bg-gray-100 dark:hover:bg-[#3F3F46]'
                       }`}
                   >
                     {tab.icon}
@@ -183,7 +183,7 @@ translate("Habari ya asubuhi", "eng_Latn")
               <div className="absolute right-2 top-2 z-10">
                 <button
                   onClick={() => copyToClipboard(codeExamples[activeTab as keyof typeof codeExamples], activeTab)}
-                  className="p-2 bg-white/90 backdrop-blur border border-gray-200 rounded-md text-gray-500 hover:text-black hover:border-gray-300 transition-all shadow-sm"
+                  className="p-2 bg-white/90 dark:bg-[#27272A]/90 backdrop-blur border border-gray-200 dark:border-[#3F3F46] rounded-md text-gray-500 dark:text-[#A1A1AA] hover:text-black dark:hover:text-white hover:border-gray-300 dark:hover:border-[#52525B] transition-all shadow-sm"
                   aria-label="Copy to clipboard"
                 >
                   {copiedCode === activeTab ? <Check size={16} className="text-green-600" /> : <Copy size={16} />}
@@ -191,7 +191,7 @@ translate("Habari ya asubuhi", "eng_Latn")
               </div>
               {/* Note: max-w-[calc(100vw-2rem)] ensures it never overflows viewport on mobile */}
               <div className="overflow-x-auto max-w-[calc(100vw-2rem)] sm:max-w-none">
-                <pre className="bg-gray-50 text-gray-800 p-4 pt-4 text-xs sm:text-sm font-mono leading-relaxed min-h-[300px]">
+                <pre className="bg-gray-50 dark:bg-[#0c0c0e] text-gray-800 dark:text-[#E4E4E7] p-4 pt-4 text-xs sm:text-sm font-mono leading-relaxed min-h-[300px]">
                   <code>{codeExamples[activeTab as keyof typeof codeExamples]}</code>
                 </pre>
               </div>
@@ -204,13 +204,13 @@ translate("Habari ya asubuhi", "eng_Latn")
             {/* Base URL */}
             <div className="space-y-2">
               <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Base URL</h3>
-              <div className="flex items-center gap-2 bg-gray-50 p-2.5 rounded border border-gray-200 w-full overflow-hidden h-[42px]">
-                <code className="text-xs sm:text-sm font-mono text-green-700 truncate flex-1">
+              <div className="flex items-center gap-2 bg-gray-50 dark:bg-[#18181B] p-2.5 rounded border border-gray-200 dark:border-[#27272A] w-full overflow-hidden h-[42px]">
+                <code className="text-xs sm:text-sm font-mono text-green-700 dark:text-green-500 truncate flex-1">
                   https://sematech-sema-api.hf.space/api/v1
                 </code>
                 <button
                   onClick={() => copyToClipboard("https://sematech-sema-api.hf.space/api/v1", "baseurl")}
-                  className="p-1 text-gray-400 hover:text-black hover:bg-white rounded transition-colors flex-shrink-0"
+                  className="p-1 text-gray-400 dark:text-[#52525B] hover:text-black dark:hover:text-white hover:bg-white dark:hover:bg-[#27272A] rounded transition-colors flex-shrink-0"
                 >
                   {copiedCode === "baseurl" ? <Check size={14} /> : <Copy size={14} />}
                 </button>
@@ -225,7 +225,7 @@ translate("Habari ya asubuhi", "eng_Latn")
                   href="https://sematech-sema-api.hf.space"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between px-3 h-full bg-white border border-gray-200 rounded hover:border-gray-300 hover:bg-gray-50 transition-colors text-sm text-gray-700 font-medium group"
+                  className="flex items-center justify-between px-3 h-full bg-white dark:bg-[#18181B] border border-gray-200 dark:border-[#27272A] rounded hover:border-gray-300 dark:hover:border-[#3F3F46] hover:bg-gray-50 dark:hover:bg-[#27272A] transition-colors text-sm text-gray-700 dark:text-[#E4E4E7] font-medium group"
                 >
                   <span>Swagger UI</span>
                   <ExternalLink size={14} className="ml-2 text-gray-400 group-hover:text-black flex-shrink-0" />
@@ -234,7 +234,7 @@ translate("Habari ya asubuhi", "eng_Latn")
                   href="https://github.com/lewiskimaru/sema"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between px-3 h-full bg-white border border-gray-200 rounded hover:border-gray-300 hover:bg-gray-50 transition-colors text-sm text-gray-700 font-medium group"
+                  className="flex items-center justify-between px-3 h-full bg-white dark:bg-[#18181B] border border-gray-200 dark:border-[#27272A] rounded hover:border-gray-300 dark:hover:border-[#3F3F46] hover:bg-gray-50 dark:hover:bg-[#27272A] transition-colors text-sm text-gray-700 dark:text-[#E4E4E7] font-medium group"
                 >
                   <span>GitHub</span>
                   <ExternalLink size={14} className="ml-2 text-gray-400 group-hover:text-black flex-shrink-0" />
@@ -245,16 +245,16 @@ translate("Habari ya asubuhi", "eng_Latn")
           </div>
 
           {/* Usage Limits */}
-          <div className="mt-8 p-4 bg-blue-50/50 border border-blue-100 rounded-lg">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 text-sm text-blue-900">
+          <div className="mt-8 p-4 bg-blue-50/50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30 rounded-lg">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 text-sm text-blue-900 dark:text-blue-200">
               <div className="flex items-center gap-2 font-semibold">
-                <Info size={16} className="text-blue-600" />
+                <Info size={16} className="text-blue-600 dark:text-blue-400" />
                 Usage Rules:
               </div>
               <div className="flex flex-wrap gap-x-4 gap-y-2">
-                <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Unlimited requests</span>
-                <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>No API key</span>
-                <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>5k chars/request</span>
+                <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-blue-500 dark:bg-blue-400"></span>Unlimited requests</span>
+                <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-blue-500 dark:bg-blue-400"></span>No API key</span>
+                <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-blue-500 dark:bg-blue-400"></span>5k chars/request</span>
               </div>
             </div>
           </div>
@@ -268,11 +268,11 @@ translate("Habari ya asubuhi", "eng_Latn")
 // Sub-components to keep clean
 function StatCard({ icon, value, label }: { icon: React.ReactNode, value: string, label: string }) {
   return (
-    <div className="p-4 border border-gray-200 rounded-lg bg-gray-50/30 flex flex-col items-start gap-2 h-full">
+    <div className="p-4 border border-gray-200 dark:border-[#27272A] rounded-lg bg-gray-50/30 dark:bg-[#18181B] flex flex-col items-start gap-2 h-full">
       <div className="mb-0">{icon}</div>
       <div>
-        <div className="font-bold text-gray-900 text-lg">{value}</div>
-        <div className="text-xs sm:text-sm text-gray-600 leading-tight">{label}</div>
+        <div className="font-bold text-gray-900 dark:text-[#E4E4E7] text-lg">{value}</div>
+        <div className="text-xs sm:text-sm text-gray-600 dark:text-[#A1A1AA] leading-tight">{label}</div>
       </div>
     </div>
   );
@@ -283,17 +283,17 @@ function EndpointRow({ method, path, description, schema }: { method: string, pa
   const colorClass = isPost ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700';
 
   return (
-    <div className="p-4 hover:bg-gray-50 transition-colors">
+    <div className="p-4 hover:bg-gray-50 dark:hover:bg-[#27272A] transition-colors">
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-1.5">
-        <span className={`px-2 py-0.5 rounded text-xs font-mono font-bold ${colorClass}`}>
+        <span className={`px-2 py-0.5 rounded text-xs font-mono font-bold ${colorClass.replace('bg-', 'dark:bg-opacity-20 ')}`}>
           {method}
         </span>
-        <code className="text-sm font-mono text-gray-900">{path}</code>
+        <code className="text-sm font-mono text-gray-900 dark:text-[#E4E4E7]">{path}</code>
       </div>
-      <p className="text-sm text-gray-600 mb-2">{description}</p>
+      <p className="text-sm text-gray-600 dark:text-[#A1A1AA] mb-2">{description}</p>
       {schema && (
         <div className="inline-block max-w-full">
-          <div className="text-xs text-gray-500 font-mono bg-white border border-gray-200 p-1.5 rounded break-words">
+          <div className="text-xs text-gray-500 dark:text-[#A1A1AA] font-mono bg-white dark:bg-[#09090b] border border-gray-200 dark:border-[#27272A] p-1.5 rounded break-words">
             {schema}
           </div>
         </div>

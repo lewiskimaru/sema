@@ -88,16 +88,16 @@ export default function MessageList({ messages }: MessageListProps) {
           {/* Message Content */}
           <div className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div className={`max-w-[80%] rounded-lg ${message.role === 'user'
-              ? 'bg-[#F8F9FA] border border-[#E5E5E5] text-[#333] p-3'
-              : 'bg-transparent text-[#333] p-0'
+              ? 'bg-[#F8F9FA] border border-[#E5E5E5] text-[#333] p-3 dark:bg-[#27272A] dark:border-[#3F3F46] dark:text-[#E4E4E7]'
+              : 'bg-transparent text-[#333] p-0 dark:text-[#E4E4E7]'
               }`}>
               {/* Loading State */}
               {message.isLoading ? (
                 <div className="flex items-center space-x-1">
                   <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-[#999] rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-[#999] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                    <div className="w-2 h-2 bg-[#999] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="w-2 h-2 bg-[#999] dark:bg-[#71717A] rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-[#999] dark:bg-[#71717A] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                    <div className="w-2 h-2 bg-[#999] dark:bg-[#71717A] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                   </div>
                 </div>
               ) : (
@@ -107,8 +107,8 @@ export default function MessageList({ messages }: MessageListProps) {
 
                   {/* Translation Info for User Messages */}
                   {message.role === 'user' && message.translationData && (
-                    <div className="mt-2 pt-2 border-t border-[#E5E5E5]">
-                      <div className="text-sm text-[#666]">
+                    <div className="mt-2 pt-2 border-t border-[#E5E5E5] dark:border-[#3F3F46]">
+                      <div className="text-sm text-[#666] dark:text-[#A1A1AA]">
                         Translation ({getLanguageName(message.translationData.sourceLanguage)} → {getLanguageName(message.translationData.targetLanguage)})
                       </div>
                     </div>
@@ -116,8 +116,8 @@ export default function MessageList({ messages }: MessageListProps) {
 
                   {/* Chat Data for User Messages */}
                   {message.role === 'user' && message.chatData && message.chatData.translationUsed && (
-                    <div className="mt-2 pt-2 border-t border-[#E5E5E5]">
-                      <div className="text-sm text-[#666]">
+                    <div className="mt-2 pt-2 border-t border-[#E5E5E5] dark:border-[#3F3F46]">
+                      <div className="text-sm text-[#666] dark:text-[#A1A1AA]">
                         Translated from {message.chatData.detectedLanguage}
                       </div>
                     </div>
@@ -125,8 +125,8 @@ export default function MessageList({ messages }: MessageListProps) {
 
                   {/* Chat Metadata for AI Messages */}
                   {message.role === 'assistant' && message.chatData && (
-                    <div className="mt-2 pt-2 border-t border-[#E5E5E5]">
-                      <div className="text-sm text-[#666] space-y-1">
+                    <div className="mt-2 pt-2 border-t border-[#E5E5E5] dark:border-[#3F3F46]">
+                      <div className="text-sm text-[#666] dark:text-[#A1A1AA] space-y-1">
                         <div>Model: {message.chatData.model}</div>
                         {message.chatData.tokens && (
                           <div>Tokens: {message.chatData.tokens}</div>
@@ -156,11 +156,11 @@ export default function MessageList({ messages }: MessageListProps) {
             <div className={`flex mt-1 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               <button
                 onClick={() => copyToClipboard(message.content, message.id)}
-                className={`text-xs px-2 py-1 rounded hover:bg-[#F0F0F0] flex items-center gap-1 transition-colors ${copyStates[message.id] === 'success'
+                className={`text-xs px-2 py-1 rounded hover:bg-[#F0F0F0] dark:hover:bg-[#27272A] flex items-center gap-1 transition-colors ${copyStates[message.id] === 'success'
                   ? 'text-green-600'
                   : copyStates[message.id] === 'error'
                     ? 'text-red-600'
-                    : 'text-[#666] hover:text-[#333]'
+                    : 'text-[#666] dark:text-[#A1A1AA] hover:text-[#333] dark:hover:text-[#E4E4E7]'
                   }`}
                 title={
                   copyStates[message.id] === 'success'
@@ -182,7 +182,7 @@ export default function MessageList({ messages }: MessageListProps) {
           )}
 
           {/* Timestamp */}
-          <div className={`text-xs text-[#999] mt-1 ${message.role === 'user' ? 'text-right' : 'text-left'}`}>
+          <div className={`text-xs text-[#999] dark:text-[#71717A] mt-1 ${message.role === 'user' ? 'text-right' : 'text-left'}`}>
             {formatTimestamp(message.timestamp)}
           </div>
         </div>

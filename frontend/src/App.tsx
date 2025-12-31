@@ -66,7 +66,7 @@ function App() {
 
   return (
     <Router>
-      <div className="h-[100dvh] flex flex-col bg-white overflow-x-hidden" style={{ fontFamily: 'Outfit, sans-serif' }}>
+      <div className="h-[100dvh] flex flex-col bg-white dark:bg-[#09090b] overflow-x-hidden" style={{ fontFamily: 'Outfit, sans-serif' }}>
         <Routes>
           {/* Auth routes */}
           <Route path="/login" element={!isLoggedIn ? <LoginPage onLogin={handleLogin} /> : <Navigate to="/" />} />

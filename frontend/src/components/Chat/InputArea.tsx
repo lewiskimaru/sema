@@ -168,7 +168,7 @@ export default function InputArea({ onSendMessage, isCentered = false }: InputAr
 
         {/* Row 1: Language Selector Bar (only in translate mode) */}
         {mode === 'translate' && (
-          <div className="language-selector-bar p-2 px-3 border-b border-[#EFEFEF] flex justify-between">
+          <div className="language-selector-bar p-2 px-3 border-b border-[#EFEFEF] dark:border-[#27272A] flex justify-between">
             <div className="flex-1 flex justify-start">
               <button
                 onClick={() => {
@@ -182,8 +182,8 @@ export default function InputArea({ onSendMessage, isCentered = false }: InputAr
                   }
                 }}
                 className={`language-button px-2 py-1 rounded text-sm flex items-center gap-1 transition-colors ${showSourceSelector
-                    ? 'bg-[#F0F0F0] text-black border-2 border-[#333]'
-                    : 'hover:bg-[#F0F0F0] text-black'
+                  ? 'bg-[#F0F0F0] text-black border-2 border-[#333] dark:bg-[#27272A] dark:text-white dark:border-[#E4E4E7]'
+                  : 'hover:bg-[#F0F0F0] text-black dark:text-[#E4E4E7] dark:hover:bg-[#27272A]'
                   }`}
                 title="Select source language"
               >
@@ -198,7 +198,7 @@ export default function InputArea({ onSendMessage, isCentered = false }: InputAr
             <div className="flex justify-center">
               <button
                 onClick={handleSwapLanguages}
-                className="swap-button p-1 rounded-full hover:bg-[#F0F0F0]"
+                className="swap-button p-1 rounded-full hover:bg-[#F0F0F0] dark:hover:bg-[#27272A]"
                 title="Swap languages"
                 disabled={sourceLanguage === 'auto'}
               >
@@ -221,8 +221,8 @@ export default function InputArea({ onSendMessage, isCentered = false }: InputAr
                   }
                 }}
                 className={`language-button px-2 py-1 rounded text-sm flex items-center gap-1 transition-colors ${showTargetSelector
-                    ? 'bg-[#F0F0F0] text-black border-2 border-[#333]'
-                    : 'hover:bg-[#F0F0F0] text-black'
+                  ? 'bg-[#F0F0F0] text-black border-2 border-[#333] dark:bg-[#27272A] dark:text-white dark:border-[#E4E4E7]'
+                  : 'hover:bg-[#F0F0F0] text-black dark:text-[#E4E4E7] dark:hover:bg-[#27272A]'
                   }`}
                 title="Select target language"
               >
@@ -242,7 +242,7 @@ export default function InputArea({ onSendMessage, isCentered = false }: InputAr
             <div className="staged-file">
               <span className="truncate flex-1">{stagedFile.name}</span>
               <button
-                className="p-1 hover:bg-[#EFEFEF] rounded-full"
+                className="p-1 hover:bg-[#EFEFEF] dark:hover:bg-[#3F3F46] rounded-full"
                 onClick={() => setStagedFile(null)}
                 title="Remove file"
               >
@@ -252,7 +252,7 @@ export default function InputArea({ onSendMessage, isCentered = false }: InputAr
           )}
           <textarea
             ref={textareaRef}
-            className="w-full resize-none outline-none min-h-[40px] disabled:bg-transparent disabled:cursor-not-allowed"
+            className="w-full resize-none outline-none min-h-[40px] bg-transparent text-black dark:text-[#E4E4E7] placeholder-gray-500 dark:placeholder-gray-400 disabled:cursor-not-allowed"
             placeholder={getPlaceholderText()}
             value={inputText}
             onChange={handleInputChange}
@@ -306,8 +306,8 @@ export default function InputArea({ onSendMessage, isCentered = false }: InputAr
           {/* F. Send Button */}
           <button
             className={`send-button ${(inputText.trim() || stagedFile) && mode !== 'chat'
-                ? 'enabled'
-                : 'disabled'
+              ? 'enabled'
+              : 'disabled'
               }`}
             disabled={(!inputText.trim() && !stagedFile) || mode === 'chat'}
             onClick={handleSend}
@@ -355,7 +355,7 @@ export default function InputArea({ onSendMessage, isCentered = false }: InputAr
 
           {/* Row 1: Language Selector Bar (only in translate mode) */}
           {mode === 'translate' && (
-            <div className="language-selector-bar p-2 px-3 border-b border-[#EFEFEF] flex justify-between">
+            <div className="language-selector-bar p-2 px-3 border-b border-[#EFEFEF] dark:border-[#27272A] flex justify-between">
               <div className="flex-1 flex justify-start">
                 <button
                   onClick={() => {
@@ -369,8 +369,8 @@ export default function InputArea({ onSendMessage, isCentered = false }: InputAr
                     }
                   }}
                   className={`language-button px-2 py-1 rounded text-sm flex items-center gap-1 transition-colors ${showSourceSelector
-                      ? 'bg-[#F0F0F0] text-black border-2 border-[#333]'
-                      : 'hover:bg-[#F0F0F0] text-black'
+                    ? 'bg-[#F0F0F0] text-black border-2 border-[#333] dark:bg-[#27272A] dark:text-white dark:border-[#E4E4E7]'
+                    : 'hover:bg-[#F0F0F0] text-black dark:text-[#E4E4E7] dark:hover:bg-[#27272A]'
                     }`}
                   title="Select source language"
                 >
@@ -385,7 +385,7 @@ export default function InputArea({ onSendMessage, isCentered = false }: InputAr
               <div className="flex justify-center">
                 <button
                   onClick={handleSwapLanguages}
-                  className="swap-button p-1 rounded-full hover:bg-[#F0F0F0]"
+                  className="swap-button p-1 rounded-full hover:bg-[#F0F0F0] dark:hover:bg-[#27272A]"
                   title="Swap languages"
                   disabled={sourceLanguage === 'auto'}
                 >
@@ -408,8 +408,8 @@ export default function InputArea({ onSendMessage, isCentered = false }: InputAr
                     }
                   }}
                   className={`language-button px-2 py-1 rounded text-sm flex items-center gap-1 transition-colors ${showTargetSelector
-                      ? 'bg-[#F0F0F0] text-black border-2 border-[#333]'
-                      : 'hover:bg-[#F0F0F0] text-black'
+                    ? 'bg-[#F0F0F0] text-black border-2 border-[#333] dark:bg-[#27272A] dark:text-white dark:border-[#E4E4E7]'
+                    : 'hover:bg-[#F0F0F0] text-black dark:text-[#E4E4E7] dark:hover:bg-[#27272A]'
                     }`}
                   title="Select target language"
                 >
@@ -429,7 +429,7 @@ export default function InputArea({ onSendMessage, isCentered = false }: InputAr
               <div className="staged-file">
                 <span className="truncate flex-1">{stagedFile.name}</span>
                 <button
-                  className="p-1 hover:bg-[#EFEFEF] rounded-full"
+                  className="p-1 hover:bg-[#EFEFEF] dark:hover:bg-[#3F3F46] rounded-full"
                   onClick={() => setStagedFile(null)}
                   title="Remove file"
                 >
@@ -439,7 +439,7 @@ export default function InputArea({ onSendMessage, isCentered = false }: InputAr
             )}
             <textarea
               ref={textareaRef}
-              className="w-full resize-none outline-none min-h-[40px] disabled:bg-transparent disabled:cursor-not-allowed"
+              className="w-full resize-none outline-none min-h-[40px] bg-transparent text-black dark:text-[#E4E4E7] placeholder-gray-500 dark:placeholder-gray-400 disabled:cursor-not-allowed"
               placeholder={getPlaceholderText()}
               value={inputText}
               onChange={handleInputChange}
@@ -493,8 +493,8 @@ export default function InputArea({ onSendMessage, isCentered = false }: InputAr
             {/* F. Send Button */}
             <button
               className={`send-button ${(inputText.trim() || stagedFile) && mode !== 'chat'
-                  ? 'enabled'
-                  : 'disabled'
+                ? 'enabled'
+                : 'disabled'
                 }`}
               disabled={(!inputText.trim() && !stagedFile) || mode === 'chat'}
               onClick={handleSend}

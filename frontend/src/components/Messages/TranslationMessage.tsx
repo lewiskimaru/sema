@@ -68,7 +68,7 @@ export default function TranslationMessage({
         onEdit={onEdit}
       >
         {/* Language Direction Indicator */}
-        <div className="flex items-center gap-2 text-xs text-[#666] mt-2 pt-2 border-t border-[#E5E5E5]">
+        <div className="flex items-center gap-2 text-xs text-[#666] dark:text-[#A1A1AA] mt-2 pt-2 border-t border-[#E5E5E5] dark:border-[#3F3F46]">
           <span className="font-medium">{getLanguageName(displaySourceLanguage)}</span>
           <ArrowRight size={12} />
           <span className="font-medium">{getLanguageName(targetLanguage)}</span>
@@ -94,13 +94,13 @@ export default function TranslationMessage({
             <div className="translation-details space-y-2">
               {/* Source Language Detection */}
               {translation.source_language !== sourceLanguage && (
-                <div className="text-xs text-[#666] bg-[#F0F8FF] border border-[#E0F0FF] rounded px-2 py-1">
+                <div className="text-xs text-[#666] dark:text-[#A1A1AA] bg-[#F0F8FF] dark:bg-blue-900/20 border border-[#E0F0FF] dark:border-blue-900/30 rounded px-2 py-1">
                   <strong>Detected:</strong> {getLanguageName(translation.source_language)}
                 </div>
               )}
 
               {/* Translation Metadata */}
-              <div className="flex items-center gap-4 text-xs text-[#666] pt-2 border-t border-[#EFEFEF]">
+              <div className="flex items-center gap-4 text-xs text-[#666] dark:text-[#A1A1AA] pt-2 border-t border-[#EFEFEF] dark:border-[#3F3F46]">
                 {translation.confidence_score && (
                   <span title="Confidence Score">
                     <strong>Confidence:</strong> {formatConfidence(translation.confidence_score)}
@@ -118,11 +118,11 @@ export default function TranslationMessage({
           {/* Loading State */}
           {isLoading && (
             <div className="loading-indicator mt-3">
-              <div className="flex items-center gap-2 text-xs text-[#666]">
+              <div className="flex items-center gap-2 text-xs text-[#666] dark:text-[#A1A1AA]">
                 <div className="flex space-x-1">
-                  <div className="w-1 h-1 bg-[#666] rounded-full animate-bounce"></div>
-                  <div className="w-1 h-1 bg-[#666] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                  <div className="w-1 h-1 bg-[#666] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                  <div className="w-1 h-1 bg-[#666] dark:bg-[#A1A1AA] rounded-full animate-bounce"></div>
+                  <div className="w-1 h-1 bg-[#666] dark:bg-[#A1A1AA] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                  <div className="w-1 h-1 bg-[#666] dark:bg-[#A1A1AA] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                 </div>
                 <span>Processing translation...</span>
               </div>

@@ -10,10 +10,10 @@ export default function HomePage({ isLoggedIn }: HomePageProps) {
 
   const welcomeContent = (
     <div className="text-center w-full">
-      <h1 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-3 tracking-tight">
+      <h1 className="text-3xl md:text-4xl font-semibold text-gray-900 dark:text-white mb-3 tracking-tight">
         Welcome to Sema
       </h1>
-      <p className="text-lg text-gray-600 max-w-xl mx-auto leading-relaxed">
+      <p className="text-lg text-gray-600 dark:text-[#A1A1AA] max-w-xl mx-auto leading-relaxed">
         {isLoggedIn
           ? "Start a conversation or translate text using the input area below."
           : "Try translation and chat features."
@@ -23,7 +23,7 @@ export default function HomePage({ isLoggedIn }: HomePageProps) {
   );
 
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full bg-white dark:bg-[#09090b] flex flex-col">
       {/* Chat Interface - Wraps content to ensure vertical centering */}
       <div className="flex-1 min-h-0">
         <SimpleChatbot

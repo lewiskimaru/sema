@@ -7,7 +7,7 @@
 }
 
 body {
-  @apply bg-[#FAFAFA] text-[#000000];
+  @apply bg-[#FAFAFA] text-[#000000] dark:bg-[#09090b] dark:text-[#E4E4E7];
   margin: 0;
   min-height: 100vh;
   font-synthesis: none;
@@ -29,8 +29,7 @@ body {
   left: 0;
   top: 0;
   height: 100%;
-  background-color: white;
-  border-right: 1px solid #E5E5E5;
+  @apply bg-white dark:bg-[#18181B] border-r border-[#E5E5E5] dark:border-[#27272A];
   z-index: 50;
   width: 320px;
   transform: translateX(-100%);
@@ -46,7 +45,7 @@ body {
   display: block;
   width: 20px;
   height: 2px;
-  background-color: #333333;
+  @apply bg-[#333333] dark:bg-[#E4E4E7];
   transition: all 0.3s ease;
   transform-origin: center;
 }
@@ -147,11 +146,11 @@ body {
 }
 
 .message-user {
-  @apply bg-[#F5F5F5] rounded-lg p-4 max-w-[80%] ml-auto border border-[#E5E5E5];
+  @apply bg-[#F5F5F5] rounded-lg p-4 max-w-[80%] ml-auto border border-[#E5E5E5] dark:bg-[#27272A] dark:border-[#3F3F46] dark:text-[#E4E4E7];
 }
 
 .message-ai {
-  @apply bg-[#FFFFFF] border border-[#E5E5E5] rounded-lg p-4 max-w-[80%];
+  @apply bg-[#FFFFFF] border border-[#E5E5E5] rounded-lg p-4 max-w-[80%] dark:bg-[#09090b] dark:border-[#27272A] dark:text-[#E4E4E7];
 }
 
 .typing-indicator {
@@ -161,7 +160,7 @@ body {
 }
 
 .typing-indicator span {
-  @apply bg-[#333333];
+  @apply bg-[#333333] dark:bg-[#A1A1AA];
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -192,20 +191,20 @@ body {
 }
 
 .input-area-wrapper {
-  @apply border border-[#E5E5E5] rounded-lg overflow-hidden bg-white;
+  @apply border border-[#E5E5E5] rounded-lg overflow-hidden bg-white dark:bg-[#18181B] dark:border-[#27272A];
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .input-area-wrapper.focused {
-  @apply border-[#333333] shadow-sm;
+  @apply border-[#333333] shadow-sm dark:border-[#A1A1AA];
 }
 
 .input-area-wrapper.dragging {
-  @apply border-2 border-dashed border-[#666666];
+  @apply border-2 border-dashed border-[#666666] dark:border-[#A1A1AA];
 }
 
 .input-text-area {
-  @apply p-3;
+  @apply p-3 dark:bg-transparent dark:text-white dark:placeholder-gray-500;
 }
 
 .input-actions {
@@ -213,11 +212,11 @@ body {
 }
 
 .staged-file {
-  @apply flex items-center gap-2 py-2 px-3 bg-[#F8F9FA] rounded mb-2 text-sm border border-[#E5E5E5];
+  @apply flex items-center gap-2 py-2 px-3 bg-[#F8F9FA] rounded mb-2 text-sm border border-[#E5E5E5] dark:bg-[#27272A] dark:border-[#3F3F46] dark:text-[#E4E4E7];
 }
 
 .action-button {
-  @apply p-2 rounded-lg hover:bg-[#F5F5F5] transition-colors focus:outline-none;
+  @apply p-2 rounded-lg hover:bg-[#F5F5F5] transition-colors focus:outline-none dark:hover:bg-[#27272A] dark:text-[#A1A1AA] dark:hover:text-[#E4E4E7];
   color: #666666;
 }
 
@@ -226,11 +225,11 @@ body {
 }
 
 .mode-active {
-  @apply text-black bg-[#F5F5F5] border border-[#E5E5E5];
+  @apply text-black bg-[#F5F5F5] border border-[#E5E5E5] dark:text-white dark:bg-[#27272A] dark:border-[#3F3F46];
 }
 
 .mode-inactive {
-  @apply text-[#666666] hover:text-black hover:bg-[#F8F9FA];
+  @apply text-[#666666] hover:text-black hover:bg-[#F8F9FA] dark:text-[#A1A1AA] dark:hover:text-white dark:hover:bg-[#27272A];
 }
 
 .send-button {
@@ -238,24 +237,24 @@ body {
 }
 
 .send-button.enabled {
-  @apply bg-black hover:bg-[#333333] text-white;
+  @apply bg-black hover:bg-[#333333] text-white dark:bg-white dark:text-black dark:hover:bg-[#E4E4E7];
 }
 
 .send-button.disabled {
-  @apply bg-[#E5E5E5] cursor-not-allowed text-[#999999];
+  @apply bg-[#E5E5E5] cursor-not-allowed text-[#999999] dark:bg-[#27272A] dark:text-[#52525B];
 }
 
 .drag-overlay {
-  @apply absolute inset-0 bg-white bg-opacity-95 flex items-center justify-center z-10;
+  @apply absolute inset-0 bg-white bg-opacity-95 flex items-center justify-center z-10 dark:bg-[#18181B] dark:bg-opacity-95;
   backdrop-filter: blur(2px);
 }
 
 .drag-message {
-  @apply text-lg text-[#666666] border-2 border-dashed border-[#999999] px-6 py-3 rounded-lg;
+  @apply text-lg text-[#666666] border-2 border-dashed border-[#999999] px-6 py-3 rounded-lg dark:text-[#A1A1AA] dark:border-[#52525B];
 }
 
 .button-icon {
-  @apply p-2 rounded-lg hover:bg-[#F5F5F5] transition-colors focus:outline-none focus:ring-2 focus:ring-[#333333];
+  @apply p-2 rounded-lg hover:bg-[#F5F5F5] transition-colors focus:outline-none focus:ring-2 focus:ring-[#333333] dark:hover:bg-[#27272A] dark:focus:ring-[#E4E4E7];
 }
 
 .welcome-animation {
@@ -287,34 +286,31 @@ body {
   justify-content: center;
   gap: 0.5rem;
   align-items: center;
-  background-color: #F8F9FA;
-  border-bottom: 1px solid #E5E5E5;
+  @apply bg-[#F8F9FA] border-b border-[#E5E5E5] dark:bg-[#18181B] dark:border-[#27272A];
 }
 
 .language-button {
   transition: background-color 0.15s ease;
-  border: 1px solid #E5E5E5;
-  background-color: white;
+  @apply bg-white border border-[#E5E5E5] dark:bg-[#18181B] dark:border-[#27272A] dark:text-[#E4E4E7];
 }
 
 .language-button:hover {
-  background-color: #F5F5F5;
+  @apply hover:bg-[#F5F5F5] dark:hover:bg-[#27272A];
 }
 
 .swap-button {
   transition: all 0.15s ease;
-  border: 1px solid #E5E5E5;
-  background-color: white;
+  @apply bg-white border border-[#E5E5E5] dark:bg-[#18181B] dark:border-[#27272A] dark:text-[#E4E4E7];
 }
 
 .swap-button:hover:not(:disabled) {
-  background-color: #F5F5F5;
+  @apply hover:bg-[#F5F5F5] dark:hover:bg-[#27272A];
 }
 
 .swap-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  background-color: #F8F9FA;
+  @apply bg-[#F8F9FA] dark:bg-[#27272A] dark:text-[#52525B];
 }
 
 .language-dropdown-container {

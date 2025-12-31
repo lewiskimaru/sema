@@ -204,7 +204,7 @@ export default function InlineLanguageSelector({
 
       <div
         ref={dropdownRef}
-        className="bg-white fixed inset-x-0 bottom-0 z-50 h-[85vh] rounded-t-3xl shadow-2xl flex flex-col transform transition-transform md:static md:h-auto md:rounded-none md:shadow-none md:border-b md:border-[#EFEFEF] md:transform-none select-none"
+        className="bg-white dark:bg-[#18181B] fixed inset-x-0 bottom-0 z-50 h-[85vh] rounded-t-3xl shadow-2xl flex flex-col transform transition-transform md:static md:h-auto md:rounded-none md:shadow-none md:border-b md:border-[#EFEFEF] dark:md:border-[#27272A] md:transform-none select-none"
         style={{
           animation: window.innerWidth < 768 ? 'slideUpMobile 0.3s cubic-bezier(0.16, 1, 0.3, 1)' : 'none'
         }}
@@ -214,19 +214,19 @@ export default function InlineLanguageSelector({
           <div className="w-16 h-1.5 bg-gray-300 rounded-full opacity-50"></div>
         </div>
         {/* Header with search - Row 3a */}
-        <div className="p-4 md:p-3 border-b border-[#EFEFEF] bg-white md:bg-[#FAFAFA]">
+        <div className="p-4 md:p-3 border-b border-[#EFEFEF] dark:border-[#27272A] bg-white md:bg-[#FAFAFA] dark:bg-[#18181B]">
           <div className="flex flex-col gap-4 md:gap-3">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg md:text-sm font-semibold text-gray-900 md:text-[#333]">
+              <h3 className="text-lg md:text-sm font-semibold text-gray-900 md:text-[#333] dark:text-white">
                 {isSource ? 'Translate from' : 'Translate to'}
               </h3>
 
               <button
                 onClick={onClose}
-                className="p-2 hover:bg-gray-100 rounded-full transition-colors md:hidden"
+                className="p-2 hover:bg-gray-100 dark:hover:bg-[#27272A] rounded-full transition-colors md:hidden"
                 title="Close"
               >
-                <X size={20} className="text-gray-500" />
+                <X size={20} className="text-gray-500 dark:text-[#A1A1AA]" />
               </button>
 
               {/* Desktop Filters (Inline) */}
@@ -245,8 +245,8 @@ export default function InlineLanguageSelector({
                       key={filter.key}
                       onClick={() => setActiveFilter(filter.key as any)}
                       className={`px-3 py-1.5 text-xs font-medium rounded-full whitespace-nowrap transition-colors flex-shrink-0 ${activeFilter === filter.key
-                        ? 'bg-black text-white'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        ? 'bg-black text-white dark:bg-white dark:text-black'
+                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-[#27272A] dark:text-[#A1A1AA] dark:hover:bg-[#3F3F46]'
                         }`}
                       title={`Filter by ${filter.label}`}
                     >
@@ -254,7 +254,7 @@ export default function InlineLanguageSelector({
                     </button>
                   ))}
                 </div>
-                <button onClick={onClose} className="p-1 hover:bg-[#E5E5E5] rounded-full"><X size={16} /></button>
+                <button onClick={onClose} className="p-1 hover:bg-[#E5E5E5] dark:hover:bg-[#27272A] rounded-full"><X size={16} className="dark:text-[#A1A1AA]" /></button>
               </div>
             </div>
 
@@ -266,7 +266,7 @@ export default function InlineLanguageSelector({
                 placeholder="Search languages..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-11 pr-4 py-3 md:py-2 bg-gray-50 md:bg-white border-0 md:border md:border-[#E5E5E5] rounded-xl md:rounded-md text-base md:text-sm focus:outline-none focus:ring-2 focus:ring-black/5 md:focus:ring-[#333] transition-all"
+                className="w-full pl-11 pr-4 py-3 md:py-2 bg-gray-50 md:bg-white dark:bg-[#27272A] border-0 md:border md:border-[#E5E5E5] dark:border-[#3F3F46] rounded-xl md:rounded-md text-base md:text-sm focus:outline-none focus:ring-2 focus:ring-black/5 md:focus:ring-[#333] dark:focus:ring-[#52525B] dark:text-white dark:placeholder-gray-500 transition-all"
               />
             </div>
 
@@ -284,8 +284,8 @@ export default function InlineLanguageSelector({
                   key={filter.key}
                   onClick={() => setActiveFilter(filter.key as any)}
                   className={`px-4 py-2 text-sm font-medium rounded-full whitespace-nowrap transition-all border ${activeFilter === filter.key
-                    ? 'bg-black text-white border-black shadow-md'
-                    : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'
+                    ? 'bg-black text-white border-black shadow-md dark:bg-white dark:text-black dark:border-white'
+                    : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300 dark:bg-[#27272A] dark:text-[#A1A1AA] dark:border-[#3F3F46]'
                     }`}
                 >
                   {filter.label}
@@ -298,7 +298,7 @@ export default function InlineLanguageSelector({
         {/* Language Grid - Row 3b */}
         <div className="p-4 overflow-y-auto flex-1 md:max-h-[300px]">
           {loading && (
-            <div className="text-center text-[#666] text-sm py-8">
+            <div className="text-center text-[#666] dark:text-[#A1A1AA] text-sm py-8">
               Loading languages...
             </div>
           )}
@@ -323,19 +323,19 @@ export default function InlineLanguageSelector({
                       key={code}
                       onClick={() => handleSelect(code)}
                       className={`group p-4 md:p-3 rounded-xl md:rounded-lg border text-left transition-all duration-200 hover:shadow-md active:scale-[0.98] ${selectedLanguage === code
-                        ? 'bg-black text-white border-black shadow-lg ring-1 ring-black/10'
-                        : 'bg-white border-gray-100 hover:border-gray-200 hover:bg-gray-50'
+                        ? 'bg-black text-white border-black shadow-lg ring-1 ring-black/10 dark:bg-white dark:text-black dark:border-white'
+                        : 'bg-white border-gray-100 hover:border-gray-200 hover:bg-gray-50 dark:bg-[#18181B] dark:border-[#27272A] dark:hover:bg-[#27272A] dark:hover:border-[#3F3F46]'
                         }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className={`font-semibold text-base md:text-sm ${selectedLanguage === code ? 'text-white' : 'text-gray-900 group-hover:text-black'
+                        <span className={`font-semibold text-base md:text-sm ${selectedLanguage === code ? 'text-white dark:text-black' : 'text-gray-900 group-hover:text-black dark:text-[#E4E4E7] dark:group-hover:text-white'
                           }`}>{lang.name}</span>
 
                         {selectedLanguage === code && <div className="w-2 h-2 rounded-full bg-green-400"></div>}
                       </div>
 
                       {lang.native_name !== lang.name && (
-                        <div className={`text-sm md:text-xs mt-1 truncate ${selectedLanguage === code ? 'text-gray-300' : 'text-gray-500 group-hover:text-gray-600'
+                        <div className={`text-sm md:text-xs mt-1 truncate ${selectedLanguage === code ? 'text-gray-300 dark:text-gray-600' : 'text-gray-500 group-hover:text-gray-600 dark:text-[#71717A] dark:group-hover:text-[#A1A1AA]'
                           }`}>
                           {lang.native_name}
                         </div>
