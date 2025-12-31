@@ -1,6 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import BaseMessage from './BaseMessage';
 import { TranslationResponse } from '../../types/translation';
+import { useLanguageCache } from '../../hooks/useCache';
 
 interface TranslationMessageProps {
   sourceText: string;
@@ -34,23 +35,15 @@ export default function TranslationMessage({
     isLoading,
     error
   });
+
+  // Language cache hook
+  const { data: languagesData } = useLanguageCache();
+  const languages = languagesData?.languages || {};
+
   const getLanguageName = (code: string) => {
-    // This should ideally come from a language service
-    const languageMap: Record<string, string> = {
-      'auto': 'Auto-detect',
-      'eng_Latn': 'English',
-      'spa_Latn': 'Spanish',
-      'fra_Latn': 'French',
-      'deu_Latn': 'German',
-      'swh_Latn': 'Swahili',
-      'cmn_Hans': 'Chinese',
-      'ara_Arab': 'Arabic',
-      'hin_Deva': 'Hindi',
-      'rus_Cyrl': 'Russian',
-      'por_Latn': 'Portuguese',
-      'jpn_Jpan': 'Japanese'
-    };
-    return languageMap[code] || code;
+    if (code === 'auto') return 'Auto-detect';
+    const language = languages[code];
+    return language ? language.name : code;
   };
 
   const formatConfidence = (score?: number) => {
@@ -58,6 +51,12 @@ export default function TranslationMessage({
     const percentage = Math.round(score * 100);
     return `${percentage}%`;
   };
+
+  // Determine which source language to display
+  // If translation happened and source was auto, use the detected language
+  const displaySourceLanguage = translation && sourceLanguage === 'auto'
+    ? translation.source_language
+    : sourceLanguage;
 
   return (
     <div className="translation-message-container space-y-4">
@@ -70,7 +69,7 @@ export default function TranslationMessage({
       >
         {/* Language Direction Indicator */}
         <div className="flex items-center gap-2 text-xs text-[#666] mt-2 pt-2 border-t border-[#E5E5E5]">
-          <span className="font-medium">{getLanguageName(sourceLanguage)}</span>
+          <span className="font-medium">{getLanguageName(displaySourceLanguage)}</span>
           <ArrowRight size={12} />
           <span className="font-medium">{getLanguageName(targetLanguage)}</span>
         </div>

@@ -18,7 +18,7 @@ export default function MessageList({ messages }: MessageListProps) {
 
   // Helper function to get language name
   const getLanguageName = (code: string) => {
-    if (code === 'auto') return 'auto';
+    if (code === 'auto') return 'Auto-detect';
     const language = languages[code];
     return language ? language.name : code;
   };
@@ -88,8 +88,8 @@ export default function MessageList({ messages }: MessageListProps) {
           {/* Message Content */}
           <div className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div className={`max-w-[80%] rounded-lg ${message.role === 'user'
-                ? 'bg-[#F8F9FA] border border-[#E5E5E5] text-[#333] p-3'
-                : 'bg-transparent text-[#333] p-0'
+              ? 'bg-[#F8F9FA] border border-[#E5E5E5] text-[#333] p-3'
+              : 'bg-transparent text-[#333] p-0'
               }`}>
               {/* Loading State */}
               {message.isLoading ? (
@@ -157,10 +157,10 @@ export default function MessageList({ messages }: MessageListProps) {
               <button
                 onClick={() => copyToClipboard(message.content, message.id)}
                 className={`text-xs px-2 py-1 rounded hover:bg-[#F0F0F0] flex items-center gap-1 transition-colors ${copyStates[message.id] === 'success'
-                    ? 'text-green-600'
-                    : copyStates[message.id] === 'error'
-                      ? 'text-red-600'
-                      : 'text-[#666] hover:text-[#333]'
+                  ? 'text-green-600'
+                  : copyStates[message.id] === 'error'
+                    ? 'text-red-600'
+                    : 'text-[#666] hover:text-[#333]'
                   }`}
                 title={
                   copyStates[message.id] === 'success'

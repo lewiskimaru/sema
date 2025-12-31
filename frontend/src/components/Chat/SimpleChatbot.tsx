@@ -85,9 +85,11 @@ export default function SimpleChatbot({ isCentered = false, onFirstMessage, welc
         console.log('✅ [SimpleChatbot] Translation completed:', result);
 
         // 4. Update AI message with clean result
-        setMessages(prev => prev.map(msg =>
-          msg.id === aiMessageId
-            ? {
+        // 4. Update AI message with clean result and User message with detected language
+        setMessages(prev => prev.map(msg => {
+          // Update AI Message
+          if (msg.id === aiMessageId) {
+            return {
               ...msg,
               content: result?.translated_text?.trim() || 'Translation failed',
               isLoading: false,
@@ -96,9 +98,22 @@ export default function SimpleChatbot({ isCentered = false, onFirstMessage, welc
                 ...msg.translationData!,
                 translatedText: result?.translated_text?.trim()
               }
-            }
-            : msg
-        ));
+            };
+          }
+
+          // Update User Message with detected language
+          if (msg.id === userMessage.id && result?.source_language) {
+            return {
+              ...msg,
+              translationData: {
+                ...msg.translationData!,
+                sourceLanguage: result.source_language
+              }
+            };
+          }
+
+          return msg;
+        }));
 
       } catch (error) {
         console.error('❌ [SimpleChatbot] Translation failed:', error);

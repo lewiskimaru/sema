@@ -79,11 +79,11 @@ export default function ChatContainer({ isCentered = false, onFirstMessage }: Ch
       setMessages(prev => prev.map(msg =>
         msg.id === currentTranslationId
           ? {
-              ...msg,
-              isLoading: false,
-              translationResult: translation.result || undefined,
-              error: undefined
-            }
+            ...msg,
+            isLoading: false,
+            translationResult: translation.result || undefined,
+            error: undefined
+          }
           : msg
       ));
 
@@ -102,11 +102,11 @@ export default function ChatContainer({ isCentered = false, onFirstMessage }: Ch
       setMessages(prev => prev.map(msg =>
         msg.id === currentTranslationId
           ? {
-              ...msg,
-              isLoading: false,
-              error: translation.error || undefined,
-              translationResult: undefined
-            }
+            ...msg,
+            isLoading: false,
+            error: translation.error || undefined,
+            translationResult: undefined
+          }
           : msg
       ));
 
@@ -119,13 +119,13 @@ export default function ChatContainer({ isCentered = false, onFirstMessage }: Ch
       mode,
       content: mode === 'translate'
         ? {
-            text: (messageContent as TranslationMessage).text.substring(0, 100) + ((messageContent as TranslationMessage).text.length > 100 ? '...' : ''),
-            sourceLanguage: (messageContent as TranslationMessage).sourceLanguage,
-            targetLanguage: (messageContent as TranslationMessage).targetLanguage
-          }
+          text: (messageContent as TranslationMessage).text.substring(0, 100) + ((messageContent as TranslationMessage).text.length > 100 ? '...' : ''),
+          sourceLanguage: (messageContent as TranslationMessage).sourceLanguage,
+          targetLanguage: (messageContent as TranslationMessage).targetLanguage
+        }
         : {
-            text: (messageContent as ChatMessage).text.substring(0, 100) + ((messageContent as ChatMessage).text.length > 100 ? '...' : '')
-          }
+          text: (messageContent as ChatMessage).text.substring(0, 100) + ((messageContent as ChatMessage).text.length > 100 ? '...' : '')
+        }
     });
 
     const messageId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -237,12 +237,12 @@ export default function ChatContainer({ isCentered = false, onFirstMessage }: Ch
           ...prev.map(msg =>
             msg.id === messageId
               ? {
-                  ...msg,
-                  isLoading: false,
-                  chatFlowResult: flowResult,
-                  processingState: 'complete' as ChatProcessingState,
-                  processingStep: undefined
-                }
+                ...msg,
+                isLoading: false,
+                chatFlowResult: flowResult,
+                processingState: 'complete' as ChatProcessingState,
+                processingStep: undefined
+              }
               : msg
           ),
           aiMessage
@@ -255,12 +255,12 @@ export default function ChatContainer({ isCentered = false, onFirstMessage }: Ch
         setMessages(prev => prev.map(msg =>
           msg.id === messageId
             ? {
-                ...msg,
-                isLoading: false,
-                error: error.message || 'Chat failed',
-                processingState: 'error' as ChatProcessingState,
-                processingStep: undefined
-              }
+              ...msg,
+              isLoading: false,
+              error: error.message || 'Chat failed',
+              processingState: 'error' as ChatProcessingState,
+              processingStep: undefined
+            }
             : msg
         ));
       }
@@ -350,7 +350,7 @@ export default function ChatContainer({ isCentered = false, onFirstMessage }: Ch
           <div key={message.id}>
             <TranslationMessageComponent
               sourceText={(message.content as TranslationMessage).text}
-              sourceLanguage={(message.content as TranslationMessage).sourceLanguage}
+              sourceLanguage={message.translationResult?.source_language || (message.content as TranslationMessage).sourceLanguage}
               targetLanguage={(message.content as TranslationMessage).targetLanguage}
               translation={message.translationResult}
               timestamp={message.timestamp}
