@@ -17,9 +17,9 @@ export default function DeveloperPage() {
 
   const tabs = [
     { id: 'curl', label: 'cURL', icon: <Terminal size={16} /> },
-    { id: 'javascript', label: 'JavaScript', icon: <FileJson size={16} /> },
+    { id: 'javascript', label: 'JS', icon: <FileJson size={16} /> },
     { id: 'python', label: 'Python', icon: <FileCode size={16} /> },
-    { id: 'nodejs', label: 'Node.js', icon: <Server size={16} /> },
+    { id: 'nodejs', label: 'Node', icon: <Server size={16} /> },
   ];
 
   const codeExamples = {
@@ -45,15 +45,12 @@ curl -X GET "https://sematech-sema-api.hf.space/api/v1/languages"`,
 const translateText = async (text, targetLanguage) => {
   const response = await fetch('https://sematech-sema-api.hf.space/api/v1/translate', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       text: text,
       target_language: targetLanguage
     })
   });
-
   const result = await response.json();
   return result.translated_text;
 };
@@ -65,17 +62,12 @@ translateText("Habari ya asubuhi", "eng_Latn")
     python: `import requests
 
 # Basic Translation
-def translate_text(text, target_language, source_language=None):
+def translate_text(text, target_language):
     url = "https://sematech-sema-api.hf.space/api/v1/translate"
-
     payload = {
         "text": text,
         "target_language": target_language
     }
-
-    if source_language:
-        payload["source_language"] = source_language
-
     response = requests.post(url, json=payload)
     return response.json()
 
@@ -85,132 +77,97 @@ print(result["translated_text"])`,
 
     nodejs: `const axios = require('axios');
 
-class SemaAPI {
-  constructor() {
-    this.baseURL = 'https://sematech-sema-api.hf.space/api/v1';
-  }
-
-  async translate(text, targetLanguage, sourceLanguage = null) {
-    const payload = {
-      text: text,
-      target_language: targetLanguage
-    };
-
-    if (sourceLanguage) {
-      payload.source_language = sourceLanguage;
-    }
-
-    const response = await axios.post(\`\${this.baseURL}/translate\`, payload);
-    return response.data;
-  }
-
-  async detectLanguage(text) {
-    const response = await axios.post(\`\${this.baseURL}/detect-language\`, {
-      text: text
-    });
-    return response.data;
-  }
+async function translate(text, targetLang) {
+  const url = 'https://sematech-sema-api.hf.space/api/v1/translate';
+  const response = await axios.post(url, {
+    text: text,
+    target_language: targetLang
+  });
+  return response.data;
 }
 
 // Usage
-const sema = new SemaAPI();
-sema.translate("Habari ya asubuhi", "eng_Latn")
-  .then(result => console.log(result.translated_text));`
+translate("Habari ya asubuhi", "eng_Latn")
+  .then(res => console.log(res.translated_text));`
   };
 
   return (
-    <div className="flex-1 overflow-y-auto bg-white">
-      <div className="max-w-[1000px] mx-auto p-6 space-y-8">
-        {/* Intro */}
-        <div className="border-b border-gray-100 pb-8">
-          <p className="text-lg text-gray-600 max-w-2xl">
-            Integrate powerful AI translation into your applications. Free, fast, and easy to use.
+    <div className="flex-1 w-full bg-white overflow-x-hidden">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-8">
+
+        {/* Intro Section */}
+        <div className="border-b border-gray-100 pb-6">
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl leading-relaxed">
+            Integrate powerful AI translation into your applications.
+            <span className="block sm:inline mt-1 sm:mt-0 sm:ml-1">Free, fast, and easy to use.</span>
           </p>
         </div>
 
-        {/* Quick Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="p-4 border border-gray-200 rounded-lg">
-            <div className="flex items-center gap-2 mb-1">
-              <Globe className="text-gray-500" size={20} />
-              <span className="font-semibold">200+</span>
-            </div>
-            <p className="text-sm text-gray-600">Languages Supported</p>
-          </div>
-          <div className="p-4 border border-gray-200 rounded-lg">
-            <div className="flex items-center gap-2 mb-1">
-              <Zap className="text-gray-500" size={20} />
-              <span className="font-semibold">Fast</span>
-            </div>
-            <p className="text-sm text-gray-600">Sub-second Latency</p>
-          </div>
-          <div className="p-4 border border-gray-200 rounded-lg">
-            <div className="flex items-center gap-2 mb-1">
-              <Code className="text-gray-500" size={20} />
-              <span className="font-semibold">REST</span>
-            </div>
-            <p className="text-sm text-gray-600">Simple Architecture</p>
-          </div>
-          <div className="p-4 border border-gray-200 rounded-lg">
-            <div className="flex items-center gap-2 mb-1">
-              <Shield className="text-gray-500" size={20} />
-              <span className="font-semibold">Public</span>
-            </div>
-            <p className="text-sm text-gray-600">No Auth Required</p>
-          </div>
+        {/* Stats Grid - Responsive: 2col mobile -> 2col tablet -> 4col desktop */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          <StatCard
+            icon={<Globe className="text-blue-600" size={20} />}
+            value="200+"
+            label="Languages Supported"
+          />
+          <StatCard
+            icon={<Zap className="text-amber-500" size={20} />}
+            value="Fast"
+            label="Sub-second Latency"
+          />
+          <StatCard
+            icon={<Code className="text-purple-600" size={20} />}
+            value="REST"
+            label="Simple Architecture"
+          />
+          <StatCard
+            icon={<Shield className="text-green-600" size={20} />}
+            value="Public"
+            label="No Auth Required"
+          />
         </div>
 
-        {/* Integration Section */}
-        <div className="flex flex-col gap-8">
-          {/* API Details */}
-          <div className="space-y-8">
-            {/* Endpoints Card */}
-            <div className="border border-gray-200 rounded-lg overflow-hidden">
-              <div className="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                <h3 className="font-semibold flex items-center gap-2">
-                  <Server size={18} /> Available Endpoints
-                </h3>
-              </div>
-              <div className="divide-y divide-gray-100">
-                <div className="p-4">
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-mono font-medium">POST</span>
-                    <code className="text-sm font-mono text-gray-800">/translate</code>
-                  </div>
-                  <p className="text-sm text-gray-600 mb-2">Translate text between supported languages.</p>
-                  <div className="text-xs text-gray-500 font-mono bg-gray-50 p-2 rounded">
-                    {"{ text, target_language, source_language? }"}
-                  </div>
-                </div>
-                <div className="p-4">
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-mono font-medium">POST</span>
-                    <code className="text-sm font-mono text-gray-800">/detect-language</code>
-                  </div>
-                  <p className="text-sm text-gray-600 mb-2">Identify the language of input text.</p>
-                  <div className="text-xs text-gray-500 font-mono bg-gray-50 p-2 rounded">
-                    {"{ text }"}
-                  </div>
-                </div>
-                <div className="p-4">
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs font-mono font-medium">GET</span>
-                    <code className="text-sm font-mono text-gray-800">/languages</code>
-                  </div>
-                  <p className="text-sm text-gray-600">Retrieve a list of all 200+ supported languages and codes.</p>
-                </div>
-              </div>
-            </div>
+        {/* Main Content Area */}
+        <div className="space-y-8">
 
-            {/* Code Examples Card */}
-            <div className="border border-gray-200 rounded-lg overflow-hidden">
-              <div className="bg-gray-50 border-b border-gray-200 flex overflow-x-auto">
+          {/* Section: Endpoints */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+            <div className="bg-gray-50/80 px-4 py-3 border-b border-gray-200 flex items-center gap-2">
+              <Server size={18} className="text-gray-500" />
+              <h3 className="font-semibold text-gray-800">Available Endpoints</h3>
+            </div>
+            <div className="divide-y divide-gray-100">
+              <EndpointRow
+                method="POST"
+                path="/translate"
+                description="Translate text between supported languages."
+                schema="{ text, target_language, source_language? }"
+              />
+              <EndpointRow
+                method="POST"
+                path="/detect-language"
+                description="Identify the language of input text."
+                schema="{ text }"
+              />
+              <EndpointRow
+                method="GET"
+                path="/languages"
+                description="Retrieve a list of all 200+ supported languages."
+              />
+            </div>
+          </div>
+
+          {/* Section: Code Examples */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+            {/* Tabs Scroll Container */}
+            <div className="bg-gray-50 border-b border-gray-200 overflow-x-auto no-scrollbar">
+              <div className="flex min-w-max">
                 {tabs.map((tab) => (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`px-4 py-3 text-sm font-medium flex items-center gap-2 transition-colors border-r border-gray-200 ${activeTab === tab.id
-                      ? 'bg-white text-black border-b-white -mb-px'
+                    className={`px-4 sm:px-6 py-3 text-sm font-medium flex items-center gap-2 transition-colors border-r border-gray-200 last:border-r-0 focus:outline-none ${activeTab === tab.id
+                      ? 'bg-white text-black text-shadow-sm'
                       : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
                       }`}
                   >
@@ -219,87 +176,128 @@ sema.translate("Habari ya asubuhi", "eng_Latn")
                   </button>
                 ))}
               </div>
-              <div className="relative group">
-                <pre className="bg-gray-50 text-gray-800 p-4 text-sm font-mono overflow-x-auto min-h-[300px] border-t border-gray-100">
-                  <code>{codeExamples[activeTab as keyof typeof codeExamples]}</code>
-                </pre>
+            </div>
+
+            {/* Code Block */}
+            <div className="relative group">
+              <div className="absolute right-2 top-2 z-10">
                 <button
                   onClick={() => copyToClipboard(codeExamples[activeTab as keyof typeof codeExamples], activeTab)}
-                  className="absolute top-3 right-3 p-2 bg-white hover:bg-gray-50 rounded-md text-gray-400 hover:text-black opacity-0 group-hover:opacity-100 transition-all border border-gray-200 shadow-sm"
-                  title="Copy to clipboard"
+                  className="p-2 bg-white/90 backdrop-blur border border-gray-200 rounded-md text-gray-500 hover:text-black hover:border-gray-300 transition-all shadow-sm"
+                  aria-label="Copy to clipboard"
                 >
-                  {copiedCode === activeTab ? <Check size={14} className="text-green-400" /> : <Copy size={14} />}
+                  {copiedCode === activeTab ? <Check size={16} className="text-green-600" /> : <Copy size={16} />}
                 </button>
+              </div>
+              {/* Note: max-w-[calc(100vw-2rem)] ensures it never overflows viewport on mobile */}
+              <div className="overflow-x-auto max-w-[calc(100vw-2rem)] sm:max-w-none">
+                <pre className="bg-gray-50 text-gray-800 p-4 pt-4 text-xs sm:text-sm font-mono leading-relaxed min-h-[300px]">
+                  <code>{codeExamples[activeTab as keyof typeof codeExamples]}</code>
+                </pre>
               </div>
             </div>
           </div>
 
-          {/* Info & Links - Now stacked below */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Base URL Card */}
-            <div className="p-4 bg-white border border-gray-200 rounded-lg text-gray-900">
-              <h3 className="text-sm font-medium text-gray-500 mb-2 uppercase tracking-wider">Base URL</h3>
-              <div className="flex items-center justify-between gap-2 bg-gray-50 p-2 rounded border border-gray-200">
-                <code className="text-xs font-mono text-green-700 truncate">
+          {/* Footer Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
+
+            {/* Base URL */}
+            <div className="space-y-2">
+              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Base URL</h3>
+              <div className="flex items-center gap-2 bg-gray-50 p-2.5 rounded border border-gray-200 w-full overflow-hidden h-[42px]">
+                <code className="text-xs sm:text-sm font-mono text-green-700 truncate flex-1">
                   https://sematech-sema-api.hf.space/api/v1
                 </code>
                 <button
                   onClick={() => copyToClipboard("https://sematech-sema-api.hf.space/api/v1", "baseurl")}
-                  className="text-gray-400 hover:text-black transition-colors"
+                  className="p-1 text-gray-400 hover:text-black hover:bg-white rounded transition-colors flex-shrink-0"
                 >
                   {copiedCode === "baseurl" ? <Check size={14} /> : <Copy size={14} />}
                 </button>
               </div>
             </div>
 
-            {/* Resources Card */}
-            <div className="border border-gray-200 rounded-lg p-5">
-              <h3 className="font-semibold mb-4">Resources</h3>
-              <div className="space-y-3">
+            {/* Resources Links */}
+            <div className="space-y-2">
+              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider md:hidden">Resources</h3>
+              <div className="grid grid-cols-2 gap-3 h-[42px]">
                 <a
-                  href="https://sematech-sema-api.hf.space/"
+                  href="https://sematech-sema-api.hf.space"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3 rounded bg-gray-50 hover:bg-gray-100 transition-colors group"
+                  className="flex items-center justify-between px-3 h-full bg-white border border-gray-200 rounded hover:border-gray-300 hover:bg-gray-50 transition-colors text-sm text-gray-700 font-medium group"
                 >
-                  <span className="text-sm font-medium text-gray-700 group-hover:text-black">Swagger UI</span>
-                  <ExternalLink size={16} className="text-gray-400 group-hover:text-black" />
+                  <span>Swagger UI</span>
+                  <ExternalLink size={14} className="ml-2 text-gray-400 group-hover:text-black flex-shrink-0" />
                 </a>
                 <a
                   href="https://github.com/lewiskimaru/sema"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3 rounded bg-gray-50 hover:bg-gray-100 transition-colors group"
+                  className="flex items-center justify-between px-3 h-full bg-white border border-gray-200 rounded hover:border-gray-300 hover:bg-gray-50 transition-colors text-sm text-gray-700 font-medium group"
                 >
-                  <span className="text-sm font-medium text-gray-700 group-hover:text-black">GitHub Repo</span>
-                  <ExternalLink size={16} className="text-gray-400 group-hover:text-black" />
+                  <span>GitHub</span>
+                  <ExternalLink size={14} className="ml-2 text-gray-400 group-hover:text-black flex-shrink-0" />
                 </a>
               </div>
             </div>
 
-            {/* Limits Card */}
-            <div className="border border-blue-100 bg-blue-50/50 rounded-lg p-5">
-              <h3 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
-                <Info size={18} className="text-blue-600" /> Usage Limits
-              </h3>
-              <ul className="text-sm text-blue-800 space-y-2">
-                <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-                  Unlimited requests
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-                  No API key needed
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-                  5,000 chars / request
-                </li>
-              </ul>
+          </div>
+
+          {/* Usage Limits */}
+          <div className="mt-8 p-4 bg-blue-50/50 border border-blue-100 rounded-lg">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 text-sm text-blue-900">
+              <div className="flex items-center gap-2 font-semibold">
+                <Info size={16} className="text-blue-600" />
+                Usage Rules:
+              </div>
+              <div className="flex flex-wrap gap-x-4 gap-y-2">
+                <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Unlimited requests</span>
+                <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>No API key</span>
+                <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>5k chars/request</span>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
+    </div>
+  );
+}
+
+// Sub-components to keep clean
+function StatCard({ icon, value, label }: { icon: React.ReactNode, value: string, label: string }) {
+  return (
+    <div className="p-4 border border-gray-200 rounded-lg bg-gray-50/30 flex flex-col items-start gap-2 h-full">
+      <div className="mb-0">{icon}</div>
+      <div>
+        <div className="font-bold text-gray-900 text-lg">{value}</div>
+        <div className="text-xs sm:text-sm text-gray-600 leading-tight">{label}</div>
+      </div>
+    </div>
+  );
+}
+
+function EndpointRow({ method, path, description, schema }: { method: string, path: string, description: string, schema?: string }) {
+  const isPost = method === 'POST';
+  const colorClass = isPost ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700';
+
+  return (
+    <div className="p-4 hover:bg-gray-50 transition-colors">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-1.5">
+        <span className={`px-2 py-0.5 rounded text-xs font-mono font-bold ${colorClass}`}>
+          {method}
+        </span>
+        <code className="text-sm font-mono text-gray-900">{path}</code>
+      </div>
+      <p className="text-sm text-gray-600 mb-2">{description}</p>
+      {schema && (
+        <div className="inline-block max-w-full">
+          <div className="text-xs text-gray-500 font-mono bg-white border border-gray-200 p-1.5 rounded break-words">
+            {schema}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

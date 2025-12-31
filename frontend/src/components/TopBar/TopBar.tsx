@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { User, LogOut, Info, ChevronDown, Code, Menu, X } from 'lucide-react';
+import { User, LogOut, Info, ChevronDown, Code } from 'lucide-react';
 
 interface TopBarProps {
   onLogout: () => void;
@@ -67,8 +67,8 @@ export default function TopBar({
   // Not logged in - Show clean topbar with logo and auth buttons
   if (!isLoggedIn) {
     return (
-      <>
-        <div className="bg-white px-6 py-3 flex justify-between items-center relative z-50">
+      <div className="bg-white relative z-50">
+        <div className="px-6 py-3 flex justify-between items-center bg-white relative z-50">
           {/* Logo - Smaller size */}
           <div className="flex items-center gap-2">
             <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
@@ -97,59 +97,57 @@ export default function TopBar({
           {/* Mobile Menu Button - Shown only on mobile */}
           <div className="md:hidden" ref={mobileMenuRef}>
             <button
-              className="p-2 hover:bg-[#F5F5F5] rounded-full transition-colors"
+              className={`hamburger p-2 rounded-lg transition-colors focus:outline-none ${mobileMenuOpen ? 'open' : ''
+                }`}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Open menu"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
-              {mobileMenuOpen ? (
-                <X size={20} className="text-[#666666]" />
-              ) : (
-                <Menu size={20} className="text-[#666666]" />
-              )}
+              <span className="hamburger-line"></span>
+              <span className="hamburger-line"></span>
+              <span className="hamburger-line"></span>
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu Dropdown */}
-        {mobileMenuOpen && (
-          <>
-            {/* Backdrop */}
-            <div
-              className="fixed inset-0 bg-black bg-opacity-20 z-30 md:hidden"
+        {/* Mobile Menu Expansion Overlay */}
+        <div className={`md:hidden absolute top-full left-0 w-full bg-white shadow-xl transition-all duration-300 ease-in-out origin-top z-40 rounded-b-3xl overflow-hidden ${mobileMenuOpen ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
+          }`}>
+          <div className="px-6 py-4 space-y-3 bg-[#FAFAFA] border-t border-[#E5E5E5]">
+            <Link
+              to="/developer"
+              className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-[#666666] hover:text-black hover:bg-white rounded-lg transition-all border border-transparent hover:border-[#E5E5E5] hover:shadow-sm"
               onClick={() => setMobileMenuOpen(false)}
-            />
-            <div className="md:hidden mobile-menu mobile-menu-enter bg-white border-b border-[#E5E5E5] shadow-lg">
-              <div className="px-6 py-4 space-y-3">
-                <div className="border-t border-[#E5E5E5] pt-3">
-                  <Link
-                    to="/developer"
-                    className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-[#666666] hover:text-black hover:bg-[#F8F9FA] rounded-lg transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <Code size={18} />
-                    API Documentation
-                  </Link>
-                  <Link
-                    to="/about"
-                    className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-[#666666] hover:text-black hover:bg-[#F8F9FA] rounded-lg transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <Info size={18} />
-                    About Sema AI
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </>
+            >
+              <Code size={18} />
+              API Documentation
+            </Link>
+            <Link
+              to="/about"
+              className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-[#666666] hover:text-black hover:bg-white rounded-lg transition-all border border-transparent hover:border-[#E5E5E5] hover:shadow-sm"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <Info size={18} />
+              About Sema AI
+            </Link>
+          </div>
+        </div>
+
+        {/* Backdrop */}
+        {mobileMenuOpen && (
+          <div
+            className="fixed inset-0 bg-black/20 z-30 md:hidden"
+            style={{ top: '60px' }} // Height of TopBar approx
+            onClick={() => setMobileMenuOpen(false)}
+          />
         )}
-      </>
+      </div>
     );
   }
 
   // Logged in - Show full app topbar with user menu
   return (
-    <>
-      <div className="bg-white px-6 py-3 flex justify-between items-center relative z-50">
+    <div className="bg-white relative z-50">
+      <div className="px-6 py-3 flex justify-between items-center bg-white relative z-50">
         <div className="flex items-center gap-4">
           {/* Logo */}
           <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
@@ -197,55 +195,55 @@ export default function TopBar({
           {/* Mobile User Menu Button */}
           <div className="sm:hidden" ref={mobileMenuRef}>
             <button
-              className="flex items-center gap-2 hover:bg-[#F5F5F5] p-2 rounded-full transition-colors"
+              className={`hamburger p-2 rounded-lg transition-colors focus:outline-none ${mobileMenuOpen ? 'open' : ''
+                }`}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Open menu"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
-              {mobileMenuOpen ? (
-                <X size={20} className="text-[#666666]" />
-              ) : (
-                <Menu size={20} className="text-[#666666]" />
-              )}
+              <span className="hamburger-line"></span>
+              <span className="hamburger-line"></span>
+              <span className="hamburger-line"></span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu for Logged In Users */}
-      {mobileMenuOpen && (
-        <>
-          {/* Backdrop */}
-          <div
-            className="fixed inset-0 bg-black bg-opacity-20 z-30 sm:hidden"
-            onClick={() => setMobileMenuOpen(false)}
-          />
-          <div className="sm:hidden mobile-menu mobile-menu-enter bg-white border-b border-[#E5E5E5] shadow-lg">
-            <div className="px-6 py-4 space-y-3">
-              <div className="flex items-center gap-3 px-4 py-3 bg-[#F8F9FA] rounded-lg">
-                <User size={18} className="text-[#666666]" />
-                <span className="text-sm font-medium text-[#333]">{userName}</span>
-              </div>
-              <button
-                className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm font-medium text-[#666666] hover:text-black hover:bg-[#F8F9FA] rounded-lg transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <User size={18} />
-                Profile
-              </button>
-              <button
-                className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                onClick={() => {
-                  onLogout();
-                  setMobileMenuOpen(false);
-                }}
-              >
-                <LogOut size={18} />
-                Sign Out
-              </button>
-            </div>
+      {/* Mobile Menu Expansion Overlay */}
+      <div className={`sm:hidden absolute top-full left-0 w-full bg-white shadow-xl transition-all duration-300 ease-in-out origin-top z-40 rounded-b-3xl overflow-hidden ${mobileMenuOpen ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
+        }`}>
+        <div className="px-6 py-4 space-y-3 bg-[#FAFAFA] border-t border-[#E5E5E5]">
+          <div className="flex items-center gap-3 px-4 py-3 bg-white rounded-lg border border-[#E5E5E5]">
+            <User size={18} className="text-[#666666]" />
+            <span className="text-sm font-medium text-[#333]">{userName}</span>
           </div>
-        </>
+          <button
+            className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm font-medium text-[#666666] hover:text-black hover:bg-white rounded-lg transition-all border border-transparent hover:border-[#E5E5E5] hover:shadow-sm"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <User size={18} />
+            Profile
+          </button>
+          <button
+            className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-all border border-transparent"
+            onClick={() => {
+              onLogout();
+              setMobileMenuOpen(false);
+            }}
+          >
+            <LogOut size={18} />
+            Sign Out
+          </button>
+        </div>
+      </div>
+
+      {/* Backdrop */}
+      {mobileMenuOpen && (
+        <div
+          className="fixed inset-0 bg-black/20 z-30 sm:hidden"
+          style={{ top: '60px' }} // Height of TopBar approx
+          onClick={() => setMobileMenuOpen(false)}
+        />
       )}
-    </>
+    </div>
   );
 }

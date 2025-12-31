@@ -66,7 +66,7 @@ function App() {
 
   return (
     <Router>
-      <div className="h-[100dvh] flex flex-col bg-white" style={{ fontFamily: 'Outfit, sans-serif' }}>
+      <div className="h-[100dvh] flex flex-col bg-white overflow-x-hidden" style={{ fontFamily: 'Outfit, sans-serif' }}>
         <Routes>
           {/* Auth routes */}
           <Route path="/login" element={!isLoggedIn ? <LoginPage onLogin={handleLogin} /> : <Navigate to="/" />} />
@@ -80,7 +80,7 @@ function App() {
                 onLogout={handleLogout}
                 isLoggedIn={isLoggedIn}
               />
-              <div className="flex flex-1 overflow-hidden relative">
+              <div className="flex flex-1 overflow-hidden relative min-w-0">
                 <div className="flex-1 flex flex-col">
                   <Routes>
                     <Route path="/" element={<HomePage isLoggedIn={isLoggedIn} />} />

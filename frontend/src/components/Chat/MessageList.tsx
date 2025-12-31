@@ -6,9 +6,22 @@ interface MessageListProps {
   messages: SimpleChatMessage[];
 }
 
+import { useLanguageCache } from '../../hooks/useCache';
+
 export default function MessageList({ messages }: MessageListProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [copyStates, setCopyStates] = useState<Record<string, 'idle' | 'success' | 'error'>>({});
+
+  // Language cache hook
+  const { data: languagesData } = useLanguageCache();
+  const languages = languagesData?.languages || {};
+
+  // Helper function to get language name
+  const getLanguageName = (code: string) => {
+    if (code === 'auto') return 'auto';
+    const language = languages[code];
+    return language ? language.name : code;
+  };
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
@@ -74,11 +87,10 @@ export default function MessageList({ messages }: MessageListProps) {
         <div key={message.id} className="flex flex-col">
           {/* Message Content */}
           <div className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-[80%] rounded-lg ${
-              message.role === 'user'
+            <div className={`max-w-[80%] rounded-lg ${message.role === 'user'
                 ? 'bg-[#F8F9FA] border border-[#E5E5E5] text-[#333] p-3'
                 : 'bg-transparent text-[#333] p-0'
-            }`}>
+              }`}>
               {/* Loading State */}
               {message.isLoading ? (
                 <div className="flex items-center space-x-1">
@@ -97,7 +109,7 @@ export default function MessageList({ messages }: MessageListProps) {
                   {message.role === 'user' && message.translationData && (
                     <div className="mt-2 pt-2 border-t border-[#E5E5E5]">
                       <div className="text-sm text-[#666]">
-                        Translation ({message.translationData.sourceLanguage} → {message.translationData.targetLanguage})
+                        Translation ({getLanguageName(message.translationData.sourceLanguage)} → {getLanguageName(message.translationData.targetLanguage)})
                       </div>
                     </div>
                   )}
@@ -144,19 +156,18 @@ export default function MessageList({ messages }: MessageListProps) {
             <div className={`flex mt-1 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               <button
                 onClick={() => copyToClipboard(message.content, message.id)}
-                className={`text-xs px-2 py-1 rounded hover:bg-[#F0F0F0] flex items-center gap-1 transition-colors ${
-                  copyStates[message.id] === 'success'
+                className={`text-xs px-2 py-1 rounded hover:bg-[#F0F0F0] flex items-center gap-1 transition-colors ${copyStates[message.id] === 'success'
                     ? 'text-green-600'
                     : copyStates[message.id] === 'error'
-                    ? 'text-red-600'
-                    : 'text-[#666] hover:text-[#333]'
-                }`}
+                      ? 'text-red-600'
+                      : 'text-[#666] hover:text-[#333]'
+                  }`}
                 title={
                   copyStates[message.id] === 'success'
                     ? 'Copied!'
                     : copyStates[message.id] === 'error'
-                    ? 'Copy failed'
-                    : 'Copy message'
+                      ? 'Copy failed'
+                      : 'Copy message'
                 }
               >
                 {copyStates[message.id] === 'success' ? (

@@ -95,7 +95,7 @@ export default function InputArea({ onSendMessage, isCentered = false }: InputAr
     }
     return mode === 'translate'
       ? "Enter text to translate or drag & drop a file"
-      : "Message Sema AI or drag & drop a file...";
+      : "Chat mode is currently disabled";
   };
 
   // Simple input change handler
@@ -181,11 +181,10 @@ export default function InputArea({ onSendMessage, isCentered = false }: InputAr
                     setShowTargetSelector(false);
                   }
                 }}
-                className={`language-button px-2 py-1 rounded text-sm flex items-center gap-1 transition-colors ${
-                  showSourceSelector
+                className={`language-button px-2 py-1 rounded text-sm flex items-center gap-1 transition-colors ${showSourceSelector
                     ? 'bg-[#F0F0F0] text-black border-2 border-[#333]'
                     : 'hover:bg-[#F0F0F0] text-black'
-                }`}
+                  }`}
                 title="Select source language"
               >
                 <span>{getLanguageName(sourceLanguage)}</span>
@@ -221,11 +220,10 @@ export default function InputArea({ onSendMessage, isCentered = false }: InputAr
                     setShowSourceSelector(false);
                   }
                 }}
-                className={`language-button px-2 py-1 rounded text-sm flex items-center gap-1 transition-colors ${
-                  showTargetSelector
+                className={`language-button px-2 py-1 rounded text-sm flex items-center gap-1 transition-colors ${showTargetSelector
                     ? 'bg-[#F0F0F0] text-black border-2 border-[#333]'
                     : 'hover:bg-[#F0F0F0] text-black'
-                }`}
+                  }`}
                 title="Select target language"
               >
                 <span>{getLanguageName(targetLanguage)}</span>
@@ -254,7 +252,7 @@ export default function InputArea({ onSendMessage, isCentered = false }: InputAr
           )}
           <textarea
             ref={textareaRef}
-            className="w-full resize-none outline-none min-h-[40px]"
+            className="w-full resize-none outline-none min-h-[40px] disabled:bg-transparent disabled:cursor-not-allowed"
             placeholder={getPlaceholderText()}
             value={inputText}
             onChange={handleInputChange}
@@ -262,6 +260,7 @@ export default function InputArea({ onSendMessage, isCentered = false }: InputAr
             onBlur={() => setTextareaFocused(false)}
             onKeyDown={handleKeyDown}
             rows={Math.min(5, Math.max(1, inputText.split('\n').length))}
+            disabled={mode === 'chat'}
           />
         </div>
 
@@ -306,12 +305,11 @@ export default function InputArea({ onSendMessage, isCentered = false }: InputAr
 
           {/* F. Send Button */}
           <button
-            className={`send-button ${
-              inputText.trim() || stagedFile
+            className={`send-button ${(inputText.trim() || stagedFile) && mode !== 'chat'
                 ? 'enabled'
                 : 'disabled'
-            }`}
-            disabled={!inputText.trim() && !stagedFile}
+              }`}
+            disabled={(!inputText.trim() && !stagedFile) || mode === 'chat'}
             onClick={handleSend}
             title={`${mode === 'translate' ? 'Translate' : 'Send message'} (Enter)`}
           >
@@ -331,139 +329,138 @@ export default function InputArea({ onSendMessage, isCentered = false }: InputAr
     );
   }
 
-    // NON-CENTERED MODE: Standard layout with containers
-    return (
-      <div className="p-4">
-        <div className="w-full max-w-[800px] mx-auto px-4 sm:px-0">
-          <div
-            className={`input-area-wrapper ${isDragging ? 'dragging' : ''} ${textareaFocused ? 'focused' : ''}`}
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-            onDrop={handleDrop}
-          >
-            {/* Row 0: Language Selector (when active) - Appears above everything */}
-            {(showSourceSelector || showTargetSelector) && (
-              <InlineLanguageSelector
-                isSource={showSourceSelector}
-                selectedLanguage={showSourceSelector ? sourceLanguage : targetLanguage}
-                onSelectLanguage={showSourceSelector ? setSourceLanguage : setTargetLanguage}
-                onClose={() => {
-                  setShowSourceSelector(false);
-                  setShowTargetSelector(false);
-                }}
-                isOpen={showSourceSelector || showTargetSelector}
-              />
-            )}
+  // NON-CENTERED MODE: Standard layout with containers
+  return (
+    <div className="p-4">
+      <div className="w-full max-w-[800px] mx-auto px-4 sm:px-0">
+        <div
+          className={`input-area-wrapper ${isDragging ? 'dragging' : ''} ${textareaFocused ? 'focused' : ''}`}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        >
+          {/* Row 0: Language Selector (when active) - Appears above everything */}
+          {(showSourceSelector || showTargetSelector) && (
+            <InlineLanguageSelector
+              isSource={showSourceSelector}
+              selectedLanguage={showSourceSelector ? sourceLanguage : targetLanguage}
+              onSelectLanguage={showSourceSelector ? setSourceLanguage : setTargetLanguage}
+              onClose={() => {
+                setShowSourceSelector(false);
+                setShowTargetSelector(false);
+              }}
+              isOpen={showSourceSelector || showTargetSelector}
+            />
+          )}
 
-            {/* Row 1: Language Selector Bar (only in translate mode) */}
-            {mode === 'translate' && (
-              <div className="language-selector-bar p-2 px-3 border-b border-[#EFEFEF] flex justify-between">
-                <div className="flex-1 flex justify-start">
-                  <button
-                    onClick={() => {
-                      if (showSourceSelector) {
-                        // If already open, close it
-                        setShowSourceSelector(false);
-                      } else {
-                        // If closed, open it and close target selector
-                        setShowSourceSelector(true);
-                        setShowTargetSelector(false);
-                      }
-                    }}
-                    className={`language-button px-2 py-1 rounded text-sm flex items-center gap-1 transition-colors ${
-                      showSourceSelector
-                        ? 'bg-[#F0F0F0] text-black border-2 border-[#333]'
-                        : 'hover:bg-[#F0F0F0] text-black'
+          {/* Row 1: Language Selector Bar (only in translate mode) */}
+          {mode === 'translate' && (
+            <div className="language-selector-bar p-2 px-3 border-b border-[#EFEFEF] flex justify-between">
+              <div className="flex-1 flex justify-start">
+                <button
+                  onClick={() => {
+                    if (showSourceSelector) {
+                      // If already open, close it
+                      setShowSourceSelector(false);
+                    } else {
+                      // If closed, open it and close target selector
+                      setShowSourceSelector(true);
+                      setShowTargetSelector(false);
+                    }
+                  }}
+                  className={`language-button px-2 py-1 rounded text-sm flex items-center gap-1 transition-colors ${showSourceSelector
+                      ? 'bg-[#F0F0F0] text-black border-2 border-[#333]'
+                      : 'hover:bg-[#F0F0F0] text-black'
                     }`}
-                    title="Select source language"
-                  >
-                    <span>{getLanguageName(sourceLanguage)}</span>
-                    <ChevronDown
-                      size={14}
-                      className={`transition-transform ${showSourceSelector ? 'rotate-180' : ''}`}
-                    />
-                  </button>
-                </div>
+                  title="Select source language"
+                >
+                  <span>{getLanguageName(sourceLanguage)}</span>
+                  <ChevronDown
+                    size={14}
+                    className={`transition-transform ${showSourceSelector ? 'rotate-180' : ''}`}
+                  />
+                </button>
+              </div>
 
-                <div className="flex justify-center">
-                  <button
-                    onClick={handleSwapLanguages}
-                    className="swap-button p-1 rounded-full hover:bg-[#F0F0F0]"
-                    title="Swap languages"
-                    disabled={sourceLanguage === 'auto'}
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M7 16l-4-4m0 0l4-4m-4 4h18M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </button>
-                </div>
+              <div className="flex justify-center">
+                <button
+                  onClick={handleSwapLanguages}
+                  className="swap-button p-1 rounded-full hover:bg-[#F0F0F0]"
+                  title="Swap languages"
+                  disabled={sourceLanguage === 'auto'}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M7 16l-4-4m0 0l4-4m-4 4h18M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </button>
+              </div>
 
-                <div className="flex-1 flex justify-start">
-                  <button
-                    onClick={() => {
-                      if (showTargetSelector) {
-                        // If already open, close it
-                        setShowTargetSelector(false);
-                      } else {
-                        // If closed, open it and close source selector
-                        setShowTargetSelector(true);
-                        setShowSourceSelector(false);
-                      }
-                    }}
-                    className={`language-button px-2 py-1 rounded text-sm flex items-center gap-1 transition-colors ${
-                      showTargetSelector
-                        ? 'bg-[#F0F0F0] text-black border-2 border-[#333]'
-                        : 'hover:bg-[#F0F0F0] text-black'
+              <div className="flex-1 flex justify-start">
+                <button
+                  onClick={() => {
+                    if (showTargetSelector) {
+                      // If already open, close it
+                      setShowTargetSelector(false);
+                    } else {
+                      // If closed, open it and close source selector
+                      setShowTargetSelector(true);
+                      setShowSourceSelector(false);
+                    }
+                  }}
+                  className={`language-button px-2 py-1 rounded text-sm flex items-center gap-1 transition-colors ${showTargetSelector
+                      ? 'bg-[#F0F0F0] text-black border-2 border-[#333]'
+                      : 'hover:bg-[#F0F0F0] text-black'
                     }`}
-                    title="Select target language"
-                  >
-                    <span>{getLanguageName(targetLanguage)}</span>
-                    <ChevronDown
-                      size={14}
-                      className={`transition-transform ${showTargetSelector ? 'rotate-180' : ''}`}
-                    />
-                  </button>
-                </div>
+                  title="Select target language"
+                >
+                  <span>{getLanguageName(targetLanguage)}</span>
+                  <ChevronDown
+                    size={14}
+                    className={`transition-transform ${showTargetSelector ? 'rotate-180' : ''}`}
+                  />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Row 2: Text Input Field */}
+          <div className="input-text-area relative">
+            {stagedFile && (
+              <div className="staged-file">
+                <span className="truncate flex-1">{stagedFile.name}</span>
+                <button
+                  className="p-1 hover:bg-[#EFEFEF] rounded-full"
+                  onClick={() => setStagedFile(null)}
+                  title="Remove file"
+                >
+                  <X size={12} />
+                </button>
               </div>
             )}
+            <textarea
+              ref={textareaRef}
+              className="w-full resize-none outline-none min-h-[40px] disabled:bg-transparent disabled:cursor-not-allowed"
+              placeholder={getPlaceholderText()}
+              value={inputText}
+              onChange={handleInputChange}
+              onFocus={() => setTextareaFocused(true)}
+              onBlur={() => setTextareaFocused(false)}
+              onKeyDown={handleKeyDown}
+              rows={Math.min(5, Math.max(1, inputText.split('\n').length))}
+              disabled={mode === 'chat'}
+            />
+          </div>
 
-            {/* Row 2: Text Input Field */}
-            <div className="input-text-area relative">
-              {stagedFile && (
-                <div className="staged-file">
-                  <span className="truncate flex-1">{stagedFile.name}</span>
-                  <button
-                    className="p-1 hover:bg-[#EFEFEF] rounded-full"
-                    onClick={() => setStagedFile(null)}
-                    title="Remove file"
-                  >
-                    <X size={12} />
-                  </button>
-                </div>
-              )}
-              <textarea
-                ref={textareaRef}
-                className="w-full resize-none outline-none min-h-[40px]"
-                placeholder={getPlaceholderText()}
-                value={inputText}
-                onChange={handleInputChange}
-                onFocus={() => setTextareaFocused(true)}
-                onBlur={() => setTextareaFocused(false)}
-                onKeyDown={handleKeyDown}
-                rows={Math.min(5, Math.max(1, inputText.split('\n').length))}
-              />
-            </div>
-
-            {/* Row 3: Action Buttons Bar */}
-            <div className="input-actions">
-              <div className="flex items-center gap-3">
-                {/* A. Document Upload Button - TEMPORARILY DISABLED */}
-                {/* <button className="action-button" title="Upload document">
+          {/* Row 3: Action Buttons Bar */}
+          <div className="input-actions">
+            <div className="flex items-center gap-3">
+              {/* A. Document Upload Button - TEMPORARILY DISABLED */}
+              {/* <button className="action-button" title="Upload document">
                   <Plus size={18} />
                 </button> */}
 
-                {/* B. Parameters/Settings Icon - TEMPORARILY DISABLED */}
-                {/* <button
+              {/* B. Parameters/Settings Icon - TEMPORARILY DISABLED */}
+              {/* <button
                   className="action-button"
                   title={`${mode === 'translate' ? 'Translation' : 'Chat'} settings`}
                   onClick={() => mode === 'translate' && setShowTargetSelector(true)}
@@ -471,53 +468,52 @@ export default function InputArea({ onSendMessage, isCentered = false }: InputAr
                   <SlidersHorizontal size={18} />
                 </button> */}
 
-                {/* B. Settings Dropdown */}
-                <SettingsDropdown />
+              {/* B. Settings Dropdown */}
+              <SettingsDropdown />
 
-                {/* C. Chat Mode Button */}
-                <button
-                  className={`mode-button ${mode === 'chat' ? 'mode-active' : 'mode-inactive'}`}
-                  onClick={() => setMode('chat')}
-                  title="Switch to Chat Mode"
-                >
-                  <MessageSquare size={18} />
-                </button>
-
-                {/* D. Translate Mode Button */}
-                <button
-                  className={`mode-button ${mode === 'translate' ? 'mode-active' : 'mode-inactive'}`}
-                  onClick={() => setMode('translate')}
-                  title="Switch to Translate Mode"
-                >
-                  <Languages size={18} />
-                </button>
-              </div>
-
-              {/* F. Send Button */}
+              {/* C. Chat Mode Button */}
               <button
-                className={`send-button ${
-                  inputText.trim() || stagedFile
-                    ? 'enabled'
-                    : 'disabled'
-                }`}
-                disabled={!inputText.trim() && !stagedFile}
-                onClick={handleSend}
-                title={`${mode === 'translate' ? 'Translate' : 'Send message'} (Enter)`}
+                className={`mode-button ${mode === 'chat' ? 'mode-active' : 'mode-inactive'}`}
+                onClick={() => setMode('chat')}
+                title="Switch to Chat Mode"
               >
-                <ArrowUp size={18} />
+                <MessageSquare size={18} />
+              </button>
+
+              {/* D. Translate Mode Button */}
+              <button
+                className={`mode-button ${mode === 'translate' ? 'mode-active' : 'mode-inactive'}`}
+                onClick={() => setMode('translate')}
+                title="Switch to Translate Mode"
+              >
+                <Languages size={18} />
               </button>
             </div>
 
-
-
-            {/* Drag-and-Drop Visual Feedback */}
-            {isDragging && (
-              <div className="drag-overlay">
-                <div className="drag-message">Drop file here</div>
-              </div>
-            )}
+            {/* F. Send Button */}
+            <button
+              className={`send-button ${(inputText.trim() || stagedFile) && mode !== 'chat'
+                  ? 'enabled'
+                  : 'disabled'
+                }`}
+              disabled={(!inputText.trim() && !stagedFile) || mode === 'chat'}
+              onClick={handleSend}
+              title={`${mode === 'translate' ? 'Translate' : 'Send message'} (Enter)`}
+            >
+              <ArrowUp size={18} />
+            </button>
           </div>
+
+
+
+          {/* Drag-and-Drop Visual Feedback */}
+          {isDragging && (
+            <div className="drag-overlay">
+              <div className="drag-message">Drop file here</div>
+            </div>
+          )}
         </div>
       </div>
-    );
+    </div>
+  );
 }
